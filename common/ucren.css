@@ -1,0 +1,251 @@
+.ucren-toolbar {
+    height: 40px;
+    border-bottom: solid 1px #949694;
+}
+
+.ucren-toolbar .ucren-toolbar-inner {
+    text-align: left;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 39px;
+    z-index: 65534;
+    border-bottom: solid 1px #F7F7F7;
+	background-image: linear-gradient(#FBFBFB, #E4E2E2);
+}
+
+.ucren-toolbar h1,.ucren-toolbar a {
+    font-size: 14px;
+    line-height: 40px;
+    margin: 0;
+}
+
+.ucren-toolbar h1 {
+    font-weight: 700;
+    color: #000;
+    text-align: left;
+    padding-left: 13px;
+}
+
+.ucren-toolbar h1 a{
+    float: none;
+    color: #000;
+}
+
+.ucren-toolbar h1 a span{
+	color:#E00000;
+}
+
+.ucren-toolbar a {
+    float: right;
+    padding-right: 13px;
+    color: #003366;
+    text-decoration: none;
+}
+
+.ucren-toolbar a:hover {
+    text-decoration:underline;
+}
+
+html {
+    color: #000;
+    background: #FFF;
+}
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset,img {
+    border: 0;
+}
+
+address,caption,cite,code,dfn,em,strong,th,var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+li {
+    list-style: none;
+}
+
+caption,th {
+    text-align: left;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+q:before,q:after {
+    content: '';
+}
+
+abbr,acronym {
+    border: 0;
+    font-variant: normal;
+}
+
+sup {
+    vertical-align: text-top;
+}
+
+sub {
+    vertical-align: text-bottom;
+}
+
+input,textarea,select {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+input,textarea,select {
+    *font-size: 100%;
+}
+
+legend {
+    color: #000;
+}
+
+abbr,article,aside,details,figcaption,figure,footer,header,hgroup,mark,meter,nav,output,progress,section,summary {
+    display: block;
+}
+
+html,body {
+    /*font-family2: Tahoma,Verdana,Arial,Helvetica,sans-serif;*/
+    font-family: Tahoma,Verdana,Arial,Helvetica,sans-serif,'Microsoft YaHei';
+    width: 100%;
+    height: 100%;
+}
+
+.clearfix:after {
+    content: "/20";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+}
+
+.clearfix {
+    zoom:1;
+}
+
+#loading-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../images/blank.gif);
+    text-align: center;
+}
+
+#loading {
+    background: url(../images/all.png) no-repeat 0 -27px;
+    margin: 150px auto auto auto;
+    width: 200px;
+    height: 80px;
+    text-align: left;
+}
+
+#loading .bg {
+    width: 170px;
+    height: 14px;
+    border: 1px solid #99999b;
+    background: #fff;
+    margin: auto;
+}
+
+#loading-text {
+    margin-top: 2px;
+}
+
+#loading-state,#loading-text {
+    line-height: 30px;
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+#loading-loader {
+    width: 0;
+    height: 100%;
+    background: #99999b;
+    overflow: hidden;
+}
+
+abbr,article,aside,audio,bdi,canvas,data,datalist,details,figcaption,figure,footer,header,hgroup,mark,meter,nav,output,progress,section,summary,subline,time,video {
+    display: block;
+}
+
+html,body {
+    overflow: hidden;
+    font-size: 12px;
+    border: 0;
+}
+
+#page {
+    background-color: #ccccce;
+    /*display2: none;*/
+}
+
+#list-page {
+    display: block;
+    width: 110%;
+}
+
+#aside,#content {
+    float: left;
+    height: 2000px;
+    background-color: #fff;
+    _display: inline;
+    _zoom: 1;
+}
+
+#aside {
+    width: 238px;
+    margin: 4px;
+    border: 1px solid #99999b;
+}
+
+#aside .caption {
+    width: 238px;
+    height: 27px;
+    background: url(../images/all.png) repeat-x 0 0;
+    font-size: 12px;
+    line-height: 27px;
+    text-indent: 10px;
+}
+
+#folder {
+    overflow: auto;
+    padding: 5px;
+    overflow: scroll;
+    background-color: #fff;
+}
+
+#content {
+    max-width: 2000px;
+    overflow: scroll;
+    margin: 4px 4px 4px 0;
+    background-color: #f9f9f9;
+    border: 1px solid #99999b;
+}
+
+#starthere {
+    position: relative;
+    left: 5px;
+    top: 27px;
+    width: 159px;
+    height: 40px;
+    background: transparent url(../images/all.png) no-repeat 0 -107px;
+    /*display2: none;*/
+}

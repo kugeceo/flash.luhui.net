@@ -379,22 +379,24 @@ sfcore.buildTree=function(){
 		dt.add(j,p, ((i-1)*100+1)+'-'+(i<tn?i*100:12333),'javascript:sfcore.swflist('+(i-1)*100+')','','','',dt.icon.imgFolder);
 	}
 	dt.add(j,1,'鲁虺软件','javascript:window.open(\'http://soft.luhui.net\')','','','',dt.icon.imgFolder,true);
-	dt.add(j+1,j,'鲁虺文化网','javascript:window.open(\'http://www.luhui.net\')','','','',dt.icon.node,true);
-	/*
+	dt.add(j+1,j,'Flash源码','javascript:window.open(\'http://gu1vhwx.nat.ipyingshe.com/zh/?mod=forumdisplay&fid=50&filter=typeid&typeid=195\')','','','',dt.icon.node,true);
+
 	dt.add(0,-1,'My example tree');
-	dt.add(1,0,'Node 1','example01.html');
-	dt.add(2,0,'Node 2','example01.html');
-	dt.add(3,1,'Node 1.1','example01.html');
-	dt.add(4,0,'Node 3','example01.html');
-	dt.add(5,3,'Node 1.1.1','example01.html');
-	dt.add(6,5,'Node 1.1.1.1','example01.html');
-	dt.add(7,0,'Node 4','example01.html');
-	dt.add(8,1,'Node 1.2','example01.html');
-	dt.add(9,0,'My Pictures','example01.html','Pictures I\'ve taken over the years','','','img/imgfolder.gif');
-	dt.add(10,9,'The trip to Iceland','example01.html','Pictures of Gullfoss and Geysir');
-	dt.add(11,9,'Mom\'s birthday','example01.html');
-	dt.add(12,0,'Recycle Bin','example01.html','','','img/trash.gif');
-	*/
+/*
+	dt.add(1,0,'展馆II号入口','/#/s/example01.html');
+	dt.add(2,-1,'展馆III号入口','/#/s/example01.html');
+*/
+	dt.add(3,1,'Flash企业画册 ','/#/s/Flash画册');
+	dt.add(4,0,'Flash工具','/#/s/Flash工具');
+	dt.add(5,3,'Flash游戏','/#/s/Flash游戏');
+	dt.add(6,0,'Flash插件','/#/s/Flash插件');
+	dt.add(7,0,'Flash播放器','/player');
+	dt.add(8,1,'Flash杂志书籍','/#/s/Flash杂志书籍');
+	dt.add(9,0,'关于本馆','/#/s/关于本馆','Pictures I\'ve taken over the years','','','img/imgfolder.gif');
+	dt.add(10,9,'Flash建站','/#/s/Flash建站','Pictures of Gullfoss and Geysir');
+	dt.add(11,9,'隐私保护','/#/s/隐私保护');
+	dt.add(12,0,'版权声明','/#/s/版权声明','','','img/trash.gif');
+
 	//document.write(dt);
 	$('#dtcon').html(''+dt)
 }

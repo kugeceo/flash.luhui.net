@@ -1,0 +1,90 @@
+Ruffle 对 ActionScript 3.0 的支持（简体中文）
+
+
+ActionScript 3.0 支持
+
+### Ruffle 对 ActionScript 3.0 的支持（简体中文）
+
+ActionScript 3.0（AS3）是 Adobe Flash 平台使用的脚本语言，基于 ECMAScript，广泛应用于 2006 年之后开发的复杂 Flash 游戏、动画和企业级应用（如 Flex 框架）。Ruffle 作为一个开源 Flash 模拟器，其对 ActionScript 3.0 的支持是保存后期 Flash 内容的关键。以下是截至 2025 年 8 月 Ruffle 对 ActionScript 3.0 的支持细节：
+
+#### 1. **ActionScript 3.0 概述**
+- **发布背景**：ActionScript 3.0 于 2006 年随 Flash Player 9 推出，相比 ActionScript 1.0/2.0（基于 AVM1 虚拟机），AS3 使用更高效的 AVM2（ActionScript Virtual Machine 2），支持面向对象编程、强类型、事件驱动模型和更复杂的图形/多媒体功能。
+- **应用场景**：用于高级网页游戏（如《Machinarium》）、富互联网应用（RIA）、3D 动画（通过 Stage3D）和 Flex 框架的商业应用。
+- **挑战**：AS3 代码复杂度高，依赖 AVM2 的字节码执行和 Flash Player 的专有功能（如硬件加速、RTMP 流媒体），给模拟器开发带来困难。
+
+#### 2. **Ruffle 对 AS3 的支持现状**
+根据 Ruffle 官方文档、GitHub 仓库和相关社区反馈（截至 2025 年 8 月）：
+- **部分支持**：
+  - Ruffle 已实现 AVM2 的核心功能，能够运行许多基于 AS3 的 Flash 内容，但尚未达到 100% 兼容性。
+  - 支持基本的 AS3 特性，包括类、对象、事件处理、动态类型、显示列表（Display List）和矢量图形渲染。
+  - 兼容大部分 2006-2010 年的 AS3 游戏和简单动画（如 Newgrounds 和 Kongregate 的内容）。
+- **已实现功能**：
+  - **核心语言特性**：支持类、接口、继承、命名空间、异常处理（try/catch）等。
+  - **显示与渲染**：通过 WebGL 或 Canvas 实现 AS3 的显示对象（如 Sprite、MovieClip）和基本 2D 变换。
+  - **事件系统**：支持鼠标、键盘和自定义事件，适用于交互式游戏。
+  - **多媒体**：支持嵌入的音频（通过 Web Audio API）和视频（部分 FLV 格式），但复杂视频流（如 RTMP）支持有限。
+  - **本地存储**：模拟 SharedObject，允许游戏保存进度。
+  - **基本网络**：支持简单的 HTTP 请求（如加载 XML 或图像），但复杂网络功能（如 Socket 或 RTMP）尚未完全实现。
+- **未完全支持的功能**：
+  - **Stage3D（3D 加速）**：AS3 的 3D 功能（如 Away3D 或 Starling 框架）支持不完整，复杂 3D 游戏可能无法运行或渲染不正确。
+  - **高级字节码操作**：AVM2 的某些字节码指令（如 Alchemy 或动态 JIT 编译）尚未完全模拟。
+  - **Flex 框架**：企业级 Flex 应用的复杂组件（如数据绑定、UI 框架）兼容性较低。
+  - **外部接口**：与浏览器 JavaScript 的交互（ExternalInterface）支持有限，可能导致某些功能失效。
+  - **RTMP 和流媒体**：实时流媒体协议（如 Flash Media Server 的 RTMP）暂不支持。
+- **兼容性数据**：
+  - 根据 Flashpoint 和 Ruffle 社区测试，约 70-80% 的 AS3 内容（特别是 2006-2012 年的游戏）可在 Ruffle 中运行，但复杂项目（如 2010 年代后期的 3D 游戏或 Flex 应用）可能出现问题。
+  - 简单 AS3 游戏（如《Bloons Tower Defense》系列的部分版本）通常运行良好，而依赖 Stage3D 的游戏（如《Club Penguin》后期的 3D 内容）可能失败。
+
+#### 3. **技术实现**
+- **AVM2 模拟**：
+  - Ruffle 使用 Rust 实现 AVM2 虚拟机，解析和执行 AS3 的字节码。
+  - 字节码被转换为 WebAssembly，优化性能，但某些复杂指令（如反射或动态代码生成）尚未完全支持。
+- **渲染管道**：
+  - AS3 的显示列表通过 WebGL 渲染，支持矢量图形和位图操作。
+  - 部分 3D 功能尝试映射到 WebGL 2.0，但兼容性有限。
+- **性能优化**：
+  - Rust 的内存安全和 WebAssembly 的高效编译减少了运行时开销。
+  - 异步事件处理和增量渲染优化了复杂 AS3 应用的性能。
+- **调试与测试**：
+  - Ruffle 提供调试工具，记录 AS3 执行日志，帮助开发者识别兼容性问题。
+  - 社区通过 GitHub Issues 提交不兼容 SWF 文件，驱动开发优先级。
+
+#### 4. **开发进展**
+- **历史**：
+  - 2018 年 Ruffle 项目启动时，优先支持 ActionScript 1.0/2.0（AVM1），因其代码简单且覆盖早期 Flash 内容。
+  - 2020 年中期，Ruffle 开始实现 AVM2，初步支持简单 AS3 内容。
+  - 2023 年起，AS3 支持显著改善，覆盖大部分主流游戏和动画。
+- **当前重点**：
+  - 提高 Stage3D 兼容性，目标支持更多 3D Flash 游戏。
+  - 完善网络功能（如 Socket 和更复杂的 HTTP 请求）。
+  - 优化复杂 AS3 项目的性能，减少卡顿或崩溃。
+- **社区贡献**：
+  - Ruffle 依赖志愿者开发，社区通过测试 SWF 文件和提交补丁推动 AS3 支持。
+  - Internet Archive 和 Flashpoint 项目提供测试用例，加速问题修复。
+
+#### 5. **局限性与挑战**
+- **复杂性**：AS3 的面向对象特性和 AVM2 的字节码比 AVM1 复杂得多，模拟全部功能需要大量开发工作。
+- **专有技术**：Flash Player 的部分 AS3 功能（如 Stage3D 的 GPU 加速）依赖 Adobe 专有代码，难以完全逆向工程。
+- **资源限制**：Ruffle 由志愿者驱动，开发进度受限于人力和资金。
+- **边缘用例**：某些定制化 AS3 应用（如企业级 Flex 项目或高度优化的游戏）可能需要专用解决方案或镜像网站支持。
+
+#### 6. **与存档项目的集成**
+- **Internet Archive**：使用 Ruffle 运行 AS3 内容，覆盖 Newgrounds、Kongregate 等平台的游戏。
+- **Flashmuseum.org**：依赖 Ruffle 提供在线 AS3 游戏（如《Canyon Defense 2》），无需下载。
+- **Flashpoint**：将 Ruffle 作为备选播放器，支持部分 AS3 内容，但复杂项目仍依赖其自定义模拟器。
+
+#### 7. **实际案例**
+- **成功运行**：许多 AS3 游戏（如《Fancy Pants Adventures》）在 Ruffle 中表现良好，交互和图形完整。
+- **部分失败**：依赖 Stage3D 的游戏（如《Transformice》的某些功能）可能缺少 3D 效果或无法运行。
+- **存档依赖**：Internet Archive 和 Flashmuseum.org 的 AS3 内容多为简单游戏，复杂项目可能需用户手动上传 SWF 文件并测试。
+
+#### 8. **未来展望**
+- **目标**：Ruffle 计划在 2025-2026 年进一步完善 AS3 支持，目标覆盖 90% 以上的 AS3 内容，包括 Stage3D 和 Flex 应用。
+- **优化**：改进 WebGL 渲染和字节码执行效率，支持更高复杂度的项目。
+- **社区驱动**：通过 GitHub 上的公开测试和贡献，优先解决高需求内容的兼容性问题。
+
+#### 当前状态（2025年8月）
+截至 2025 年 8 月，Ruffle 的 ActionScript 3.0 支持已能运行大部分主流 Flash 游戏和动画，但复杂 3D 或企业级应用仍存在兼容性挑战。社区持续更新，定期发布新版本以改进 AVM2 模拟和渲染性能。
+
+#### 下一步
+如果您需要测试特定 AS3 内容的 Ruffle 兼容性（如某款游戏或动画），我可以搜索相关信息或分析 GitHub Issues 上的最新进展。如果您想深入了解某项 AS3 功能的实现细节（如 Stage3D 或网络请求），我可以进一步挖掘技术文档或社区讨论。请告诉我您的具体需求！

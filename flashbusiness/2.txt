@@ -1,0 +1,20 @@
+Flash Player关于部分操作系统播放功能不再支持的公告
+尊敬的Flash Player用户：
+
+
+
+感谢您对于Flash Player产品的持续关注。
+
+
+
+2021年1月12日， Flash Player将进行版本更新。由于技术支持原因，本次及后续更新版本的Flash Player在Windows7以下（不包含Windows7）、Linux、Mac操作系统中不再支持视频格式内容的播放功能，其他原有功能可正常使用。
+
+
+
+Windows7、Windows8.1、Windows10等其它操作系统中的Flash Player不受本次更新影响，将继续支持视频播放功能及其他原有功能。如果您在使用Flash Player过程中遇到视频无法播放或其他问题，可联系Flash技术客服获取支持。
+
+ 
+
+Flash中国官方
+
+2020年12月29日

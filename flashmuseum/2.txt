@@ -1,0 +1,60 @@
+Adobe Flash保存项目
+
+### Adobe Flash保存项目
+
+随着Adobe Flash Player于2020年12月31日正式终止支持，许多基于Flash的游戏、动画和其他交互式内容面临消失的风险。多个社区和组织发起了保存项目，以确保这些数字文化遗产得以延续。以下是主要的Flash保存项目的概述，基于现有信息：
+
+#### 1. **Flashpoint Archive**
+- **概述**：Flashpoint Archive（原名BlueMaxima's Flashpoint）是一个非营利性社区项目，旨在保存基于Flash及其他网络插件（如Shockwave、Silverlight、Java、Unity Web Player）的网页游戏和动画。截至2025年3月，Flashpoint已存档超过200,000个应用程序，包括约100,000款游戏和10,000个动画，涵盖126种网络技术。[](https://en.wikipedia.org/wiki/Flashpoint_Archive)[](https://flashgaming.fandom.com/wiki/Flashpoint_Archive)
+- **历史**：由澳大利亚人Ben Latimore于2017年底创立，最初为Archive Team的一部分，2018年1月正式启动。2023年初，Latimore退出领导角色，项目由社区贡献者继续开发。[](https://en.wikipedia.org/wiki/Flashpoint_Archive)
+- **技术**：Flashpoint使用开源软件（如Apache、Flashpoint Secure Player）通过模拟网络环境运行内容，绕过站点锁定和DRM。支持Windows、macOS和Linux，代码托管在GitHub上（部分插件源代码因法律原因不可公开）。[](https://en.wikipedia.org/wiki/Flashpoint_Archive)[](https://flashgaming.fandom.com/wiki/Flashpoint_Archive)
+- **版本**：
+  - **Ultimate**：包含所有存档内容（约1.76TB），适合档案管理员。
+  - **Infinity**：较小（约2.9GB），按需下载内容，适合普通用户。[](https://en.wikipedia.org/wiki/Flashpoint_Archive)[](https://flashgaming.fandom.com/wiki/Flashpoint_Archive)
+- **相关项目**：
+  - **Newgrounds Auditorium**：存档约130,000个Newgrounds动画，使用与Flashpoint相同的启动器。
+  - **Kahvibreak**：保存约3,000款Java 2 Micro Edition手机游戏。
+  - **instance_archive**：保存880款早期GameMaker游戏。
+  - **Voyager**：存档500多款基于解析器的文本冒险游戏。
+  - **Happy Wheels Offline**和**Moshi Monsters Standalone**：独立保存特定Flash游戏。[](https://flashgaming.fandom.com/wiki/Flashpoint_Archive)
+- **合法性**：项目法律地位“尚未明确”，但允许内容创作者请求移除其作品（如Nitrome于2020年移除其游戏以支持HTML5重制）。[](https://en.wikipedia.org/wiki/Flashpoint_Archive)
+- **影响**：Flashpoint因其对Flash遗产的保存和易用启动器广受好评，被视为最重要的Flash保存项目之一。[](https://www.ghacks.net/2018/08/28/the-flash-games-preservation-project-flashpoint/)[](https://www.techspot.com/downloads/7235-flashpoint.html)
+
+#### 2. **Internet Archive**
+- **概述**：Internet Archive通过其“Emularity”项目在浏览器中模拟Flash内容，使数千款Flash游戏和动画可通过单次点击访问。目标是“访问驱动保存”，让用户即时体验内容。[](https://blog.archive.org/2025/08/06/vanishing-culture-why-preserve-flash/)[](https://blog.archive.org/2020/11/19/flash-animations-live-forever-at-the-internet-archive/)
+- **方法**：使用Ruffle（基于WebAssembly的Flash模拟器）运行Flash文件，无需插件。用户可上传个人Flash内容，丰富档案库。[](https://blog.archive.org/2025/08/06/vanishing-culture-why-preserve-flash/)
+- **内容**：存档包括来自Newgrounds、Kongregate等平台的游戏，以及个人项目和教育资源。截至2020年，已存档数千个文件。[](https://umatechnology.org/the-internet-archive-will-preserve-flash-games-and-animations/)[](https://www.theverge.com/2020/11/19/21578616/internet-archive-preservation-flash-animations-games-adobe)
+- **文化意义**：Flash被视为1990年代至2000年代中期互联网文化的重要部分，保存工作为20-30多岁用户提供了“博物馆般的怀旧体验”。[](https://blog.archive.org/2025/08/06/vanishing-culture-why-preserve-flash/)
+- **案例**：保存了如《Badger Badger Badger》等标志性动画，以及Cartoon Network等网站的内容（因网站关闭而消失）。[](https://blog.archive.org/2025/08/06/vanishing-culture-why-preserve-flash/)
+
+#### 3. **Ruffle**
+- **概述**：Ruffle是一个开源Flash模拟器，使用Rust编写，通过WebAssembly在现代浏览器中运行Flash内容。2018年启动，2020年中成熟到可广泛使用。[](https://www.vice.com/en/article/tracing-the-sprawling-roots-of-flash-preservation/)[](https://siarchives.si.edu/blog/gone-flash)
+- **特点**：无需安装Flash Player，安全高效，支持ActionScript 1.0-3.0。广泛用于Internet Archive和Flashmuseum.org等平台。[](https://www.vice.com/en/article/tracing-the-sprawling-roots-of-flash-preservation/)
+- **优势**：项目管理严谨，代码清晰，非业余爱好项目，易于集成（如Internet Archive仅用一天半完成整合）。[](https://www.vice.com/en/article/tracing-the-sprawling-roots-of-flash-preservation/)
+- **局限性**：某些复杂Flash项目（如艺术作品）可能需要额外镜像网站支持。[](https://www.vice.com/en/article/tracing-the-sprawling-roots-of-flash-preservation/)
+
+#### 4. **Flashmuseum.org**
+- **概述**：Flashmuseum.org建立在Flashpoint等项目的基础上，提供基于Ruffle的在线平台，允许用户在浏览器中玩Flash游戏和动画，无需下载。[](https://flashmuseum.org/about/)
+- **内容**：包括《Papers, Please》、《Canyon Defense 2》等经典游戏，适合所有年龄段，部分内容需家长指导。[](https://flashmuseum.org/about/)
+- **目标**：作为Flash内容的“时间胶囊”，保存早期互联网创意，供怀旧和教育用途。
+
+#### 5. **Rhizome与Conifer**
+- **概述**：Rhizome是一个致力于数字艺术的非营利组织，提供Flash保存建议，并开发了Conifer（原Webrecorder）工具，用于存档和重播Flash网站。[](https://siarchives.si.edu/blog/gone-flash)
+- **方法**：结合Ruffle和Oldweb.Today等模拟器，保存如Julia Child的厨房和Celia Cruz音乐等交互式Flash内容。[](https://siarchives.si.edu/blog/gone-flash)
+- **挑战**：传统网络存档工具难以捕捉Flash动态内容，需特殊技术和手动收集原始文件。[](https://siarchives.si.edu/blog/gone-flash)
+
+#### 6. **其他努力**
+- **Shumway**：Mozilla开发的开源Flash播放器项目，旨在替代Flash Player，但因Adobe的潜在法律压力和HTML5的普及于2010年代中期终止。[](https://www.vice.com/en/article/tracing-the-sprawling-roots-of-flash-preservation/)
+- **Google Swiffy**：Google的Flash转HTML5工具，也已于2010年代退役。[](https://www.vice.com/en/article/tracing-the-sprawling-roots-of-flash-preservation/)
+- **社区贡献**：许多独立档案管理员通过torrent和Internet Archive上传Flash内容，促进了去中心化的保存工作。[](https://flashmuseum.org/about/)
+
+#### 文化与挑战
+- **文化价值**：Flash内容（如Newgrounds的动画、Miniclip的游戏）不仅是娱乐，还代表了互联网早期的实验艺术和社区创造力。艺术家如Nathalie Lawhead认为Flash的集成性和易用性在HTML5中难以复制。[](https://www.vice.com/en/article/tracing-the-sprawling-roots-of-flash-preservation/)[](https://blog.archive.org/2025/08/06/vanishing-culture-why-preserve-flash/)
+- **挑战**：Flash的封闭生态和Adobe的控制限制了替代播放器的发展；复杂艺术作品的保存需定制解决方案；部分内容因站点关闭（如Cartoon Network）永久丢失。[](https://www.vice.com/en/article/tracing-the-sprawling-roots-of-flash-preservation/)[](https://blog.archive.org/2025/08/06/vanishing-culture-why-preserve-flash/)
+- **合法性与伦理**：保存项目需平衡版权问题，Flashpoint允许内容移除以尊重创作者意愿。[](https://en.wikipedia.org/wiki/Flashpoint_Archive)
+
+#### 当前状态（2025年8月）
+截至2025年，Flashpoint和Internet Archive是最全面的保存项目，Flashmuseum.org提供便捷的在线访问，Ruffle是核心技术支持。社区仍在持续扩展存档，新增内容并改进模拟器兼容性。[](https://en.wikipedia.org/wiki/Flashpoint_Archive)[](https://blog.archive.org/2025/08/06/vanishing-culture-why-preserve-flash/)
+
+#### 下一步
+如果您想了解具体项目的最新进展（如Flashpoint 14.0.2的新功能）、某款Flash游戏的存档情况，或需要我分析某个保存平台的操作指南，请告诉我！此外，我可以搜索X或其他来源以获取最新动态。

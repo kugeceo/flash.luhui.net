@@ -1,0 +1,18 @@
+关于Linux操作系统下Flash Player个人版停用的公告
+尊敬的Flash Player用户：
+
+由于产品调整，2021年5月起Flash中国官方将停止Linux操作系统下Flash Player个人版的版本更新， 2021年9月26日起将不再提供Linux操作系统下Flash Player个人版的分发服务。
+
+服务停止后，个人用户将无法下载、安装及使用Linux操作系统下的Flash Player，请知悉并及时进行有针对性的使用调整。此外，Linux操作系统下的Flash Player企业版不受此影响，可继续正常使用。
+
+给您带来不便，我们深表歉意，感谢您的关注和支持。如果您在使用Flash Player过程中遇到其他问题，请咨询Flash技术客服。
+
+
+
+ 企业用户可联系企业版客服进行咨询，咨询邮箱：wudi@flash.cn
+
+ 
+
+Flash中国官方
+
+2021年5月10日

@@ -1,0 +1,8 @@
+OpenWrt 中文资源平台
+
+📁  网站简介：一个关于OpenWrt的中文资源平台，提供OpenWrt相关的教程、工具和社区支持。
+
+内容涵盖了OpenWrt的编译、安装、配置以及各种插件的使用，可以在这里找到从基础到高级的各种信息，包括DIY编译、固件安装、网络测速、插件配置等。
+
+🔗 网站链接：点击打开 (https://bingmeme.github.io/OpenWrt_CN/)
+https://github.com/Lienol/openwrt

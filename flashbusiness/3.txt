@@ -1,0 +1,11 @@
+Flash Player最新安全版本的更新提示
+尊敬的Flash Player用户：
+
+近期，Flash Player发布了安全版本更新，该更新修复了旧版本Flash Player中存在的安全漏洞，同时将Flash Player的数字签名由SHA1更换为SHA256，有效提升Flash Player的安全性能。为了保护您的计算机使用安全，建议您尽快更新、下载、安装最新版本的Flash Player。
+
+给您带来的不便敬请谅解，我们将始终坚持为用户提供最新、最安全的Flash Player使用体验。
+
+Flash中国官方
+2020年5月29日
+
+https://www.flash.cn/notice/notice?id=140

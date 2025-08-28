@@ -1,0 +1,165 @@
+Flash Video 簡稱FLV
+
+Flash Video（簡稱FLV），是一种网络视频格式，用作串流媒体格式，它的出现有效地解决了视频文件导入Flash后，使导出的SWF文件体积庞大，不能在网络上有效使用等缺点。
+
+一般FLV文件包在SWF PLAYER的壳里，并且FLV可以很好的保护原始地址，不易下载，從而起到保护版权的作用。但还是有些视频格式转换软件将FLV转成一般的视频格式，如中国的软件格式工厂。随着视频网站的丰富，在2008年時这个格式已经非常普及，包括YouTube、NICONICO動畫、Google Video、Yahoo! Video、MySpace，以及中国的优酷、酷6、BiliBili等大部分视频分享网站均采用这个格式。
+
+然而，Flash存在著包括大量耗電以及資訊安全等若干問題，隨著移动设备與流動應用程式的發展與普及而日益嚴重，2010年乔布斯曾公開抨擊。2011年11月9日，Adobe公司宣布停止開發個人電腦平台以外的Flash Player，而專注於開發非專利標示語言HTML5。
+
+2016年，Youtube已經改採用HTML5技術，Google公司表示flash廣告会自動轉檔為HTML5形式[1]。2015年6月[2]，Google宣布公司旗下的Chrome瀏覽器停止了Flash外掛的自啟動。2015年9月1日起，Chrome瀏覽器預設不支援這些外掛程式[3]，並且Amazon公司旗下電子商務和廣告平台也停止使用Flash技術[4]。
+
+中国视频网站哔哩哔哩为了减少迁移至HTML5成本而开发了flv.js，可以通过浏览器支持的Media Source Extension播放FLV文件格式中的H.264和AAC编码内容，所以如今Chrome、Edge等瀏覽器仍然可以收看來自BiliBili的影片。[5]
+
+2020年12月31日，Chrome作為最後一個宣布將不再支援使用Flash的應用程式瀏覽器，flv影片均無法透過Google Chrome收看，除開BiliBili、優酷等视频网站以外的影片網站均停止使用flv作為影片格式。
+
+F4V
+FLV在H.264的視頻規格或是AAC的音源規格都達到功能極限，為了克服這個格式上的限制，F4V於是誕生。F4V是基於ISO base media file format制定出來的容器格式（Container format）。至少於Flash Player 12.0 update 3以上版本才能播放。F4V支援的視頻類型為H.264，影像類型為GIF、PNG以及JPEG，音頻類型為AAC以及MP3。
+
+FLV文件构成
+FLV文件=FLV头文件+ tag1+tag内容1 + tag2+tag内容2 + ...+... + tagN+tag内容N
+
+FLV头文件
+FLV头文件：（9字节）
+
+1-3：前3个字节是文件格式标识（FLV 0x46 0x4C 0x56）。
+4-4：第4个字节是版本（0x01）
+5-5：第5个字节的前5个bit是保留的必须是0.
+第5个字节的第6个bit音频类型标志（TypeFlagsAudio）
+第5个字节的第7个bit也是保留的必须是0
+第5个字节的第8个bit视频类型标志（TypeFlagsVideo）
+6-9: 第6-9的四个字节还是保留的。其数据为00000009 .
+整个文件头的长度，一般是9（3+1+1+4）
+tag基本格式
+tag类型信息，固定长度为15字节
+
+1-4：前一个tag长度（4字节），第一个tag就是0
+5-5：tag类型（1字节）；0x8音频；0x9视频；0x12脚本数据
+6-8：tag内容大小（3字节）
+9-11：时间戳（3字节，毫秒）（第1个tag的时候总是为0,如果是脚本tag就是0）
+12-12：时间戳扩展（1字节）让时间戳变成4字节（以存储更长时间的flv时间信息），本字节作为时间戳的最高位。
+在flv回放过程中，播放顺序是按照tag的时间戳顺序播放。任何加入到文件中时间设置数据格式都将被忽略。
+
+13-15：streamID（3字节）总是0
+flv文件元信息（metadata）
+flv文件中的元信息，是一些描述flv文件各类属性的信息。这些信息以AMF格式保存在文件的起始部分。adobe官方的标准flv元信息项目如下[6]：
+
+audiochannels
+audiocodecid
+audiodatarate
+audiodevice
+audioinputvolume
+audiosamplerate
+creationdate
+duration (media files only)
+fmleversion (Flash Media Live Encoder version)（media files only）
+framerate
+height
+lastkeyframetimestamp (media files only)
+lasttimestamp (media files only)
+presetname
+videocodecid
+videodatarate
+videodevice
+videokeyframe_frequency
+width
+两个常用的操作metadata的工具是flvtool2和FLVMDI，都是把keyframes作为一个默认的元信息项目。
+
+FLV播放程式
+桌面軟體
+這些播放程式包括：
+
+Adobe Media Player
+BitComet FLV Player
+ExtraPlayer
+GOM Player
+K-Multimedia Player
+MPlayer
+Perian
+PotPlayer
+Real Player 11
+VLC media player
+FLV Player by Martijn de Visser
+Quick Time 10
+任何基于FFmpeg的播放程序
+任何利用DirectShow配合ffdshow的播放程式
+Media Player Classic
+MPC-HC
+MPC-BE
+Windows Media Player
+Windows Media Center（需要改動注册表）
+暴风影音
+PowerDVD
+桌面軟體與網頁端播放程式
+JW FLV Player（授權方式：CC by-nc-sa）
+Moyea Web Player（页面存档备份，存于互联网档案馆）（免费使用。可装上插件进行功能上的扩展，所见即所得图形界面软件。）
+網頁端播放程式
+Dreamsocket Media Player（授權方式：CC by-nc-sa）
+FV H.264 FLV Ads Player免費軟體
+Sonettic Cinema FLV Player免費與商業版軟體均有
+Hitasoft Free RIPE FLVPlayer
+FLV / H.264 Video Player I, II and III by FlashXpert
+註釋及參考來源
+ Flash的殺手? HTML5時代來臨. Paganini Plus. 2015-07-30 [2015-08-31]. （原始内容存档于2015-08-26）. 2010年Apple前執行長Steve Jobs曾公開抨擊Flash大量耗電以及資訊安全的問題，而且系統本身封閉，穩定性一直存在著漏洞，一直到現在2015年，越來越多知名大企業摒棄了Flash而轉往投抱HTML5，像是Youtube、Firefox、Facebook、Twitch，就連Google都表示目前會將flash廣告自動轉檔為HTML5形式。
+ Mac上的Chrome太耗電，連Google自己都看不下去了. PingWest中文網. 2015-06-24 [2015-10-03]. （原始内容存档于2015-10-23）. 6月初，Chrome和Adobe達成一項協定，最新的Chrome Beta版將會停止自動播放網頁上那些不重要的Flash內容。
+ Chrome無法顯示使用外掛程式的內容. Chrome說明. [2015-10-03]. （原始内容存档于2015-10-08）. 我們已於2015年9月1日停止支援……NPAPI外掛程式（包括Silverlight、Java和Unity）將無法運作。如果您想瀏覽使用NPAPI外掛程式的網站，必須使用其他網路瀏覽器。
+ Amazon平台停止支援Flash廣告. 科技新報. 2015-08-24 [2015-10-03]. （原始内容存档于2015-10-07）. 反Flash陣營中最堅定的支持者就是蘋果公司，iOS系統自上線以來從未支援這項技術，隨後Google旗下的Android和YouTube也從Flash陣營跳到了HTML5。線上影音領域Flash早已是昨日黃花……Facebook高階主管曾公開表態，Adobe應該馬上將Flash淘汰。……目前仍在大量應用Flash技術的主要是網路廣告，Amazon停止對Flash廣告的支援很可能改變這一局面。自2015年9月1日Amazon公司旗下電子商務和廣告平台將停止支援Flash技術，這一調整主要是因為各大瀏覽器廠商改變了對Flash技術的態度。
+ 存档副本. [2022-03-04]. （原始内容存档于2022-04-11）.
+ 存档副本. [2012-09-05]. （原始内容存档于2011-12-31）.
+外部連結
+Flash Developer Center - Flash Video Articles（页面存档备份，存于互联网档案馆）
+Adobe Flash (SWF) and Flash Video (FLV) File Format Specification Licensing Page（adobe.com）
+Adobe Flash FLV Video File Format（页面存档备份，存于互联网档案馆）（Library of Congress）
+查论编
+多媒体压缩和封裝格式
+视频壓縮	
+ISO/IEC	
+MJPEGMotion JPEG 2000MPEG-1MPEG-2 Part 2MPEG-4 Part 2/ASPPart 10/AVCMPEG-H Part 2/HEVCMPEG-I Part 3/VVCMPEG-5 Part 1/EVCMPEG-5 Part 2/LCEVC
+ITU-T	
+H.120H.261H.262H.263H.264 / AVCH.265 / HEVCH.266 / VVCH.267 / ECM
+SMPTE	
+VC-1VC-2VC-3VC-5VC-6
+開放媒體聯盟	
+AV1
+On2 Technologies
+（现属谷歌公司）	
+VP3VP6VP7VP8VP9
+苹果公司	
+Apple VideoApple ProResQuickTime 动画图形
+中国标准化协会	
+AVSAVS+AVS2AVS3
+其他	
+Bink视频CinepakDaalaDiracDVDVIFFV1HuffyuvIndeoLagarithMicrosoft Video 1MSU无损OMS VideoPixletRealVideoRTVideoSheerVideoSmackerSorenson Video, SparkTheoraThorWMVXEBYULS
+音频壓縮	
+ISO/IEC	
+MPEG-1 Layer III (MP3)MPEG-1 Layer II MultichannelMPEG-1 Layer IAAC HE-AACAAC-LDMPEG SurroundMPEG-4 ALSMPEG-4 SLSMPEG-4 DSTMPEG-4 HVXCMPEG-4 CELPMPEG-D USACMPEG-H 3D Audio
+ITU-T	
+G.711（A-law, µ-law）G.718G.719G.722G.722.1G.722.2G.723G.723.1G.726G.728G.729G.729.1
+IETF	
+OpusiLBC
+3GPP	
+AMRAMR-WBAMR-WB+EVRCEVRC-BEVSGSM-HRGSM-FRGSM-EFR
+ATSC,DVB	
+AC-3DTS
+中国标准化协会	
+DRA
+其他	
+ACELPALACAsaoATRACCELTCodec2FLACiSACMonkey's AudioTTA True AudioTAKMT9MusepackOptimFROGOSQQCELPRCELPRealAudioRTAudioSD2SHNSILKSirenSMVSpeexSVOPCTwinVQVMR-WBVorbisVSELPWavPackWMAMQAaptXLDACMLPLHDCSBC
+图像压缩	
+IEC,ISO,ITU-T,W3C,IETF	
+CCITT Group 4HEIFHEVCJPEGJPEG 2000JPEG-LSJPEG XLJPEG XRJPEG XSJPEG XTTIFF/EPJBIGJBIG2GIFPNGTIFFTIFF/IT
+其他	
+APNGAV1AVIFBPGDjVuEXRFLIFICERMNGPGFQTVRWBMPWebP
+封裝格式	
+ISO/IEC	
+MPEG-ES MPEG-PESMPEG-PSMPEG-TSISO基本媒体文件格式MPEG-4 Part 14（MP4）Motion JPEG 2000MPEG-21 Part 9MPEG媒体传输
+ITU-T	
+H.222.0T.802
+IETF	
+RTP
+其他	
+3GPAMVASFAIFFAVIAUBPGBink视频 SmackerBMPDivX Media FormatEVOFlash VideoGXFIFFM2TSMatroska WebMMXFOggQuickTime文件格式RatDVDRealMediaRIFF WAVMOD和TODVOB、IFO和BUP
+合作	
+NETVCMPEG LA
+另见压缩方法、数据压缩软件
+分类：​文件格式Adobe软件
+

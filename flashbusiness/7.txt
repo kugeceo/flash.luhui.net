@@ -1,0 +1,11 @@
+关于Chrome内核88版本无法正常使用Adobe Flash Player公告
+尊敬的Flash Player用户：
+
+因谷歌最新发布版本Chrome 88已不再支持Flash Player，“允许运行Flash”入口已下架。受此影响，涉及Chrome 88内核的浏览器〔如谷歌浏览器、Edge浏览器（帮助：查看Edge浏览器如何打开IE模式运行Flash）等〕均无法正常使用Flash Player。使用发生异常的用户可尝试更换浏览器，为确保Flash Player的正常运行，用户可选择支持Flash Player的浏览器使用。
+
+如果您在使用Flash Player过程中遇到任何问题，可联系Flash技术客服获取支持。也可关注Flash中国官网（flash.cn）获取最新的技术支持与版本公告。
+
+Flash中国官方
+
+2021年1月26日
+

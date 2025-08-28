@@ -1,0 +1,13 @@
+关于微软删除内置Flash Player的公告
+尊敬的Flash Player用户：
+
+因微软删除内置Flash Player（Win8/Win10 ActiveX版本），使用发生异常的用户可前往Flash中国官网（Flash.cn）下载最新版本的Flash Player，安装完成后即可正常使用。Flash Player其他版本（PPAPI、NPAPI版本）与微软删除的内置版本无关，均可正常使用。企业用户请务必使用企业版Flash player服务。
+
+Flash企业版支持 E-mail：qiye@flash.cn
+
+ 
+
+Flash中国官方
+
+2021年1月15日
+

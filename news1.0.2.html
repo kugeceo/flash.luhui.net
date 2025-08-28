@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Luhui Flash History Museum Information System, showcasing classic Flash works and related content">
+    <meta name="keywords" content="Luhui, Flash, history, museum, information system">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <!-- Markdown parsing library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>Luhui Flash History Museum | Information System</title>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Consolas', 'Monaco', monospace;
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .markdown-content h1, .markdown-content h2, .markdown-content h3 {
+            font-weight: bold;
+            margin: 1.5rem 0 1rem;
+        }
+        .markdown-content h1 { font-size: 1.8rem; }
+        .markdown-content h2 { font-size: 1.5rem; }
+        .markdown-content h3 { font-size: 1.2rem; }
+        .markdown-content p { margin-bottom: 1rem; }
+        .markdown-content ul, .markdown-content ol { 
+            margin-left: 1.5rem; 
+            margin-bottom: 1rem;
+        }
+        .markdown-content ul { list-style-type: disc; }
+        .markdown-content ol { list-style-type: decimal; }
+        .markdown-content blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #666;
+        }
+        .markdown-content a { color: #3b82f6; text-decoration: underline; }
+        .markdown-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 1.5rem auto;
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .nav-link.active {
+            color: #1e40af;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .error-message {
+            background-color: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        .search-options {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .search-options label {
+            display: flex;
+            align-items: center;
+            margin-right: 1.5rem;
+            cursor: pointer;
+        }
+        .search-options input[type="radio"] {
+            margin-right: 0.3rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+        <header class="mb-8">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Luhui Flash History Museum</h1>
+                    <p class="text-gray-600">Information System for Flash Digital Heritage</p>
+                </div>
+                <button id="home-button" class="bg-green-500 text-white p-2 rounded-md hover:bg-green-600 transition">
+                    <i class="fas fa-home mr-1"></i> Home
+                </button>
+            </div>
+        </header>
+        
+        <div class="mb-6">
+            <div class="search-options">
+                <label>
+                    <input type="radio" name="search-type" value="title" checked> Title Search
+                </label>
+                <label>
+                    <input type="radio" name="search-type" value="fulltext"> Full Text Search
+                </label><a href="/" target="_top" title="Website Home">Homepage</a>
+            </div>
+            <div class="flex flex-col md:flex-row gap-3">
+                <input type="text" id="search-input" placeholder="Search article titles or content..."
+                    class="border border-gray-300 p-2 rounded-md flex-grow focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button id="search-button" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition">
+                    <i class="fas fa-search mr-1"></i> Search
+                </button>
+            </div>
+        </div>
+        
+        <!-- Category Navigation -->
+        <div id="ai-nav" class="mb-6 overflow-x-auto pb-2">
+            <div class="flex space-x-4 min-w-max">
+                <!-- Navigation links will be generated here -->
+            </div>
+        </div>
+        
+        <!-- Category Statistics -->
+        <div id="ai-stats" class="mb-6 p-4 bg-white rounded-lg shadow-sm">
+            <!-- Statistics will be generated here -->
+        </div>
+        
+        <!-- Loading State -->
+        <div id="loading-indicator" class="hidden mb-6 text-center">
+            <div class="loading mx-auto"></div>
+            <p class="text-gray-600 mt-2">Loading content...</p>
+        </div>
+        
+        <!-- Error Message -->
+        <div id="error-container" class="hidden mb-6">
+            <div id="error-message" class="error-message">
+                <!-- Error message will be displayed here -->
+            </div>
+        </div>
+        
+        <!-- Article List Container -->
+        <div id="article-list-container" class="mb-8">
+            <div id="article-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Article list will be generated here -->
+            </div>
+            
+            <!-- Pagination Controls -->
+            <div id="pagination" class="flex flex-wrap justify-center gap-2 mt-6">
+                <!-- Pagination buttons will be generated here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Article Detail Page -->
+    <div id="article-detail" class="container mx-auto p-4 md:p-8 max-w-4xl hidden">
+        <button id="back-button" class="mb-6 inline-flex items-center bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition">
+            <i class="fas fa-arrow-left mr-2"></i> Back to List
+        </button>
+        
+        <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <h2 id="article-title" class="text-2xl md:text-3xl font-bold mb-4 text-gray-800"></h2>
+            <div id="article-meta" class="text-gray-500 text-sm mb-6">
+                <!-- Article metadata will be displayed here -->
+            </div>
+            <div id="article-content" class="markdown-content text-gray-700 leading-relaxed">
+                <!-- Article content will be displayed here -->
+            </div>
+        </div>
+        
+        <div class="flex justify-between">
+            <button id="prev-article-button" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition">
+                <i class="fas fa-chevron-left mr-1"></i> Previous
+            </button>
+            <button id="next-article-button" class="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition">
+                Next <i class="fas fa-chevron-right ml-1"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const articleList = document.getElementById('article-list');
+        const articleDetail = document.getElementById('article-detail');
+        const articleTitle = document.getElementById('article-title');
+        const articleContent = document.getElementById('article-content');
+        const articleMeta = document.getElementById('article-meta');
+        const backButton = document.getElementById('back-button');
+        const homeButton = document.getElementById('home-button');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const searchTypeRadios = document.querySelectorAll('input[name="search-type"]');
+        const pagination = document.getElementById('pagination');
+        const articleListContainer = document.getElementById('article-list-container');
+        const aiStats = document.getElementById('ai-stats');
+        const prevArticleButton = document.getElementById('prev-article-button');
+        const nextArticleButton = document.getElementById('next-article-button');
+        const aiNav = document.getElementById('ai-nav').querySelector('div');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const errorContainer = document.getElementById('error-container');
+        const errorMessage = document.getElementById('error-message');
+
+        // Configuration Parameters
+        const categories = ['flashnews', 'flashsoft', 'flashedu', 'flashbusiness', 'flashsite', 'flashcode','flashtasting', 'flashplugin','flashtool','flashdesign','flashmuseum'];
+        const aiNames = {
+            'flashnews': 'Flash News',
+            'flashsoft': 'Flash Software',
+            'flashedu': 'Flash Tutorials',
+            'flashbusiness': 'Flash Business',
+            'flashsite': 'Flash Sites',
+            'flashcode': 'Flash Source Code',
+            'flashtasting': 'Flash Reviews',
+            'flashplugin': 'Flash Plugins',
+            'flashtool': 'Flash Tools',
+            'flashdesign': 'Flash Design',
+            'flashmuseum': 'Flash Services'
+        };
+        // Base path for images, adjust as needed
+        const IMAGE_BASE_PATH = '/luhuitxtcms/';
+        const itemsPerPage = 10; // Number of items per page
+        const LOAD_TIMEOUT = 10000; // Load timeout in milliseconds
+        const MAX_DETECTION_ATTEMPTS = 50; // Maximum attempts to detect article IDs
+
+        // State Management
+        let currentPage = 1;
+        let currentai = null;
+        let searchTerm = '';
+        let searchType = 'title'; // Default to title search
+        let totalArticles = 0;
+        let totalPages = 0;
+        let aiArticleCounts = {};
+        let articleCache = new Map(); // Cache for loaded articles
+        let loadTimeout = null;
+        let allArticlesCache = []; // Cache all articles to fix display issues
+
+        // Initialization
+        function init() {
+            // Configure marked parser for proper image path handling
+            marked.setOptions({
+                breaks: true,
+                gfm: true,
+                // Custom image renderer
+                renderer: {
+                    image(href, title, text) {
+                        // Handle image paths
+                        let imageUrl = href;
+                        
+                        // Add base path for relative paths
+                        if (href && !href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('/')) {
+                            // Check if category path is already included
+                            const hasai = categories.some(cat => href.startsWith(cat + '/'));
+                            if (hasai) {
+                                imageUrl = IMAGE_BASE_PATH + href;
+                            } else {
+                                // Try to infer path from current article category
+                                if (currentai) {
+                                    imageUrl = IMAGE_BASE_PATH + currentai + '/' + href;
+                                } else {
+                                    imageUrl = IMAGE_BASE_PATH + href;
+                                }
+                            }
+                        }
+                        
+                        // Build img tag
+                        const titleAttr = title ? `title="${title}"` : '';
+                        return `<img src="${imageUrl}" alt="${text}" ${titleAttr} loading="lazy">`;
+                    }
+                }
+            });
+
+            // Display category navigation immediately without waiting for data load
+            generateaiNav();
+            // Show loading state
+            showLoading();
+            
+            // Set load timeout
+            loadTimeout = setTimeout(() => {
+                hideLoading();
+                showError('Loading timed out. Please check your network connection or try again.');
+            }, LOAD_TIMEOUT);
+            
+            // Load data
+            Promise.all([
+                loadaiStats(),
+                handleUrlParams()
+            ]).catch(error => {
+                console.error('Initialization failed:', error);
+                hideLoading();
+                showError('Loading failed: ' + (error.message || 'Unknown error'));
+            });
+
+            // Bind search events
+            searchButton.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleSearch();
+            });
+            searchTypeRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    searchType = document.querySelector('input[name="search-type"]:checked').value;
+                });
+            });
+            
+            // Back button event
+            backButton.addEventListener('click', () => {
+                articleDetail.classList.add('hidden');
+                articleListContainer.classList.remove('hidden');
+                window.history.pushState({}, '', currentai ? `?ai=${currentai}&p=${currentPage}` : `?p=${currentPage}`);
+            });
+            
+            // Home button event
+            homeButton.addEventListener('click', () => {
+                window.location.href = '/';
+            });
+        }
+
+        // Handle search
+        function handleSearch() {
+            const term = searchInput.value.trim();
+            searchTerm = term;
+            
+            if (!term) {
+                // Empty search term, reload current category
+                if (currentai) {
+                    loadArticlesByai(currentai, 1);
+                } else {
+                    loadAllArticles(1);
+                }
+                return;
+            }
+            
+            // Determine search type
+            const searchType = document.querySelector('input[name="search-type"]:checked').value;
+            
+            if (searchType === 'fulltext') {
+                // Full text search: open Google search in new window
+                const url = `https://www.google.ca/search?q=site:luhui.net${encodeURIComponent(term)}`;
+                window.open(url, '_blank');
+            } else {
+                // Title search: local filtering
+                if (currentai) {
+                    loadArticlesByai(currentai, 1);
+                } else {
+                    loadAllArticles(1);
+                }
+            }
+        }
+
+        // Handle URL parameters
+        async function handleUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ai = urlParams.get('ai');
+            const articleId = urlParams.get('id');
+            const page = parseInt(urlParams.get('p')) || 1;
+            const q = urlParams.get('q') || '';
+
+            searchInput.value = q;
+            searchTerm = q;
+            currentPage = page;
+
+            try {
+                if (articleId && ai) {
+                    // Display specified article
+                    currentai = ai;
+                    await showArticleDetail(ai, articleId);
+                } else if (ai && categories.includes(ai)) {
+                    // Display specified category
+                    currentai = ai;
+                    await loadArticlesByai(ai, page);
+                    updateNavActiveState(ai);
+                } else {
+                    // Display all articles
+                    await loadAllArticles(page);
+                }
+            } finally {
+                clearTimeout(loadTimeout);
+                hideLoading();
+            }
+        }
+
+        // Load category statistics - automatically detect actual article counts
+        async function loadaiStats() {
+            // Clear previous statistics
+            aiArticleCounts = {};
+            
+            // Detect actual article count for each category
+            for (const ai of categories) {
+                aiArticleCounts[ai] = await detectArticleCount(ai);
+            }
+            
+            displayaiStats();
+            return true;
+        }
+
+        // Detect article count in a category
+        async function detectArticleCount(ai) {
+            let count = 0;
+            let consecutiveFailures = 0;
+            
+            // Try detection starting from ID=1
+            for (let id = 1; id <= MAX_DETECTION_ATTEMPTS; id++) {
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 1000);
+                    
+                    const response = await fetch(`${ai}/${id}.txt`, { 
+                        method: 'HEAD', // Only request headers, not content
+                        signal: controller.signal 
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    
+                    if (response.ok) {
+                        count = id; // Update count
+                        consecutiveFailures = 0; // Reset consecutive failure count
+                    } else {
+                        consecutiveFailures++;
+                    }
+                } catch (error) {
+                    consecutiveFailures++;
+                }
+                
+                // If 5 consecutive IDs don't exist, assume no more articles
+                if (consecutiveFailures >= 5) {
+                    break;
+                }
+            }
+            
+            return count;
+        }
+
+        // Display category statistics
+        function displayaiStats() {
+            let totalCount = 0;
+            let statsHtml = '<div class="flex flex-wrap gap-x-6 gap-y-2">';
+            statsHtml += '<span class="font-medium">Article Category Statistics:</span>';
+            
+            for (const ai in aiArticleCounts) {
+                const count = aiArticleCounts[ai];
+                totalCount += count;
+                statsHtml += `<div><span class="text-gray-700">${aiNames[ai]}:</span> <span class="font-medium">${count}</span> articles</div>`;
+            }
+            
+            statsHtml += `<div class="w-full mt-2 pt-2 border-t border-gray-100"><span class="font-medium">Total:</span> ${totalCount} articles</div>`;
+            statsHtml += '</div>';
+            
+            aiStats.innerHTML = statsHtml;
+        }
+
+        // Generate category navigation - execute immediately, not dependent on data load
+        function generateaiNav() {
+            // Add "All Articles" link
+            const allLink = document.createElement('a');
+            allLink.href = '?p=1';
+            allLink.textContent = 'All Articles';
+            allLink.className = 'nav-link text-blue-500 hover:text-blue-700 whitespace-nowrap';
+            if (!currentai) {
+                allLink.classList.add('active');
+            }
+            allLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentai = null;
+                currentPage = 1;
+                showLoading();
+                loadAllArticles(1).finally(() => hideLoading());
+                updateNavActiveState(null);
+            });
+            aiNav.appendChild(allLink);
+            
+            // Add category links
+            categories.forEach(ai => {
+                const link = document.createElement('a');
+                link.href = `?ai=${ai}&p=1`;
+                link.textContent = aiNames[ai];
+                link.className = 'nav-link text-blue-500 hover:text-blue-700 whitespace-nowrap';
+                if (currentai === ai) {
+                    link.classList.add('active');
+                }
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentai = ai;
+                    currentPage = 1;
+                    showLoading();
+                    loadArticlesByai(ai, 1).finally(() => hideLoading());
+                    updateNavActiveState(ai);
+                });
+                aiNav.appendChild(link);
+            });
+        }
+
+        // Update navigation active state
+        function updateNavActiveState(activeai) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            if (activeai === null) {
+                // Activate "All Articles"
+                aiNav.querySelector('a:first-child').classList.add('active');
+            } else {
+                // Activate corresponding category
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    if (link.href.includes(`ai=${activeai}`)) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Load articles from all categories (paginated)
+        async function loadAllArticles(page) {
+            try {
+                // Check cache, use cached data if available
+                if (allArticlesCache.length === 0) {
+                    let allArticles = [];
+                    // Limit number of categories loaded simultaneously to avoid too many requests
+                    const batchSize = 2;
+                    for (let i = 0; i < categories.length; i += batchSize) {
+                        const batch = categories.slice(i, i + batchSize);
+                        const promises = batch.map(ai => 
+                            loadArticlesFromai(ai, 1, aiArticleCounts[ai] || 0)
+                        );
+                        const results = await Promise.all(promises);
+                        results.forEach(articles => allArticles.push(...articles));
+                        
+                        // Update UI after each batch to improve perceived speed
+                        if (i === 0) {
+                            displayPartialResults(allArticles);
+                        }
+                    }
+                    allArticlesCache = allArticles; // Cache all articles
+                }
+                
+                // Apply search filtering
+                let filteredArticles = allArticlesCache;
+                if (searchTerm) {
+                    const term = searchTerm.toLowerCase();
+                    filteredArticles = allArticlesCache.filter(article => {
+                        return article.title.toLowerCase().includes(term);
+                    });
+                }
+                
+                // Sorting
+                filteredArticles.sort((a, b) => {
+                    if (a.ai === b.ai) {
+                        return a.id - b.id;
+                    }
+                    return a.ai.localeCompare(b.ai);
+                });
+                
+                // Pagination handling
+                totalArticles = filteredArticles.length;
+                totalPages = Math.ceil(totalArticles / itemsPerPage);
+                const startIndex = (page - 1) * itemsPerPage;
+                const pageArticles = filteredArticles.slice(startIndex, startIndex + itemsPerPage);
+                
+                displayArticles(pageArticles);
+                displayPagination();
+                updateUrl();
+            } catch (error) {
+                console.error('Failed to load articles:', error);
+                showError('Failed to load articles: ' + error.message);
+            }
+        }
+
+        // Load articles by category (paginated)
+        async function loadArticlesByai(ai, page) {
+            try {
+                const maxId = aiArticleCounts[ai] || 0;
+                const articles = await loadArticlesFromai(ai, 1, maxId);
+                
+                // Apply search filtering
+                let filteredArticles = articles;
+                if (searchTerm) {
+                    const term = searchTerm.toLowerCase();
+                    filteredArticles = articles.filter(article => {
+                        return article.title.toLowerCase().includes(term);
+                    });
+                }
+                
+                // Pagination handling
+                totalArticles = filteredArticles.length;
+                totalPages = Math.ceil(totalArticles / itemsPerPage);
+                const startIndex = (page - 1) * itemsPerPage;
+                const pageArticles = filteredArticles.slice(startIndex, startIndex + itemsPerPage);
+                
+                displayArticles(pageArticles);
+                displayPagination();
+                updateUrl();
+            } catch (error) {
+                console.error('Failed to load category articles:', error);
+                showError('Failed to load articles: ' + error.message);
+            }
+        }
+
+        // Load articles from specified category
+        async function loadArticlesFromai(ai, startId, endId) {
+            if (endId < startId) return [];
+            
+            const articles = [];
+            const cacheKeyPrefix = `${ai}_`;
+            
+            // Check cache first
+            for (let id = startId; id <= endId; id++) {
+                const cacheKey = cacheKeyPrefix + id;
+                if (articleCache.has(cacheKey)) {
+                    articles.push(articleCache.get(cacheKey));
+                }
+            }
+            
+            // If cache has enough articles, return directly
+            if (articles.length >= endId - startId + 1) {
+                return articles;
+            }
+            
+            // Load articles one by one to avoid too many requests
+            for (let id = startId; id <= endId; id++) {
+                const cacheKey = cacheKeyPrefix + id;
+                if (articleCache.has(cacheKey)) {
+                    continue; // Already cached, skip
+                }
+                
+                try {
+                    // Set timeout for individual article loading
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 3000);
+                    
+                    const response = await fetch(`${ai}/${id}.txt`, { 
+                        signal: controller.signal 
+                    });
+                    
+                    clearTimeout(timeoutId);
+                    
+                    if (!response.ok) {
+                        continue; // File doesn't exist, move to next
+                    }
+                    
+                    const arrayBuffer = await response.arrayBuffer();
+                    const encoding = detectEncoding(arrayBuffer);
+                    let text = '';
+                    
+                    if (encoding === 'utf-8') {
+                        const decoder = new TextDecoder('utf-8');
+                        text = decoder.decode(arrayBuffer);
+                    } else {
+                        const decoder = new TextDecoder('gbk');
+                        text = decoder.decode(arrayBuffer);
+                    }
+                    
+                    const lines = text.split('\n');
+                    const title = lines[0] || `Untitled Article (${ai}-${id})`;
+                    const content = lines.slice(1).join('\n');
+                    
+                    // Determine if it's a Markdown file
+                    const isMarkdown = title.toLowerCase().endsWith('.md') || 
+                                      (id.toString().includes('.md'));
+                    
+                    const article = {
+                        id,
+                        title: title.replace(/\.md$/i, ''),
+                        content,
+                        ai,
+                        path: `${ai}/${id}.txt`,
+                        isMarkdown
+                    };
+                    
+                    articles.push(article);
+                    articleCache.set(cacheKey, article); // Cache the article
+                } catch (error) {
+                    if (error.name !== 'AbortError') {
+                        console.error(`Failed to load article ${ai}/${id}.txt:`, error);
+                    }
+                    // Individual article load failure doesn't affect overall, continue with next
+                    continue;
+                }
+            }
+            
+            return articles;
+        }
+
+        // Display partial results to improve perceived speed
+        function displayPartialResults(articles) {
+            if (articleList.children.length === 0) { // Only display if list is empty
+                articles.slice(0, itemsPerPage).forEach(article => {
+                    const articleItem = document.createElement('div');
+                    articleItem.className = 'bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition';
+                    
+                    const link = document.createElement('a');
+                    link.href = `?ai=${article.ai}&id=${article.id}`;
+                    link.className = 'block h-full';
+                    link.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-medium text-gray-800 hover:text-blue-600 line-clamp-2">${article.title}</h3>
+                            <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full">${aiNames[article.ai]}</span>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-2">ID: ${article.id}</p>
+                    `;
+                    
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        showArticleDetail(article.ai, article.id);
+                    });
+                    
+                    articleItem.appendChild(link);
+                    articleList.appendChild(articleItem);
+                });
+            }
+        }
+
+        // Display article list
+        function displayArticles(articles) {
+            articleList.innerHTML = '';
+            
+            if (articles.length === 0) {
+                const noResultsItem = document.createElement('div');
+                noResultsItem.className = 'col-span-full text-center py-10 text-gray-500';
+                noResultsItem.innerHTML = '<i class="fas fa-search-minus text-3xl mb-2"></i><p>No articles found</p>';
+                articleList.appendChild(noResultsItem);
+                return;
+            }
+            
+            articles.forEach(article => {
+                const articleItem = document.createElement('div');
+                articleItem.className = 'bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition';
+                
+                const link = document.createElement('a');
+                link.href = `?ai=${article.ai}&id=${article.id}`;
+                link.className = 'block h-full';
+                link.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-medium text-gray-800 hover:text-blue-600 line-clamp-2">${article.title}</h3>
+                        <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full">${aiNames[article.ai]}</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mt-2">ID: ${article.id}</p>
+                `;
+                
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showArticleDetail(article.ai, article.id);
+                });
+                
+                articleItem.appendChild(link);
+                articleList.appendChild(articleItem);
+            });
+        }
+
+        // Display article detail
+        async function showArticleDetail(ai, id) {
+            showLoading();
+            try {
+                const cacheKey = `${ai}_${id}`;
+                let article;
+                
+                // Check cache
+                if (articleCache.has(cacheKey)) {
+                    article = articleCache.get(cacheKey);
+                } else {
+                    // Load individual article
+                    const articles = await loadArticlesFromai(ai, parseInt(id), parseInt(id));
+                    article = articles[0];
+                    
+                    if (!article) {
+                        throw new Error('Article does not exist or cannot be loaded');
+                    }
+                }
+                
+                // Set page title, description and keywords
+                setMetaTags(article);
+                
+                // Display article detail
+                articleListContainer.classList.add('hidden');
+                articleDetail.classList.remove('hidden');
+                
+                articleTitle.textContent = article.title;
+                articleMeta.innerHTML = `
+                    <span class="mr-4"><i class="fas fa-folder text-gray-400 mr-1"></i> ${aiNames[article.ai]}</span>
+                    <span><i class="fas fa-file-alt text-gray-400 mr-1"></i> ID: ${article.id}</span>
+                    ${article.isMarkdown ? '<span class="ml-4 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">Markdown</span>' : ''}
+                `;
+                
+                // Determine how to display content based on whether it's Markdown
+                if (article.isMarkdown) {
+                    // Process image paths before parsing Markdown
+                    articleContent.innerHTML = marked.parse(article.content);
+                } else {
+                    articleContent.innerHTML = `<pre>${escapeHtml(article.content)}</pre>`;
+                }
+                
+                // Handle image loading errors
+                setupImageErrorHandling();
+                
+                // Update navigation button states
+                await updateNavigationButtons(ai, id);
+                
+                // Update URL
+                window.history.pushState({}, '', `?ai=${ai}&id=${id}`);
+            } catch (error) {
+                console.error('Failed to display article detail:', error);
+                showError('Unable to load article content: ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Set up image error handling
+        function setupImageErrorHandling() {
+            const images = articleContent.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('error', function() {
+                    // Try to fix image path
+                    const originalSrc = this.src;
+                    const ai = currentai;
+                    
+                    // If we have a current category, try adding it to the path
+                    if (ai && !originalSrc.includes(ai)) {
+                        const newSrc = originalSrc.replace(IMAGE_BASE_PATH, `${IMAGE_BASE_PATH}${ai}/`);
+                        this.src = newSrc;
+                    } else {
+                        // Display error placeholder
+                        this.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%23f0f0f0'/%3E%3Ctext x='100' y='75' font-family='Arial' font-size='12' text-anchor='middle' fill='%23999'%3EImage failed to load%3C/text%3E%3C/svg%3E`;
+                    }
+                });
+            });
+        }
+
+        // Set page meta tags
+        function setMetaTags(article) {
+            // Set page title
+            document.title = article.title || 'Luhui Flash History Museum Information System';
+            
+            // Extract description - randomly select a segment from content
+            let description = '';
+            const contentText = article.isMarkdown ? 
+                article.content.replace(/#|_|\*|\[|\]|\(|\)/g, '') : 
+                article.content;
+                
+            const sentences = contentText.split(/[。！？；,.!?;]/).filter(s => s.trim().length > 20);
+            
+            if (sentences.length > 0) {
+                // Randomly select a segment
+                const randomIndex = Math.floor(Math.random() * sentences.length);
+                description = sentences[randomIndex].trim().substring(0, 160); // Limit maximum length
+            } else {
+                // If no suitable sentences, use title
+                description = article.title.substring(0, 160);
+            }
+            
+            // Update description meta tag
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                metaDesc.setAttribute('content', description);
+            } else {
+                metaDesc = document.createElement('meta');
+                metaDesc.name = 'description';
+                metaDesc.content = description;
+                document.head.appendChild(metaDesc);
+            }
+            
+            // Extract keywords
+            let keywords = [];
+            
+            // Extract from title
+            const titleWords = article.title.split(/\s+|，|,|；|;/).filter(w => w.length > 1);
+            keywords.push(...titleWords.slice(0, 5)); // Maximum 5
+            
+            // Extract from content
+            const contentWords = contentText.split(/\s+|，|,|；|;/).filter(w => w.length > 1);
+            // Simple deduplication and random selection
+            const uniqueWords = [...new Set(contentWords)];
+            // Randomly select up to 5 words
+            for (let i = 0; i < Math.min(5, uniqueWords.length); i++) {
+                const randomIndex = Math.floor(Math.random() * uniqueWords.length);
+                keywords.push(uniqueWords[randomIndex]);
+                uniqueWords.splice(randomIndex, 1); // Avoid duplicates
+            }
+            
+            // Deduplicate and limit to maximum 10 keywords
+            keywords = [...new Set(keywords)].slice(0, 10);
+            
+            // Update keywords meta tag
+            let metaKeywords = document.querySelector('meta[name="keywords"]');
+            if (metaKeywords) {
+                metaKeywords.setAttribute('content', keywords.join(','));
+            } else {
+                metaKeywords = document.createElement('meta');
+                metaKeywords.name = 'keywords';
+                metaKeywords.content = keywords.join(',');
+                document.head.appendChild(metaKeywords);
+            }
+        }
+
+        // Update navigation button states
+        async function updateNavigationButtons(ai, currentId) {
+            currentId = parseInt(currentId);
+            
+            // Find previous article
+            let prevId = null;
+            for (let id = currentId - 1; id >= 1; id--) {
+                try {
+                    const response = await fetch(`${ai}/${id}.txt`, { method: 'HEAD' });
+                    if (response.ok) {
+                        prevId = id;
+                        break;
+                    }
+                } catch (error) {
+                    continue;
+                }
+            }
+            
+            // Find next article
+            let nextId = null;
+            for (let id = currentId + 1; id <= currentId + 20; id++) { // Limit search to 20 IDs
+                try {
+                    const response = await fetch(`${ai}/${id}.txt`, { method: 'HEAD' });
+                    if (response.ok) {
+                        nextId = id;
+                        break;
+                    }
+                } catch (error) {
+                    continue;
+                }
+            }
+            
+            // Update previous article button
+            if (prevId) {
+                prevArticleButton.disabled = false;
+                prevArticleButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                prevArticleButton.onclick = () => showArticleDetail(ai, prevId);
+            } else {
+                prevArticleButton.disabled = true;
+                prevArticleButton.classList.add('opacity-50', 'cursor-not-allowed');
+                prevArticleButton.onclick = null;
+            }
+            
+            // Update next article button
+            if (nextId) {
+                nextArticleButton.disabled = false;
+                nextArticleButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                nextArticleButton.onclick = () => showArticleDetail(ai, nextId);
+            } else {
+                nextArticleButton.disabled = true;
+                nextArticleButton.classList.add('opacity-50', 'cursor-not-allowed');
+                nextArticleButton.onclick = null;
+            }
+        }
+
+        // Display pagination controls
+        function displayPagination() {
+            pagination.innerHTML = '';
+            
+            if (totalPages <= 1) {
+                return; // Don't show pagination for single page
+            }
+            
+            // Previous page button
+            const prevButton = document.createElement('button');
+            prevButton.className = `px-3 py-1 rounded border ${currentPage > 1 ? 'border-blue-500 text-blue-500 hover:bg-blue-50' : 'border-gray-300 text-gray-400 cursor-not-allowed'}`;
+            prevButton.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevButton.disabled = currentPage <= 1;
+            prevButton.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    showLoading();
+                    if (currentai) {
+                        loadArticlesByai(currentai, currentPage).finally(() => hideLoading());
+                    } else {
+                        loadAllArticles(currentPage).finally(() => hideLoading());
+                    }
+                }
+            });
+            pagination.appendChild(prevButton);
+            
+            // Page number buttons - show pages near current page
+            const showPages = 5; // Maximum number of page numbers to display
+            let startPage = Math.max(1, currentPage - Math.floor(showPages / 2));
+            let endPage = startPage + showPages - 1;
+            
+            if (endPage > totalPages) {
+                endPage = totalPages;
+                startPage = Math.max(1, endPage - showPages + 1);
+            }
+            
+            // Add first page button if needed
+            if (startPage > 1) {
+                addPageButton(1);
+                if (startPage > 2) {
+                    addEllipsis();
+                }
+            }
+            
+            // Add middle page buttons
+            for (let i = startPage; i <= endPage; i++) {
+                addPageButton(i);
+            }
+            
+            // Add last page button if needed
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    addEllipsis();
+                }
+                addPageButton(totalPages);
+            }
+            
+            // Next page button
+            const nextButton = document.createElement('button');
+            nextButton.className = `px-3 py-1 rounded border ${currentPage < totalPages ? 'border-blue-500 text-blue-500 hover:bg-blue-50' : 'border-gray-300 text-gray-400 cursor-not-allowed'}`;
+            nextButton.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextButton.disabled = currentPage >= totalPages;
+            nextButton.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    showLoading();
+                    if (currentai) {
+                        loadArticlesByai(currentai, currentPage).finally(() => hideLoading());
+                    } else {
+                        loadAllArticles(currentPage).finally(() => hideLoading());
+                    }
+                }
+            });
+            pagination.appendChild(nextButton);
+        }
+
+        // Add page number button
+        function addPageButton(pageNum) {
+            const button = document.createElement('button');
+            button.className = `px-3 py-1 rounded border ${pageNum === currentPage ? 'border-blue-500 bg-blue-50 text-blue-600 font-medium' : 'border-gray-300 text-gray-700 hover:border-blue-300 hover:text-blue-500'}`;
+            button.textContent = pageNum;
+            button.addEventListener('click', () => {
+                currentPage = pageNum;
+                showLoading();
+                if (currentai) {
+                    loadArticlesByai(currentai, currentPage).finally(() => hideLoading());
+                } else {
+                    loadAllArticles(currentPage).finally(() => hideLoading());
+                }
+            });
+            pagination.appendChild(button);
+        }
+
+        // Add ellipsis separator
+        function addEllipsis() {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'px-2 text-gray-500';
+            ellipsis.textContent = '...';
+            pagination.appendChild(ellipsis);
+        }
+
+        // Update URL
+        function updateUrl() {
+            let url = '';
+            if (currentai) {
+                url = `?ai=${currentai}&p=${currentPage}`;
+            } else {
+                url = `?p=${currentPage}`;
+            }
+            
+            if (searchTerm) {
+                url += `&q=${encodeURIComponent(searchTerm)}`;
+            }
+            
+            window.history.pushState({}, '', url);
+        }
+
+        // Show loading state
+        function showLoading() {
+            loadingIndicator.classList.remove('hidden');
+            errorContainer.classList.add('hidden');
+        }
+
+        // Hide loading state
+        function hideLoading() {
+            loadingIndicator.classList.add('hidden');
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorContainer.classList.remove('hidden');
+        }
+
+        // Hide error message
+        function hideError() {
+            errorContainer.classList.add('hidden');
+        }
+
+        // Detect text encoding
+        function detectEncoding(arrayBuffer) {
+            // Simple UTF-8 BOM detection
+            const uint8Array = new Uint8Array(arrayBuffer);
+            if (uint8Array.length >= 3 && 
+                uint8Array[0] === 0xef && 
+                uint8Array[1] === 0xbb && 
+                uint8Array[2] === 0xbf) {
+                return 'utf-8';
+            }
+            // Default to GBK encoding
+            return 'gbk';
+        }
+
+        // HTML escaping
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Initialize after page load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
+
+<!--版权说明开始
+/*
++------------------------------------------------------------------------+
+ System Name : Luhui Flash History Museum Information System V1.0.2
+ 系统名称 : 鲁虺Flash历史博物馆资讯系统 html JavaScript txt V1.0.2
++------------------------------------------------------------------------+
+ 创建 Created  2025-5-4 / 修改 Modify 2025-8-28
++------------------------------------------------------------------------+
+ Version : 1.0.2
++------------------------------------------------------------------------+
+ 版本更新 : 该版本所有详细更新细节都已在系统迭代说明中详述
++------------------------------------------------------------------------+
+ Author : 鲁虺文化网  冠富研究院  冠富商务通
++------------------------------------------------------------------------+
+ Powered by luhui.net 2004-01-11
++------------------------------------------------------------------------+
+ QQ : 63625244 
+ Email : info@mail.luhui.net
+ 鲁虺文化网 : http://www.luhui.net
+ 冠富研究院 : http://www.guanfu.org
+ 冠富商务通 : http://www.guanfu.net.cn
++------------------------------------------------------------------------+
+ Note :
+
+ 1.本软件对于非商业用户完全免费,如果要使用在商业用途
+   方面,必须取得作者的授权.
+
+ 2.你可以任意传播以及修改本程序,但不能以任何形式删除
+   本程序的版权.请记住,保留作者版权是对原创作者的尊敬.
+
+ 3.如果有问题,可以通过上面提供的方式进行解答,但作者
+   时间有限,如果不能及时或者不解答,请谅解.
+
+ 4.作者对非法使用该程序导致的问题,不予负责.
+
+ 5.本程序版权归 鲁虺文化网 所有.禁止任何侵权行为!
+
++------------------------------------------------------------------------+
+*/
+--版权说明结束-->

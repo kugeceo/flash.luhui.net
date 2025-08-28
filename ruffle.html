@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Flash模拟器_鲁虺Flash博物馆 http://flash.luhui.net 鲁虺精品Flash作品陈列馆</title>
+<script src="/common/swfobject.js"></script>
+<style>
+	body{margin:0;}
+	:root{--logo-display:none;}
+</style>
+</head>
+<body>
+
+<div id="swfcon"></div>
+
+<script>
+
+(function(){
+
+	//strGetUrlArg("?id=8","id",6)
+	function strGetUrlArg(s,sv,sd){
+		var a=s.match(new RegExp("(^|&|\\?)"+sv+"=[^&]*"))
+		return decodeURIComponent(a==null||sv==""?(sd||""):a[0].slice(sv.length+2))
+	}
+
+	var u=window.location.search
+	var p=strGetUrlArg(u,'path','')
+	var w=strGetUrlArg(u,'width',550)
+	var h=strGetUrlArg(u,'height',400)
+	var t=strGetUrlArg(u,'title','Flash模拟器')
+	/*
+	var ww=$(window).width()
+	if(ww<w){
+		h=Math.round(h/w*ww)
+		w=ww
+	}
+	*/
+	document.title=t
+
+	if(deconcept.SWFObjectUtil.getPlayerVersion()["major"]>0){
+		var so = new SWFObject(p, "work_swf", w, h, "8");
+		so.addParam("menu", "false");
+		so.write("swfcon");
+	}else{
+
+		document.write('<script src="/ruffle/ruffle.js#http://static.e12345.com/ruffle/ruffle.js"><\/script>')
+
+		window.RufflePlayer = window.RufflePlayer || {};
+		window.RufflePlayer.config = {
+			'showSwfDownload': true
+			//'contextMenu': false,
+		};
+		window.addEventListener("load", function(){
+			var ruffle = window.RufflePlayer.newest();
+			var player = ruffle.createPlayer();
+			var container = document.getElementById('swfcon');
+			container.appendChild(player);
+			player.style.width=w+'px';
+			player.style.height=h+'px';
+			player.load(p);
+		});
+	}
+})()
+
+</script>
+
+</body>
+</html>

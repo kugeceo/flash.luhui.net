@@ -1,0 +1,68 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>鲁虺Flash历史博物馆 http://flash.luhui.net 鲁虺精品Flash作品陈列馆</title>
+<link rel="stylesheet" href="./common/ucren.css" type="text/css" />
+<link rel="stylesheet" href="./common/base.css" type="text/css" />
+<link rel="stylesheet" href="./common/dtree/dtree.css" type="text/css" />
+<script type="text/javascript" src="./common/dtree/dtree.js"></script>
+<script type="text/javascript" src="./common/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="./common/jquery/jquery.lazyload-1.9.7.min.js"></script>
+<script type="text/javascript" src="./common/jquery/layer/layer.js"></script>
+<script type="text/javascript" src="./common/jszip.min.js"></script>
+<script type="text/javascript" src="./common/jszip-utils.min.js"></script>
+<script type="text/javascript" src="./common/sfcore.js"></script>
+<script type="text/javascript" src="./common/require-2.3.6.min.js"></script>
+</head>
+
+<body>
+<div class="ucren-toolbar">
+	<div class="ucren-toolbar-inner"><a href="./news.html?ai=flashnews" target="_top" class="mhide" title="Flash资讯">Flash资讯</a><a href="./news.html?ai=flashtasting" target="_top" class="mhide" title="Flash品鉴">Flash品鉴</a><a href="./news.html?ai=flashsoft&p=1" target="_blank" title="Flash软件">Flash软件</a><div style="float:right;padding:9px 15px 0 0;"><form id="sfrm"><input id="stxt" type="text" maxlength="16" size="12" value=""> <input id="sbtn" type="button" value=" 搜索 "></form></div>
+		<h1><a href="./">鲁虺<span>Flash</span>历史博物馆</a></h1>
+	</div>
+</div>
+<div id="page" class="clearfix">
+	<section id="list-page">
+		<aside id="aside">
+			<div class="caption">鲁虺精品Flash作品陈列馆</div>
+			<div id="folder">
+				<div id="dtcon" class="dtree"></div>
+			</div>
+		</aside>
+		<article id="content">
+			<div id="sfcon"></div>
+			<div id="starthere"></div>
+		</article>
+	</section>
+</div>
+
+<div id="loading-bg">
+	<div id="loading">
+		<div id="loading-text">正在准备，请稍等...</div>
+		<div class="bg">
+			<div id="loading-loader">&nbsp;</div>
+		</div>
+		<div id="loading-state">&nbsp;</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+requirejs(['./common/masonry.pkgd.min'], function(masonryMod) {
+	Masonry=masonryMod
+	sfcore.main()
+})
+</script>
+
+
+
+<div class="footer-inner">
+<p align="center"> Copyright&nbsp;  &#169; 2004-01-11&nbsp;<a href="http://luhui.net" title="鲁虺文化网" target="_top">luhui.net</a>&nbsp;all rights reserved.</p>	
+		<div id="back-to-top-btn" style="display:none;">
+		    <i class="fas fa-angle-double-up" style="font-size: 25px;"></i>
+		</div>
+
+</body>
+</html>

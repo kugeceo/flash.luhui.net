@@ -1,0 +1,106 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>luhui Flash Player 鲁虺Flash播放器 Ruffle Flash Player 播放器 - Adobe Flash Player 模拟器</title>
+        <script src="/common/jquery-3.4.1.min.js"></script>
+        <script src="/ruffle/ruffle.js?v=20230904"></script>
+        <script src="/ruffle/ruffle.custom.js?v=20230904"></script>
+        <script src="formatjson.js"></script>
+        <link href="formatjson.css" rel="stylesheet">
+        <style type="text/css">
+            body {
+                margin: 0;
+            }
+            #page {
+                height: 95vh;
+                width: 100vw;
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+            }
+            #echo {
+                margin: 0 auto;
+                text-align: left;
+                font: 12px arial;
+                word-wrap:break-word;
+                line-height: 1.75;
+                padding-top: .5em;
+            }
+			.info {
+				display:inline-block;
+				padding:.5em 2.5em;
+				border:1px solid #999;
+			}
+			.info a {
+				color:#036;
+				text-decoration:none;
+			}
+        </style>
+    </head>
+    <body>
+        <div id="page">
+            <div id="container">
+				<div class="info">
+					<p><b>Ruffle Flash Player</b> 播放器</p>
+					<p>请拖放 SWF 文件到本页</p>
+					<p><a href="http://flash.luhui.net" target="_blank">鲁虺flash博物馆</a></p>
+					<p><a href="http://www.luhui.net" target="_blank">鲁虺文化网</a></p>
+				</div>
+			</div>
+            <div id="echo" class="trace"></div>
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                $('body').append('<div id="dropzone" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:100;background:rgba(0,22,55,0.18);display:none;"></div>')
+                var last = null;
+                $(window).on('dragenter', function(e) {
+                    last = e.target;
+                    $('#dropzone').fadeIn('fast')
+                })
+                $(window).on('dragleave', function(e) {
+                    if (e.target === last || e.target === document) {
+                        $('#dropzone').fadeOut('fast')
+                    }
+                })
+                $('#dropzone').on('drop', function(event) {
+                    var ev = event.originalEvent
+                    var dt = ev.dataTransfer
+                    ev.preventDefault()
+                    if (dt.items && dt.items[0].kind === 'file') {
+                        onReadFile(dt.items[0].getAsFile())
+                    } else {
+                        onReadFile(dt.files[0])
+                    }
+                    $('#dropzone').fadeOut('fast')
+                }).on('dragover', function(event) {
+                    event.originalEvent.preventDefault()
+                })
+
+                window.RufflePlayer = window.RufflePlayer || {}
+                var onReadFile = function(swfile) {
+                    var fileReader = new FileReader()
+                    fileReader.readAsDataURL(swfile)
+                    fileReader.onload = function() {
+                        var ruffle = window.RufflePlayer.newest()
+                        var player = ruffle.createPlayer()
+                        $('#container').html('').append(player)
+                        player.load(this.result)
+                        //data:image/png;base64,iVBORw0K...
+                        player.addEventListener('loadedmetadata', ()=>{
+                            //player.style.border = '1px solid #BABABA'
+                            player.style.width = player.metadata.width + 'px'
+                            player.style.height = player.metadata.height + 'px'
+                            $('#echo').html(formatJson(JSON.stringify(player.metadata))).width(player.metadata.width)
+                            Process()
+                        }
+                        )
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>

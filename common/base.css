@@ -1,0 +1,60 @@
+body .dtree{font-family: Verdana,Geneva,Arial,Helvetica,sans-serif,'Microsoft YaHei';}
+#content{
+	padding:5px;
+	background-color:#EFEFEE;
+	background-image: linear-gradient(#efefef, #F3F1EC);
+}
+#sfcon{
+    padding:15px;
+}
+#sfcon ul{
+	font:14px/1.6 Arial,'Microsoft YaHei';
+}
+#sfcon ul li{
+	float:left;
+	margin-bottom:20px;
+}
+#sfcon ul li dl{
+	border-radius:3px;
+	background-color:#fff;
+	box-shadow:rgba(67,62,60,.3) 0px 1px 1px 0px, rgba(67,62,60,.15) 0px 1px 1px 1px;
+}
+#sfcon ul li dl:hover{
+	box-shadow:rgba(67,62,60,.3) 0px 1px 2px 0px, rgba(67,62,60,.15) 0px 1px 3px 1px;
+}
+#sfcon ul li dl dt{
+	padding:10px;
+}
+#sfcon ul li dl dt img{
+	width:130px;
+	/*min-height2:130px;*/
+	border-radius:3px;
+	cursor:pointer;
+}
+#sfcon ul li dl dt img.blank{
+	height:97px;
+	background-color:#EFEFEE;
+}
+#sfcon ul li dl dd{
+	width:130px;
+	padding:0 10px 10px 10px;
+}
+#sfcon ul li dl dd a{
+	color:#000;
+	text-decoration:none;
+}
+#sfcon ul li dl dd a:hover{
+	color:#036;
+	text-decoration:underline;
+}
+body .tiplayer .layui-layer-content{
+	font:14px/1.75 Arial,'Microsoft YaHei';
+}
+body .swflayer{
+	background-color:transparent;
+}
+body .swflayer .layui-layer-content{
+	background-color:#000;
+	border:3px solid silver;
+	border-radius:9px;
+}

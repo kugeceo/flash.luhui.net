@@ -16,6 +16,13 @@
 
 鲁虺 Flash 历史博物馆旨在通过 Ruffle 模拟器和 wgpu 图形库，复现 Adobe Flash 的辉煌历史，展示精品 Flash 作品（如 Starling 的 2D 游戏和 Away3D 的 3D 场景）。项目支持 AGAL 着色器到 SPIR-V 的转换，提供高性能渲染，适用于教育、娱乐和文化存档。博物馆涵盖 Flash 资讯、教程、源码、工具等内容，让经典 Flash 焕发新生。
 
+
+![演示截图](./images/Screenshot1.jpg)
+
+
+![演示截图](./images/Screenshot2.jpg)
+
+
 ### 核心功能
 
 - **精品 Flash 展示**：精选经典 SWF 文件，包括动画、游戏（如《Angry Birds Flash》）和 3D 场景（如《Club Penguin》）。

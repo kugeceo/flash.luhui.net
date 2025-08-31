@@ -19,6 +19,10 @@
 </head>
 
 <body>
+
+
+
+
 <div class="ucren-toolbar">
 	<div class="ucren-toolbar-inner"><a href="./news.html?ai=flashnews" target="_top" class="mhide" title="Flash资讯">Flash资讯</a><a href="./news.html?ai=flashtasting" target="_top" class="mhide" title="Flash品鉴">Flash品鉴</a><a href="./news.html?ai=flashsoft&p=1" target="_blank" title="Flash软件">Flash软件</a><div style="float:right;padding:9px 15px 0 0;"><form id="sfrm"><input id="stxt" type="text" maxlength="16" size="12" value=""> <input id="sbtn" type="button" value=" 搜索 "></form></div>
 		<h1><a href="./">鲁虺<span>Flash</span>历史博物馆</a></h1>
@@ -28,6 +32,7 @@
 	<section id="list-page">
 		<aside id="aside">
 			<div class="caption">鲁虺精品Flash作品陈列馆</div>
+
 			<div id="folder">
 				<div id="dtcon" class="dtree"></div>
 			</div>
@@ -45,7 +50,12 @@
 		<div class="bg">
 			<div id="loading-loader">&nbsp;</div>
 		</div>
-		<div id="loading-state">&nbsp;</div>
+		<div id="loading-state">&nbsp;</div><!--头部广告开始-->
+    <div id="noice_none" style="width:100%px; height:80px; overflow:hidden; border:1px solid #FFE876; font-weight:bold; background:#FEFFDD; line-height:25px; color:#f00; float:left; padding-left:10px; padding-right:10px; padding-top:2px; padding-bottom:2px"><span style=" width:95%px; text-align:center;  float:left;">
+	黄金广告位招租,投放热线15900718107，13386070835 <a target="_blank" href="https://shop.luhui.net/">详情查看=》</a><span style=" text-align:center;  float:left">&nbsp;&nbsp; 
+鲁之虺：“&nbsp; 上网就是搜索，生活就是分类，科技服务大众，信息引领生活，地方分类站长，开启您的事业之旅。生活分类信息整体提供商：http://huike.luhui.net”。</span></span>
+<div style="position:relative; top:0px; _top:0px; *top:0px; right:-5px; float:right"><a href="javascript:;" style="color:#f00; font-weight:bold; text-decoration:none;" onclick="noice_none.style.display='none'">×</a></div></div>
+<!--头部广告结束-->
 	</div>
 </div>
 
@@ -56,6 +66,31 @@ requirejs(['./common/masonry.pkgd.min'], function(masonryMod) {
 })
 </script>
 
+
+
+
+<script type="text/javascript">
+ad4all_url="/images/zhifu.png";//悬浮窗[广告]
+document.writeln('<div id="ShowAD" style="position:absolute; z-index: 100;"> ');
+document.writeln('<div style="width:100%;height:18px;font-size:14px;font-weight:bold;text-align:right;CURSOR: hand;" onclick="closead();">打赏站长[关闭]</div>');
+document.writeln('  <iframe scrolling="no" style="width:700px;height:600px;" frameborder="0" src="'+ad4all_url+'"></iframe>');
+document.writeln('</div>');
+
+var bodyfrm = ( document.compatMode.toLowerCase()=="css1compat" ) ? document.documentElement : document.body;
+var adst = document.getElementById("ShowAD").style;
+adst.top = ( bodyfrm.clientHeight - 318 ) + "px";
+adst.left = ( bodyfrm.clientWidth - 100 ) + "px";
+function moveR() {
+adst.top = ( bodyfrm.scrollTop + bodyfrm.clientHeight - 500 ) + "px";
+adst.left = ( bodyfrm.scrollLeft + bodyfrm.clientWidth - 878 ) + "px";
+}
+setInterval("moveR();", 80);
+
+function closead()
+{
+adst.display='none';
+}
+</script>
 
 
 <div class="footer-inner">

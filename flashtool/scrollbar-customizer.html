@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滚动条配色工具 | Scrollbar Customizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#6366F1',
+                        neutral: '#1F2937',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .scrollbar-thin {
+                scrollbar-width: thin;
+            }
+            .transition-all-300 {
+                transition: all 300ms ease-in-out;
+            }
+            .card-shadow {
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50 text-neutral min-h-screen flex flex-col">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-sliders text-primary text-2xl"></i>
+                <h1 class="text-[clamp(1.25rem,3vw,1.75rem)] font-bold text-neutral">滚动条配色工具</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button id="resetBtn" class="text-gray-600 hover:text-primary transition-all-300 flex items-center">
+                    <i class="fa fa-refresh mr-1"></i> 重置
+                </button>
+                <button id="copyBtn" class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg transition-all-300 flex items-center">
+                    <i class="fa fa-copy mr-1"></i> 复制CSS
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区 -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 左侧控制面板 -->
+            <div class="lg:col-span-1 space-y-6">
+                <div class="bg-white rounded-xl p-6 card-shadow">
+                    <h2 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-100">基本设置</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">滚动条宽度</label>
+                            <input type="range" id="scrollbarWidth" min="4" max="20" value="8" 
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span>4px</span>
+                                <span id="widthValue">8px</span>
+                                <span>20px</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">圆角大小</label>
+                            <input type="range" id="borderRadius" min="0" max="10" value="4" 
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span>0px</span>
+                                <span id="radiusValue">4px</span>
+                                <span>10px</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 card-shadow">
+                    <h2 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-100">颜色设置</h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">轨道颜色</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="color" id="trackColor" value="#f1f1f1" 
+                                    class="w-10 h-10 rounded border-2 border-gray-200 cursor-pointer">
+                                <input type="text" id="trackColorHex" value="#f1f1f1" 
+                                    class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">滑块颜色</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="color" id="thumbColor" value="#c1c1c1" 
+                                    class="w-10 h-10 rounded border-2 border-gray-200 cursor-pointer">
+                                <input type="text" id="thumbColorHex" value="#c1c1c1" 
+                                    class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">滑块悬停颜色</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="color" id="thumbHoverColor" value="#a8a8a8" 
+                                    class="w-10 h-10 rounded border-2 border-gray-200 cursor-pointer">
+                                <input type="text" id="thumbHoverColorHex" value="#a8a8a8" 
+                                    class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">滑块激活颜色</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="color" id="thumbActiveColor" value="#8d8d8d" 
+                                    class="w-10 h-10 rounded border-2 border-gray-200 cursor-pointer">
+                                <input type="text" id="thumbActiveColorHex" value="#8d8d8d" 
+                                    class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧预览和代码区 -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- 预览区域 -->
+                <div class="bg-white rounded-xl p-6 card-shadow">
+                    <h2 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-100">预览</h2>
+                    
+                    <div id="previewContainer" class="h-80 overflow-y-auto p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-medium">滚动条预览内容</h3>
+                            <p>这是一个滚动条预览区域，您可以通过滚动查看自定义的滚动条效果。</p>
+                            <p>当您在左侧面板调整各种参数时，这里的滚动条会实时更新，展示最终效果。</p>
+                            <img src="https://picsum.photos/800/400?random=1" alt="示例图片1" class="rounded-lg w-full h-auto">
+                            <p>继续滚动查看更多内容...</p>
+                            <p>滚动条配色工具可以帮助您快速设计适合您网站风格的滚动条样式，并自动生成相应的CSS代码。</p>
+                            <img src="https://picsum.photos/800/400?random=2" alt="示例图片2" class="rounded-lg w-full h-auto">
+                            <p>完成设计后，只需点击"复制CSS"按钮，即可将生成的代码应用到您的项目中。</p>
+                            <p>这个工具支持所有现代浏览器，包括Chrome、Firefox、Edge和Safari。</p>
+                            <img src="https://picsum.photos/800/400?random=3" alt="示例图片3" class="rounded-lg w-full h-auto">
+                            <p>底部内容区域</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CSS代码区域 -->
+                <div class="bg-white rounded-xl p-6 card-shadow">
+                    <h2 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-100">生成的CSS代码</h2>
+                    
+                    <div class="relative">
+                        <pre id="cssCode" class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm md:text-base"><code>/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+/* 滚动条滑块悬停状态 */
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 滚动条滑块激活状态 */
+::-webkit-scrollbar-thumb:active {
+  background: #8d8d8d;
+}
+
+/* Firefox 支持 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f1f1f1;
+}</code></pre>
+                        <div id="copyNotification" class="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-md text-sm opacity-0 transition-all-300">
+                            已复制!
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 使用说明 -->
+                <div class="bg-white rounded-xl p-6 card-shadow">
+                    <h2 class="text-xl font-semibold mb-4 pb-2 border-b border-gray-100">使用说明</h2>
+                    
+                    <div class="space-y-3 text-gray-700">
+                        <p>1. 使用左侧控制面板调整滚动条的宽度、圆角和各种颜色参数</p>
+                        <p>2. 在预览区域实时查看滚动条效果</p>
+                        <p>3. 满意后点击"复制CSS"按钮将代码复制到剪贴板</p>
+                        <p>4. 将复制的CSS代码粘贴到您的项目样式表中</p>
+                        <p class="text-yellow-600"><i class="fa fa-info-circle mr-1"></i> 提示：此工具生成的代码兼容Chrome、Firefox、Edge和Safari等现代浏览器</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-neutral text-white py-6 px-6">
+        <div class="container mx-auto text-center text-sm">
+            <p>滚动条配色工具 &copy; 2023 | 一个简单实用的UI定制工具</p>
+        </div>
+    </footer>
+
+    <script>
+        // 获取DOM元素
+        const scrollbarWidth = document.getElementById('scrollbarWidth');
+        const widthValue = document.getElementById('widthValue');
+        const borderRadius = document.getElementById('borderRadius');
+        const radiusValue = document.getElementById('radiusValue');
+        const trackColor = document.getElementById('trackColor');
+        const trackColorHex = document.getElementById('trackColorHex');
+        const thumbColor = document.getElementById('thumbColor');
+        const thumbColorHex = document.getElementById('thumbColorHex');
+        const thumbHoverColor = document.getElementById('thumbHoverColor');
+        const thumbHoverColorHex = document.getElementById('thumbHoverColorHex');
+        const thumbActiveColor = document.getElementById('thumbActiveColor');
+        const thumbActiveColorHex = document.getElementById('thumbActiveColorHex');
+        const previewContainer = document.getElementById('previewContainer');
+        const cssCode = document.getElementById('cssCode');
+        const copyBtn = document.getElementById('copyBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const copyNotification = document.getElementById('copyNotification');
+        
+        // 创建样式元素，用于实时更新预览
+        const styleElement = document.createElement('style');
+        document.head.appendChild(styleElement);
+        
+        // 更新预览和代码
+        function updateScrollbar() {
+            const width = scrollbarWidth.value;
+            const radius = borderRadius.value;
+            const track = trackColor.value;
+            const thumb = thumbColor.value;
+            const thumbHover = thumbHoverColor.value;
+            const thumbActive = thumbActiveColor.value;
+            
+            // 更新显示值
+            widthValue.textContent = `${width}px`;
+            radiusValue.textContent = `${radius}px`;
+            
+            // 更新预览样式
+            styleElement.textContent = `
+                #previewContainer::-webkit-scrollbar {
+                    width: ${width}px;
+                }
+                
+                #previewContainer::-webkit-scrollbar-track {
+                    background: ${track};
+                    border-radius: ${radius}px;
+                }
+                
+                #previewContainer::-webkit-scrollbar-thumb {
+                    background: ${thumb};
+                    border-radius: ${radius}px;
+                }
+                
+                #previewContainer::-webkit-scrollbar-thumb:hover {
+                    background: ${thumbHover};
+                }
+                
+                #previewContainer::-webkit-scrollbar-thumb:active {
+                    background: ${thumbActive};
+                }
+                
+                #previewContainer {
+                    scrollbar-width: thin;
+                    scrollbar-color: ${thumb} ${track};
+                }
+            `;
+            
+            // 更新CSS代码
+            cssCode.innerHTML = `/* 自定义滚动条样式 */
+::-webkit-scrollbar {
+  width: ${width}px;
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+  background: ${track};
+  border-radius: ${radius}px;
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  background: ${thumb};
+  border-radius: ${radius}px;
+}
+
+/* 滚动条滑块悬停状态 */
+::-webkit-scrollbar-thumb:hover {
+  background: ${thumbHover};
+}
+
+/* 滚动条滑块激活状态 */
+::-webkit-scrollbar-thumb:active {
+  background: ${thumbActive};
+}
+
+/* Firefox 支持 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: ${thumb} ${track};
+}`;
+        }
+        
+        // 复制CSS代码
+        function copyToClipboard() {
+            const text = cssCode.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                // 显示复制成功提示
+                copyNotification.style.opacity = '1';
+                setTimeout(() => {
+                    copyNotification.style.opacity = '0';
+                }, 2000);
+            });
+        }
+        
+        // 重置为默认值
+        function resetToDefault() {
+            scrollbarWidth.value = 8;
+            borderRadius.value = 4;
+            trackColor.value = '#f1f1f1';
+            trackColorHex.value = '#f1f1f1';
+            thumbColor.value = '#c1c1c1';
+            thumbColorHex.value = '#c1c1c1';
+            thumbHoverColor.value = '#a8a8a8';
+            thumbHoverColorHex.value = '#a8a8a8';
+            thumbActiveColor.value = '#8d8d8d';
+            thumbActiveColorHex.value = '#8d8d8d';
+            
+            updateScrollbar();
+        }
+        
+        // 事件监听
+        scrollbarWidth.addEventListener('input', updateScrollbar);
+        borderRadius.addEventListener('input', updateScrollbar);
+        
+        // 颜色选择器同步
+        trackColor.addEventListener('input', () => {
+            trackColorHex.value = trackColor.value;
+            updateScrollbar();
+        });
+        
+        trackColorHex.addEventListener('input', () => {
+            if (/^#([0-9A-F]{3}){1,2}$/i.test(trackColorHex.value)) {
+                trackColor.value = trackColorHex.value;
+                updateScrollbar();
+            }
+        });
+        
+        thumbColor.addEventListener('input', () => {
+            thumbColorHex.value = thumbColor.value;
+            updateScrollbar();
+        });
+        
+        thumbColorHex.addEventListener('input', () => {
+            if (/^#([0-9A-F]{3}){1,2}$/i.test(thumbColorHex.value)) {
+                thumbColor.value = thumbColorHex.value;
+                updateScrollbar();
+            }
+        });
+        
+        thumbHoverColor.addEventListener('input', () => {
+            thumbHoverColorHex.value = thumbHoverColor.value;
+            updateScrollbar();
+        });
+        
+        thumbHoverColorHex.addEventListener('input', () => {
+            if (/^#([0-9A-F]{3}){1,2}$/i.test(thumbHoverColorHex.value)) {
+                thumbHoverColor.value = thumbHoverColorHex.value;
+                updateScrollbar();
+            }
+        });
+        
+        thumbActiveColor.addEventListener('input', () => {
+            thumbActiveColorHex.value = thumbActiveColor.value;
+            updateScrollbar();
+        });
+        
+        thumbActiveColorHex.addEventListener('input', () => {
+            if (/^#([0-9A-F]{3}){1,2}$/i.test(thumbActiveColorHex.value)) {
+                thumbActiveColor.value = thumbActiveColorHex.value;
+                updateScrollbar();
+            }
+        });
+        
+        copyBtn.addEventListener('click', copyToClipboard);
+        resetBtn.addEventListener('click', resetToDefault);
+        
+        // 初始化
+        updateScrollbar();
+    </script>
+</body>
+</html>

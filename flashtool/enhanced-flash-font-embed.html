@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash中文字体嵌入工具 - 专业版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#059669',
+                        accent: '#7C3AED',
+                        warning: '#D97706',
+                        danger: '#EF4444',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .shadow-soft {
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .bg-gradient-primary {
+                background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-inter text-dark min-h-screen flex flex-col">
+    <!-- 顶部导航 -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa fa-font text-primary text-2xl"></i>
+                <h1 class="text-xl md:text-2xl font-bold text-primary">Flash中文字体嵌入工具</h1>
+                <span class="hidden md:inline-block bg-blue-100 text-primary text-xs px-2 py-0.5 rounded-full">专业版</span>
+            </div>
+            <nav class="mt-3 sm:mt-0">
+                <ul class="flex space-x-6">
+                    <li><a href="#features" class="text-gray-600 hover:text-primary transition-all-300 flex items-center"><i class="fa fa-star-o mr-1"></i> 功能</a></li>
+                    <li><a href="#guide" class="text-gray-600 hover:text-primary transition-all-300 flex items-center"><i class="fa fa-book mr-1"></i> 指南</a></li>
+                    <li><a href="#faq" class="text-gray-600 hover:text-primary transition-all-300 flex items-center"><i class="fa fa-question-circle mr-1"></i> 常见问题</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主横幅 -->
+    <div class="bg-gradient-primary text-white py-10">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-3">轻松解决Flash中文字体嵌入难题</h2>
+            <p class="max-w-2xl mx-auto text-blue-100">生成优化的ActionScript代码，确保中文字体在各版本Flash中完美显示，同时控制文件体积</p>
+        </div>
+    </div>
+
+    <!-- 主要内容 -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- 左侧：参数设置 -->
+            <div class="lg:col-span-7 space-y-6">
+                <!-- 字体文件设置 -->
+                <div class="bg-white rounded-xl shadow-soft p-6 transition-all-300 hover:shadow-lg">
+                    <div class="flex items-center mb-5">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <i class="fa fa-file-text-o text-primary"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold">字体文件设置</h2>
+                    </div>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <label for="fontSource" class="block text-sm font-medium text-gray-700 mb-1.5">字体文件路径</label>
+                            <div class="flex">
+                                <input type="text" id="fontSource" 
+                                    class="flex-1 px-4 py-2.5 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all-300"
+                                    placeholder="例如：fonts/msyh.ttc" value="fonts/simhei.ttf">
+                                <button id="browseFont" class="bg-gray-100 px-4 py-2.5 rounded-r-lg hover:bg-gray-200 transition-all-300">
+                                    <i class="fa fa-folder-open-o text-gray-600"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1.5">相对于FLA文件的路径，支持TTF和OTF格式</p>
+                        </div>
+                        
+                        <div>
+                            <label for="fontName" class="block text-sm font-medium text-gray-700 mb-1.5">嵌入字体名称（英文）</label>
+                            <input type="text" id="fontName" 
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all-300"
+                                placeholder="例如：ChineseBoldFont" value="ChineseBoldFont">
+                            <p class="text-xs text-gray-500 mt-1.5">使用英文名称可避免在旧版Flash中出现问题</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-3">字体样式</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="radio" name="fontStyle" value="normal" checked class="mr-2 text-primary">
+                                    <span>常规</span>
+                                </label>
+                                <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="radio" name="fontStyle" value="bold" class="mr-2 text-primary">
+                                    <span>粗体</span>
+                                </label>
+                                <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="radio" name="fontStyle" value="italic" class="mr-2 text-primary">
+                                    <span>斜体</span>
+                                </label>
+                                <label class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="radio" name="fontStyle" value="boldItalic" class="mr-2 text-primary">
+                                    <span>粗斜体</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 字符集设置 -->
+                <div class="bg-white rounded-xl shadow-soft p-6 transition-all-300 hover:shadow-lg">
+                    <div class="flex items-center mb-5">
+                        <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                            <i class="fa fa-language text-secondary"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold">中文字符集设置</h2>
+                    </div>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-3">字符集范围</label>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="checkbox" name="charSet" value="basicLatin" checked class="mt-1 mr-3 text-primary">
+                                    <div>
+                                        <span class="block font-medium">基本拉丁字符</span>
+                                        <span class="text-xs text-gray-500">数字、英文、标点符号 (U+0020-U+007E)</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="checkbox" name="charSet" value="simplifiedChinese" checked class="mt-1 mr-3 text-primary">
+                                    <div>
+                                        <span class="block font-medium">简体中文常用字</span>
+                                        <span class="text-xs text-gray-500">3500个常用汉字 (U+4E00-U+9FA5)</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="checkbox" name="charSet" value="simplifiedExt" class="mt-1 mr-3 text-primary">
+                                    <div>
+                                        <span class="block font-medium">简体中文扩展</span>
+                                        <span class="text-xs text-gray-500">生僻字和扩展汉字 (+2000字)</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="checkbox" name="charSet" value="traditionalChinese" class="mt-1 mr-3 text-primary">
+                                    <div>
+                                        <span class="block font-medium">繁体中文</span>
+                                        <span class="text-xs text-gray-500">常用繁体汉字 (U+3100-U+312F, U+F900-U+FAFF)</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="checkbox" name="charSet" value="fullWidth" class="mt-1 mr-3 text-primary">
+                                    <div>
+                                        <span class="block font-medium">全角字符</span>
+                                        <span class="text-xs text-gray-500">全角符号和字母 (U+FF00-U+FFEF)</span>
+                                    </div>
+                                </label>
+                                <label class="flex items-start p-4 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-all-300">
+                                    <input type="checkbox" name="charSet" value="symbols" class="mt-1 mr-3 text-primary">
+                                    <div>
+                                        <span class="block font-medium">特殊符号</span>
+                                        <span class="text-xs text-gray-500">箭头、数学符号等 (U+2000-U+2BFF)</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="customChars" class="block text-sm font-medium text-gray-700 mb-1.5">自定义字符（必选文字）</label>
+                            <textarea id="customChars" rows="3" 
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all-300"
+                                placeholder="输入必须嵌入的特定字符，如公司名称、产品名称等">明明科技 2023 版权所有 © 保留一切权利</textarea>
+                            <p class="text-xs text-gray-500 mt-1.5">输入的字符将被强制嵌入，确保不会缺失（建议包含所有固定文本）</p>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                            <div class="flex items-start">
+                                <i class="fa fa-lightbulb-o text-warning mt-0.5 mr-3 text-lg"></i>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">优化建议</h4>
+                                    <p class="text-sm text-gray-600 mt-1">只选择必要的字符集可以显著减小SWF文件体积。对于大多数中文项目，选择"基本拉丁字符"和"简体中文常用字"即可。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 高级设置 -->
+                <div class="bg-white rounded-xl shadow-soft p-6 transition-all-300 hover:shadow-lg">
+                    <div class="flex items-center mb-5">
+                        <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                            <i class="fa fa-cogs text-accent"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold">高级设置</h2>
+                    </div>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <label for="flashVersion" class="block text-sm font-medium text-gray-700 mb-1.5">目标Flash Player版本</label>
+                            <select id="flashVersion" 
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all-300">
+                                <option value="9">Flash Player 9 (兼容性最佳)</option>
+                                <option value="10" selected>Flash Player 10</option>
+                                <option value="11">Flash Player 11</option>
+                                <option value="12">Flash Player 12</option>
+                                <option value="13+">Flash Player 13+ (最新版本)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-3">生成选项</label>
+                            <div class="space-y-3 pl-1">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="includeRegistration" checked class="mr-3 text-primary">
+                                    <span>包含字体注册代码</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="includeExample" checked class="mr-3 text-primary">
+                                    <span>包含文本字段使用示例</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="includeComments" checked class="mr-3 text-primary">
+                                    <span>包含详细注释说明</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="includeCompatibility" class="mr-3 text-primary">
+                                    <span>添加版本兼容处理代码</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-3">字体嵌入优化</label>
+                            <div class="space-y-3 pl-1">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="optimizeSize" checked class="mr-3 text-primary">
+                                    <span>优化字体嵌入大小</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="subsetFont" class="mr-3 text-primary">
+                                    <span>生成字体子集化建议</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="generateCode" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-all-300 flex items-center justify-center text-lg shadow-lg shadow-primary/20 hover:shadow-primary/30">
+                    <i class="fa fa-code mr-2"></i> 生成ActionScript代码
+                </button>
+            </div>
+            
+            <!-- 右侧：代码结果和信息 -->
+            <div class="lg:col-span-5 space-y-6">
+                <!-- 代码预览 -->
+                <div class="bg-white rounded-xl shadow-soft overflow-hidden transition-all-300 hover:shadow-lg">
+                    <div class="bg-gray-800 text-white p-4 flex justify-between items-center">
+                        <h2 class="font-medium flex items-center">
+                            <i class="fa fa-code mr-2"></i>生成的代码
+                        </h2>
+                        <div class="flex space-x-2">
+                            <button id="copyCode" class="text-gray-300 hover:text-white transition-all-300 px-3 py-1 rounded text-sm bg-gray-700 hover:bg-gray-600">
+                                <i class="fa fa-copy mr-1"></i> 复制代码
+                            </button>
+                            <button id="downloadCode" class="text-gray-300 hover:text-white transition-all-300 px-3 py-1 rounded text-sm bg-gray-700 hover:bg-gray-600">
+                                <i class="fa fa-download mr-1"></i> 下载
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-0">
+                        <pre id="codeOutput" class="bg-gray-900 text-gray-100 p-4 overflow-x-auto max-h-[500px] text-sm leading-relaxed"><code>// 点击"生成ActionScript代码"按钮生成字体嵌入代码
+// 示例代码将在这里显示</code></pre>
+                    </div>
+                </div>
+                
+                <!-- 字体信息 -->
+                <div id="fontInfo" class="bg-white rounded-xl shadow-soft p-6 transition-all-300 hover:shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center mr-2">
+                            <i class="fa fa-info text-warning"></i>
+                        </div>
+                        <h3 class="font-semibold">字体信息与建议</h3>
+                    </div>
+                    
+                    <div class="space-y-3 text-sm text-gray-600">
+                        <p>设置参数后，这里将显示字体嵌入的相关信息和优化建议。</p>
+                        <p class="mt-2">包括：预计文件大小增加、字符数量、兼容性提示等。</p>
+                    </div>
+                </div>
+                
+                <!-- 使用指南 -->
+                <div id="usageGuide" class="bg-white rounded-xl shadow-soft p-6 transition-all-300 hover:shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                            <i class="fa fa-book text-secondary"></i>
+                        </div>
+                        <h3 class="font-semibold">使用步骤</h3>
+                    </div>
+                    
+                    <ol class="space-y-3 text-sm text-gray-600 list-decimal pl-5">
+                        <li>设置字体文件路径和名称</li>
+                        <li>选择需要嵌入的中文字符集范围</li>
+                        <li>输入必须包含的自定义字符</li>
+                        <li>根据项目需求调整高级设置</li>
+                        <li>点击"生成ActionScript代码"按钮</li>
+                        <li>复制生成的代码到你的AS文件中</li>
+                        <li>确保字体文件路径与项目实际路径一致</li>
+                    </ol>
+                    
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <div class="flex items-start">
+                            <i class="fa fa-exclamation-triangle text-warning mt-0.5 mr-2"></i>
+                            <p class="text-xs text-gray-500">注意：使用任何字体前，请确保你拥有该字体的合法使用授权，遵守相关版权法规。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 功能特点 -->
+        <section id="features" class="mt-16">
+            <h2 class="text-2xl font-bold text-center mb-10">工具特点</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-soft text-center transition-all-300 hover:shadow-lg hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-check-circle text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">精准中文字符集</h3>
+                    <p class="text-gray-600">针对中文特点优化的字符集选择，确保常用字和生僻字的正确嵌入</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-soft text-center transition-all-300 hover:shadow-lg hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-balance-scale text-secondary text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">体积与兼容性平衡</h3>
+                    <p class="text-gray-600">智能优化字符范围，在保证显示效果的同时最小化SWF文件体积</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-soft text-center transition-all-300 hover:shadow-lg hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-4">
+                        <i class="fa fa-code text-accent text-2xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-lg mb-2">即插即用代码</h3>
+                    <p class="text-gray-600">生成的代码可直接使用，包含完整注释和使用示例，降低集成难度</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 常见问题 -->
+        <section id="faq" class="mt-16 mb-8">
+            <h2 class="text-2xl font-bold text-center mb-10">常见问题</h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="bg-white p-5 rounded-lg shadow-soft">
+                    <h3 class="font-semibold flex items-center">
+                        <i class="fa fa-question-circle text-primary mr-2"></i>
+                        为什么中文字体在Flash中经常显示不正常？
+                    </h3>
+                    <p class="text-gray-600 text-sm mt-2 pl-6">中文字体包含的字符数量远多于英文，容易出现字符集不全的问题。此外，中文字体文件较大，嵌入设置不当会导致文件体积过大或显示异常。</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-soft">
+                    <h3 class="font-semibold flex items-center">
+                        <i class="fa fa-question-circle text-primary mr-2"></i>
+                        如何平衡字体显示效果和SWF文件大小？
+                    </h3>
+                    <p class="text-gray-600 text-sm mt-2 pl-6">只嵌入必要的字符集，使用自定义字符功能添加固定文本，避免嵌入完整字体。对于动态文本，仅嵌入可能用到的字符范围。</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg shadow-soft">
+                    <h3 class="font-semibold flex items-center">
+                        <i class="fa fa-question-circle text-primary mr-2"></i>
+                        不同版本的Flash对中文字体嵌入有什么差异？
+                    </h3>
+                    <p class="text-gray-600 text-sm mt-2 pl-6">旧版本Flash（如CS3）对中文字体支持有限，特别是扩展字符集。高版本Flash支持更多字体特性，但可能不兼容旧版播放器。建议根据目标用户群体选择合适的兼容版本。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-gray-400 py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center text-sm">
+                <p>© 2023 Flash中文字体嵌入工具 - 专业版</p>
+                <p class="mt-2">本工具仅用于生成代码，使用字体时请遵守相关版权法规和许可协议</p>
+                <div class="mt-4 flex justify-center space-x-4">
+                    <a href="#" class="hover:text-white transition-all-300"><i class="fa fa-github text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-all-300"><i class="fa fa-twitter text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-all-300"><i class="fa fa-envelope text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 通知提示 -->
+    <div id="notification" class="fixed bottom-6 right-6 bg-dark text-white px-5 py-3 rounded-lg shadow-xl transform translate-y-20 opacity-0 transition-all-300 flex items-center z-50 max-w-xs">
+        <i id="notificationIcon" class="fa fa-check-circle mr-3 text-xl"></i>
+        <span id="notificationText">操作成功</span>
+    </div>
+
+    <script>
+        // DOM元素
+        const generateBtn = document.getElementById('generateCode');
+        const copyBtn = document.getElementById('copyCode');
+        const downloadBtn = document.getElementById('downloadCode');
+        const browseBtn = document.getElementById('browseFont');
+        const codeOutput = document.getElementById('codeOutput').querySelector('code');
+        const fontInfoPanel = document.getElementById('fontInfo');
+        
+        // 事件监听
+        generateBtn.addEventListener('click', generateFontEmbedCode);
+        copyBtn.addEventListener('click', copyToClipboard);
+        downloadBtn.addEventListener('click', downloadCode);
+        browseBtn.addEventListener('click', () => showNotification('提示', '在实际应用中，这里会打开文件选择对话框', 'info'));
+        
+        // 初始化生成示例代码
+        generateFontEmbedCode();
+        
+        // 生成字体嵌入代码
+        function generateFontEmbedCode() {
+            // 获取表单值
+            const fontSource = document.getElementById('fontSource').value;
+            const fontName = document.getElementById('fontName').value;
+            const fontStyle = document.querySelector('input[name="fontStyle"]:checked').value;
+            const customChars = document.getElementById('customChars').value;
+            const flashVersion = document.getElementById('flashVersion').value;
+            const includeRegistration = document.getElementById('includeRegistration').checked;
+            const includeExample = document.getElementById('includeExample').checked;
+            const includeComments = document.getElementById('includeComments').checked;
+            const includeCompatibility = document.getElementById('includeCompatibility').checked;
+            const optimizeSize = document.getElementById('optimizeSize').checked;
+            
+            // 构建字符集范围
+            let unicodeRanges = [];
+            let charCount = 0; // 估计字符数量
+            document.querySelectorAll('input[name="charSet"]:checked').forEach(checkbox => {
+                switch(checkbox.value) {
+                    case 'basicLatin':
+                        unicodeRanges.push('U+0020-U+007E'); // 基本拉丁字符
+                        charCount += 95;
+                        break;
+                    case 'simplifiedChinese':
+                        unicodeRanges.push('U+4E00-U+9FA5'); // 简体中文常用字
+                        charCount += 3500;
+                        break;
+                    case 'simplifiedExt':
+                        unicodeRanges.push('U+3400-U+4DBF, U+20000-U+2A6DF'); // 简体中文扩展
+                        charCount += 2000;
+                        break;
+                    case 'traditionalChinese':
+                        unicodeRanges.push('U+3100-U+312F, U+F900-U+FAFF'); // 繁体中文
+                        charCount += 1500;
+                        break;
+                    case 'fullWidth':
+                        unicodeRanges.push('U+FF00-U+FFEF'); // 全角字符
+                        charCount += 240;
+                        break;
+                    case 'symbols':
+                        unicodeRanges.push('U+2000-U+2BFF'); // 特殊符号
+                        charCount += 400;
+                        break;
+                }
+            });
+            
+            // 添加自定义字符的Unicode范围
+            let customCharCount = 0;
+            if (customChars.trim() !== '') {
+                const uniqueChars = [...new Set(customChars)]; // 去重
+                customCharCount = uniqueChars.length;
+                charCount += customCharCount;
+                
+                const customCodes = [];
+                for (let i = 0; i < uniqueChars.length; i++) {
+                    const code = uniqueChars.charCodeAt(i).toString(16).toUpperCase();
+                    customCodes.push(`U+${code}`);
+                }
+                unicodeRanges.push(customCodes.join(', '));
+            }
+            
+            // 估计文件大小增加 (每个字符约100字节估算)
+            const estimatedSizeKB = Math.round((charCount * 100) / 1024);
+            
+            // 更新字体信息面板
+            updateFontInfoPanel(charCount, customCharCount, estimatedSizeKB, flashVersion);
+            
+            const unicodeRangeStr = unicodeRanges.join(', ');
+            
+            // 构建字体样式属性
+            let fontStyleAttrs = '';
+            if (includeComments) fontStyleAttrs += '\n    ';
+            
+            if (fontStyle === 'bold' || fontStyle === 'boldItalic') {
+                fontStyleAttrs += 'fontWeight="bold", ';
+            }
+            if (fontStyle === 'italic' || fontStyle === 'boldItalic') {
+                fontStyleAttrs += 'fontStyle="italic", ';
+            }
+            
+            // 移除末尾的逗号和空格
+            fontStyleAttrs = fontStyleAttrs.replace(/, $/, '');
+            
+            // 构建代码
+            let code = '';
+            
+            // 添加注释
+            if (includeComments) {
+                code += '/**\n';
+                code += ' * Flash中文字体嵌入代码\n';
+                code += ' * 生成工具: Flash中文字体嵌入工具 - 专业版\n';
+                code += ` * 字体文件: ${fontSource}\n`;
+                code += ` * 字体名称: ${fontName}\n`;
+                code += ` * 字体样式: ${getStyleName(fontStyle)}\n`;
+                code += ` * 目标版本: Flash Player ${flashVersion}\n`;
+                code += ` * 估计字符数: ${charCount}个 (含自定义字符: ${customCharCount}个)\n`;
+                code += ' */\n\n';
+            }
+            
+            // 嵌入字体代码
+            code += '[Embed(\n';
+            code += `    source="${fontSource}",\n`;
+            code += `    fontName="${fontName}",\n`;
+            code += '    mimeType="application/x-font-truetype",\n';
+            if (fontStyleAttrs) code += `${fontStyleAttrs},\n`;
+            code += `    unicodeRange="${unicodeRangeStr}"\n`;
+            code += ')]\n';
+            code += `var ${fontName}Class:Class;\n\n`;
+            
+            // 字体注册代码
+            if (includeRegistration) {
+                if (includeComments) code += '// 注册字体，使其可在ActionScript中使用\n';
+                code += 'import flash.text.Font;\n';
+                code += `Font.registerFont(${fontName}Class);\n\n`;
+            }
+            
+            // 兼容性代码
+            if (includeCompatibility) {
+                if (includeComments) code += '// 版本兼容性处理代码\n';
+                code += 'import flash.system.Capabilities;\n';
+                code += `var isFlash10OrNewer:Boolean = Capabilities.version.substr(0, 1) >= "10";\n\n`;
+            }
+            
+            // 使用示例代码
+            if (includeExample) {
+                if (includeComments) {
+                    code += '/**\n';
+                    code += ' * 创建文本字段并应用嵌入字体\n';
+                    code += ' * @return 配置好的TextField实例\n';
+                    code += ' */\n';
+                }
+                code += 'import flash.text.TextField;\n';
+                code += 'import flash.text.TextFormat;\n';
+                code += 'import flash.text.TextFieldAutoSize;\n\n';
+                code += `function create${fontName}TextField():TextField {\n`;
+                code += '    var textField:TextField = new TextField();\n';
+                if (includeComments) code += '    // 必须设置为true才能使用嵌入字体\n';
+                code += '    textField.embedFonts = true;\n';
+                code += '    textField.width = 300;\n';
+                code += '    textField.wordWrap = true;\n';
+                code += '    textField.autoSize = TextFieldAutoSize.LEFT;\n';
+                if (includeCompatibility) {
+                    code += '    // 根据Flash版本设置抗锯齿模式\n';
+                    code += '    textField.antiAliasType = isFlash10OrNewer ? AntiAliasType.ADVANCED : AntiAliasType.NORMAL;\n';
+                } else {
+                    code += '    textField.antiAliasType = AntiAliasType.ADVANCED;\n';
+                }
+                code += '\n';
+                
+                code += '    var textFormat:TextFormat = new TextFormat();\n';
+                code += `    textFormat.font = "${fontName}";\n`;
+                code += '    textFormat.size = 14;\n';
+                if (fontStyle === 'bold' || fontStyle === 'boldItalic') {
+                    code += '    textFormat.bold = true;\n';
+                }
+                if (fontStyle === 'italic' || fontStyle === 'boldItalic') {
+                    code += '    textFormat.italic = true;\n';
+                }
+                code += '    textFormat.color = 0x333333;\n';
+                code += '    textFormat.leading = 3;\n\n';
+                
+                code += '    textField.defaultTextFormat = textFormat;\n';
+                code += `    textField.text = "这是一段测试文本，用于验证${fontName}字体嵌入效果。\\n包含中文、英文和数字：123。";\n\n`;
+                
+                code += '    return textField;\n';
+                code += '}\n\n';
+                
+                if (includeComments) code += '// 在舞台上添加文本示例\n';
+                code += `var myTextField:TextField = create${fontName}TextField();\n`;
+                code += 'myTextField.x = 50;\n';
+                code += 'myTextField.y = 50;\n';
+                code += 'addChild(myTextField);\n';
+            }
+            
+            // 优化建议注释
+            if (includeComments && optimizeSize && charCount > 3000) {
+                code += '\n/* 优化建议：\n';
+                code += '   1. 当前嵌入字符较多，可能增加SWF文件体积\n';
+                code += '   2. 考虑只嵌入实际需要的字符集\n';
+                code += '   3. 对于固定文本，仅使用自定义字符功能\n';
+                code += '   4. 可使用字体子集化工具预处理字体文件 */\n';
+            }
+            
+            // 显示生成的代码
+            codeOutput.textContent = code;
+            
+            // 显示通知
+            showNotification('成功', 'ActionScript代码已生成', 'success');
+        }
+        
+        // 更新字体信息面板
+        function updateFontInfoPanel(totalChars, customChars, sizeKB, flashVersion) {
+            let sizeClass = 'text-secondary';
+            if (sizeKB > 500) {
+                sizeClass = 'text-danger';
+            } else if (sizeKB > 200) {
+                sizeClass = 'text-warning';
+            }
+            
+            let compatibility = '良好';
+            let compatibilityClass = 'text-secondary';
+            if (flashVersion === '9' && totalChars > 5000) {
+                compatibility = '需注意：旧版本可能有性能影响';
+                compatibilityClass = 'text-warning';
+            }
+            
+            let html = `
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center mr-2">
+                        <i class="fa fa-info text-warning"></i>
+                    </div>
+                    <h3 class="font-semibold">字体信息与建议</h3>
+                </div>
+                
+                <div class="space-y-4 text-sm">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="flex items-center">
+                            <span class="text-gray-500 w-28">总字符估计：</span>
+                            <span class="font-medium">${totalChars} 个</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-500 w-28">自定义字符：</span>
+                            <span class="font-medium">${customChars} 个</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-500 w-28">预计文件增加：</span>
+                            <span class="font-medium ${sizeClass}">~${sizeKB} KB</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-500 w-28">版本兼容性：</span>
+                            <span class="font-medium ${compatibilityClass}">${compatibility}</span>
+                        </div>
+                    </div>
+            `;
+            
+            // 添加优化建议
+            if (sizeKB > 500) {
+                html += `
+                    <div class="bg-red-50 p-3 rounded-lg border border-red-100 mt-2">
+                        <div class="flex items-start">
+                            <i class="fa fa-exclamation-circle text-danger mt-0.5 mr-2"></i>
+                            <p class="text-xs text-gray-700">文件体积较大，建议减少字符集范围或只嵌入必要字符，以避免影响加载速度。</p>
+                        </div>
+                    </div>
+                `;
+            } else if (sizeKB > 200) {
+                html += `
+                    <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-100 mt-2">
+                        <div class="flex items-start">
+                            <i class="fa fa-lightbulb-o text-warning mt-0.5 mr-2"></i>
+                            <p class="text-xs text-gray-700">可以考虑进一步优化字符集，移除不需要的字符范围以减小文件体积。</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="bg-green-50 p-3 rounded-lg border border-green-100 mt-2">
+                        <div class="flex items-start">
+                            <i class="fa fa-check-circle text-secondary mt-0.5 mr-2"></i>
+                            <p class="text-xs text-gray-700">字符集设置合理，文件体积控制良好，适合大多数场景使用。</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += `</div>`;
+            fontInfoPanel.innerHTML = html;
+        }
+        
+        // 复制到剪贴板
+        function copyToClipboard() {
+            const code = codeOutput.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                showNotification('成功', '代码已复制到剪贴板', 'success');
+            }).catch(err => {
+                showNotification('失败', '复制代码时出错', 'error');
+                console.error('复制失败:', err);
+            });
+        }
+        
+        // 下载代码
+        function downloadCode() {
+            const code = codeOutput.textContent;
+            const fontName = document.getElementById('fontName').value || 'embedded_font';
+            const blob = new Blob([code], { type: 'text/actionscript' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${fontName}_embed.as`;
+            document.body.appendChild(a);
+            a.click();
+            
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 0);
+            
+            showNotification('成功', '代码已下载', 'success');
+        }
+        
+        // 显示通知
+        function showNotification(title, message, type = 'info') {
+            const notification = document.getElementById('notification');
+            const icon = document.getElementById('notificationIcon');
+            const text = document.getElementById('notificationText');
+            
+            // 设置图标
+            icon.className = '';
+            switch(type) {
+                case 'success':
+                    icon.className = 'fa fa-check-circle text-green-400 mr-3 text-xl';
+                    break;
+                case 'error':
+                    icon.className = 'fa fa-times-circle text-red-400 mr-3 text-xl';
+                    break;
+                case 'info':
+                default:
+                    icon.className = 'fa fa-info-circle text-blue-400 mr-3 text-xl';
+                    break;
+            }
+            
+            // 设置文本
+            text.textContent = `${title}: ${message}`;
+            
+            // 显示通知
+            notification.classList.remove('translate-y-20', 'opacity-0');
+            notification.classList.add('translate-y-0', 'opacity-100');
+            
+            // 3秒后隐藏
+            setTimeout(() => {
+                notification.classList.remove('translate-y-0', 'opacity-100');
+                notification.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+        
+        // 获取样式名称
+        function getStyleName(styleCode) {
+            const styles = {
+                'normal': '常规',
+                'bold': '粗体',
+                'italic': '斜体',
+                'boldItalic': '粗斜体'
+            };
+            return styles[styleCode] || styleCode;
+        }
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    

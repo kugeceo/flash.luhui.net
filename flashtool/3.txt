@@ -1,0 +1,36 @@
+Flash MiniBuilder
+
+Flash MiniBuilder（常写作 Mini Builder）是一款轻量开源的 ActionScript 3 集成开发环境（IDE），定位为 Adobe Flash Builder 的替代品，本身也用 ActionScript 编写，支持 Windows、Linux、macOS 与在线版本，适合小型 AS3 项目快速开发。
+
+---
+
+### 它能做什么
+- 语言/框架：ActionScript 3（AS3），可搭配 Flex SDK 使用。
+- 核心功能：代码补全、实时语法检查与错误高亮、调试、单元测试集成等。
+- 目标场景：Web 端 SWF、Adobe AIR 桌面应用、服务器端（如通过适当运行时）、嵌入式设备等。
+- 生态定位：强调其代码补全引擎可被其他 AS3 项目复用。
+
+### 适合与不适合
+- 适合：追求轻量启动、快速原型、个人/教学 AS3 项目的开发者。
+- 不太适合：大型企业级项目或需要高级调试/性能剖析/重构的复杂项目，这类场景更推荐 Adobe Flash Builder 或 FlashDevelop。
+
+### 版本与获取
+- 常见版本：1.1、1.1.2，安装包约 6.1 MB；安装文件常见为 AirMiniBuilder.exe。
+- 平台：Windows 7/8/10/11；官方宣称支持跨平台（Linux、macOS）与在线版本，但第三方下载页多以 Windows 为主。
+
+### 快速上手
+1. 安装：运行下载的 AirMiniBuilder.exe，按向导完成安装。
+2. 配置 SDK：首次新建项目时指定 Flex SDK 路径；若未配置，部分功能可能受限。
+3. 开始开发：新建 AS3 或 Flex 项目，利用代码补全与实时检查编写代码，通过内置调试器进行断点调试。
+
+### 安全与合规
+- 请从可信渠道下载并使用安全软件检测；避免从未知站点获取压缩包或修改版，降低风险。
+
+---
+
+### 可选替代方案
+- FlashDevelop：免费开源，对 AS3/Flex/Haxe 支持成熟，功能更全，社区活跃。
+- Adobe Flash Builder：商业/授权版，适合大型项目与专业团队，提供调试、剖析、重构等高级功能。
+
+一句话建议：若你只需“轻量、快速写 AS3”，选 Flash MiniBuilder；若需要更强的调试与重构能力，选 FlashDevelop 或 Flash Builder。
+

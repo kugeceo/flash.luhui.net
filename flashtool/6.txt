@@ -1,0 +1,150 @@
+Flash中文字体嵌入工具/as/font/
+
+
+
+
+在Flash（Adobe Animate）中处理中文字体嵌入时，通常不需要额外的第三方工具，软件本身就提供了字体嵌入功能。以下是处理中文字体嵌入的常用方法：
+
+1. **直接在Flash中嵌入字体**：
+   - 打开文本属性面板，选择需要的中文字体
+   - 点击"嵌入"按钮，选择需要嵌入的字符范围（建议选择"指定范围"并输入常用中文字符）
+   - 勾选需要的字符集（如简体中文、繁体中文等）
+   - 确认后字体将被嵌入到SWF文件中
+
+2. **使用FontManager类管理字体**：
+   如果是通过ActionScript编程控制字体，可以使用FontManager类：
+
+```actionscript
+import flash.text.Font;
+import flash.text.TextField;
+import flash.text.TextFormat;
+
+// 注册嵌入的字体
+var chineseFont:Font = new YourEmbeddedChineseFont();
+Font.registerFont(chineseFont);
+
+// 创建文本字段并应用字体
+var textField:TextField = new TextField();
+textField.embedFonts = true; // 必须设置为true才能使用嵌入字体
+
+var format:TextFormat = new TextFormat();
+format.font = chineseFont.fontName;
+format.size = 14;
+
+textField.defaultTextFormat = format;
+textField.text = "这是一段中文字体测试";
+addChild(textField);
+```
+
+3. **注意事项**：
+   - 中文字体文件通常较大，嵌入过多字符会增加SWF文件体积
+   - 建议只嵌入必要的字符集
+   - 确保使用的字体有适当的授权许可用于商业发布
+
+如果需要专门的字体处理工具，可以考虑Adobe Fonts（原Typekit）服务，它提供了丰富的中文字体资源并能与Flash很好地集成。
+
+
+
+
+
+
+
+分享一些Flash字体嵌入的实际案例
+
+以下是几个Flash（Adobe Animate）字体嵌入的实际应用案例，涵盖不同场景下的字体处理策略：
+
+### 案例1：中文网页Banner动画
+某电商网站需要在Flash制作的促销Banner中使用特定艺术字体显示中文标语。
+
+**实现方案**：
+- 只嵌入标语中实际使用的汉字（约20个）
+- 嵌入设置：选择"指定字符"，手动输入所需文字
+- 代码控制：
+```actionscript
+// 嵌入特定中文字体
+[Embed(source="fonts/ArtFont.ttf", fontName="PromotionFont", mimeType="application/x-font-truetype", unicodeRange="U+4E00-U+9FA5, U+0031-U+0039")]
+var PromotionFont:Class;
+
+// 应用字体
+var bannerText:TextField = new TextField();
+bannerText.embedFonts = true;
+bannerText.defaultTextFormat = new TextFormat("PromotionFont", 24, 0xFF0000);
+bannerText.text = "新年大促 全场5折起";
+```
+
+**效果**：SWF文件体积增加不到100KB，确保了字体显示效果同时控制了文件大小。
+
+### 案例2：多语言交互游戏
+某教育类Flash游戏需要支持中英文显示，且文字会根据用户选择动态变化。
+
+**实现方案**：
+- 嵌入常用中文字符集（约3000个常用字）
+- 同时嵌入英文字体
+- 使用Font类管理不同语言字体
+```actionscript
+// 嵌入中文字体
+[Embed(source="fonts/SimSun.ttc", fontName="ChineseFont", mimeType="application/x-font-truetype", unicodeRange="U+4E00-U+9FA5, U+FF00-U+FFEF")]
+var ChineseFont:Class;
+
+// 嵌入英文字体
+[Embed(source="fonts/Arial.ttf", fontName="EnglishFont", mimeType="application/x-font-truetype")]
+var EnglishFont:Class;
+
+// 字体管理函数
+function setLanguage(lang:String):void {
+    var fontName:String = lang == "cn" ? "ChineseFont" : "EnglishFont";
+    gameText.defaultTextFormat = new TextFormat(fontName, 16);
+    gameText.text = lang == "cn" ? "请选择正确答案" : "Please select the correct answer";
+}
+```
+
+**优化策略**：将字体嵌入到单独的SWF中，通过Loader动态加载，减少主文件体积。
+
+### 案例3：动态文本输入框
+某Flash应用需要用户输入中文，并保持一致的字体显示效果。
+
+**实现方案**：
+- 嵌入完整的基本中文字符集
+- 结合TextInput组件使用
+```actionscript
+import fl.controls.TextInput;
+
+// 嵌入支持输入的中文字体
+[Embed(source="fonts/YaHei.ttf", fontName="InputFont", mimeType="application/x-font-truetype", unicodeRange="U+4E00-U+9FA5, U+0020-U+007E, U+FF00-U+FFEF")]
+var InputFont:Class;
+
+// 创建输入框
+var userInput:TextInput = new TextInput();
+userInput.embedFonts = true;
+userInput.setStyle("embedFonts", true);
+userInput.setStyle("fontFamily", "InputFont");
+userInput.width = 200;
+addChild(userInput);
+```
+
+**注意**：输入框需要嵌入更完整的字符集以支持用户可能输入的任何文字。
+
+### 案例4：繁体中文与简体中文兼容
+某跨境应用需要同时支持简繁体显示。
+
+**实现方案**：
+- 嵌入包含简繁体的字体
+- 或分别嵌入简体和繁体字体
+```actionscript
+// 嵌入支持简繁体的字体
+[Embed(source="fonts/NotoSansCJK.ttc", fontName="MultiChineseFont", mimeType="application/x-font-truetype", unicodeRange="U+4E00-U+9FA5, U+3100-U+312F, U+F900-U+FAFF")]
+var MultiChineseFont:Class;
+
+// 根据地区显示不同文本
+function setRegion(region:String):void {
+    contentText.text = region == "tw" ? "歡迎使用本系統" : "欢迎使用本系统";
+}
+```
+
+这些案例展示了不同场景下的字体嵌入策略，核心原则是：根据实际需求选择合适的字符范围，在保证显示效果的同时尽量控制文件体积，并且注意字体的授权使用问题。
+
+
+
+
+
+

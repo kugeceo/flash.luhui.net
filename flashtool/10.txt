@@ -1,0 +1,104 @@
+案例：企业宣传动画的字体嵌入方案
+
+
+### 案例：企业宣传动画的字体嵌入方案
+
+某科技公司需要制作一个Flash企业宣传动画，包含公司名称、核心价值观和产品特点等中文内容，要求在各种设备上保持一致的高端字体显示效果。
+
+**需求分析**：
+- 需要展示公司名称（固定8个汉字）
+- 核心价值观（约50个汉字）
+- 产品特点（动态展示，约100个汉字）
+- 整体风格要求专业、现代，使用特定商业字体
+- 需要控制SWF文件大小，确保网页加载流畅
+
+**实现方案**：
+
+1. **字体嵌入策略**：
+   - 公司名称：嵌入完整字符（仅8个汉字）
+   - 核心价值观：嵌入所需字符
+   - 产品特点：嵌入常用字+特定专业术语
+
+2. **ActionScript实现代码**：
+```actionscript
+// 嵌入公司标题专用字体（粗体）
+[Embed(source="fonts/CorporateBold.ttf", 
+       fontName="CorpTitleFont", 
+       mimeType="application/x-font-truetype",
+       fontWeight="bold",
+       unicodeRange='U+516C, U+53F8, U+540D, U+79F0, U+660E, U+660E, U+79D1, U+6280')] // 公司名称字符集
+var TitleFont:Class;
+
+// 嵌入正文内容字体（常规）
+[Embed(source="fonts/CorporateRegular.ttf", 
+       fontName="CorpBodyFont", 
+       mimeType="application/x-font-truetype",
+       unicodeRange='U+4E00-U+9FA5, U+0020-U+007E, U+7ECF, U+8DB3, U+4EF7, U+503A...')] // 包含核心内容字符
+var BodyFont:Class;
+
+// 注册字体
+Font.registerFont(TitleFont);
+Font.registerFont(BodyFont);
+
+// 创建标题文本
+function createTitle():TextField {
+    var title:TextField = new TextField();
+    title.autoSize = TextFieldAutoSize.LEFT;
+    title.embedFonts = true;
+    title.selectable = false;
+    
+    var titleFormat:TextFormat = new TextFormat();
+    titleFormat.font = "CorpTitleFont";
+    titleFormat.size = 36;
+    titleFormat.color = 0x0A2463;
+    titleFormat.align = TextFormatAlign.CENTER;
+    
+    title.defaultTextFormat = titleFormat;
+    title.text = "明明科技公司";
+    title.x = (stage.stageWidth - title.width) / 2;
+    title.y = 50;
+    
+    return title;
+}
+
+// 创建正文内容
+function createContent(text:String, yPos:Number, size:Number = 16):TextField {
+    var content:TextField = new TextField();
+    content.width = stage.stageWidth - 100;
+    content.wordWrap = true;
+    content.embedFonts = true;
+    content.selectable = false;
+    
+    var contentFormat:TextFormat = new TextFormat();
+    contentFormat.font = "CorpBodyFont";
+    contentFormat.size = size;
+    contentFormat.color = 0x333333;
+    contentFormat.leading = 5;
+    
+    content.defaultTextFormat = contentFormat;
+    content.text = text;
+    content.x = 50;
+    content.y = yPos;
+    
+    return content;
+}
+
+// 添加到舞台
+addChild(createTitle());
+addChild(createContent("核心价值观：创新、诚信、卓越、共赢", 120));
+addChild(createContent("我们致力于为客户提供最前沿的科技解决方案，\n通过持续创新引领行业发展。", 180));
+```
+
+3. **优化措施**：
+   - 将字体嵌入与动画场景分离，只在需要时加载对应字体
+   - 对产品特点部分采用"按需加载"策略，用户浏览到相应部分才加载对应字体片段
+   - 使用字体子集化工具预先处理TTF文件，只保留需要的字符
+   - 对不常用但必须的专业术语单独处理
+
+**最终效果**：
+- 动画文件大小控制在200KB以内
+- 所有中文字体在各种设备上完美显示
+- 字体渲染清晰，与整体设计风格统一
+- 加载速度快，不影响用户体验
+
+这个案例展示了如何在企业宣传材料中精确控制字体嵌入，在保证视觉效果的同时优化性能，特别适合对品牌形象有严格要求的商业应用场景。

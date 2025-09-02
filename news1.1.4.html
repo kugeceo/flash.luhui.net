@@ -1,0 +1,1992 @@
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="鲁虺Flash历史博物馆，展示和保存珍贵的Flash历史资料">
+    <meta name="keywords" content="鲁虺, Flash, 历史博物馆, Flash资讯, Flash教程, Flash资源">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <!-- 引入marked.js并添加完整性校验 -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" 
+            integrity="sha256-EGkF67+wL2NqgM7UeA1tM52Bx5j5tQl3Zp9V4qM2aZg=" 
+            crossorigin="anonymous"></script>
+    <!-- 引入编码转换库 -->
+    <script src="https://cdn.jsdelivr.net/npm/iconv-lite@0.6.3/dist/iconv-lite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/encoding-japanese@2.0.0/encoding.min.js"></script>
+    <title>鲁虺Flash历史博物馆 - 数字文化遗产保存</title>
+    <style>
+        /* 基础样式 */
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f8fafc;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* 黑白模式样式 */
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .bg-white {
+            background-color: #1e1e1e;
+        }
+        
+        body.dark-mode .text-gray-800,
+        body.dark-mode .text-gray-900 {
+            color: #e0e0e0;
+        }
+        
+        body.dark-mode .text-gray-700 {
+            color: #d0d0d0;
+        }
+        
+        body.dark-mode .text-gray-600,
+        body.dark-mode .text-gray-500 {
+            color: #b0b0b0;
+        }
+        
+        body.dark-mode .bg-gray-900 {
+            background-color: #0a0a0a;
+        }
+        
+        body.dark-mode .bg-gray-200 {
+            background-color: #333333;
+        }
+        
+        body.dark-mode .bg-gray-200:hover {
+            background-color: #444444;
+        }
+        
+        body.dark-mode .bg-blue-50 {
+            background-color: #1a2b4a;
+        }
+        
+        body.dark-mode .bg-green-50 {
+            background-color: #1a4a2b;
+        }
+        
+        body.dark-mode .bg-purple-50 {
+            background-color: #3a1a4a;
+        }
+        
+        body.dark-mode .bg-amber-50 {
+            background-color: #4a3a1a;
+        }
+        
+        body.dark-mode .border-gray-300,
+        body.dark-mode .border-gray-200 {
+            border-color: #444444;
+        }
+        
+        body.dark-mode .image-fallback {
+            background-color: #2d2d2d;
+            border-color: #555555;
+            color: #b0b0b0;
+        }
+        
+        /* 内容区域样式 */
+        .content-container {
+            min-height: calc(100vh - 120px);
+        }
+        
+        /* 文章卡片样式 */
+        .article-card {
+            transition: all 0.3s ease;
+        }
+        .article-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Markdown内容样式 */
+        .markdown-content {
+            line-height: 1.8;
+        }
+        .markdown-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 1.5rem auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .markdown-content img {
+            filter: grayscale(100%);
+        }
+        
+        .markdown-content a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        
+        body.dark-mode .markdown-content a {
+            color: #8ab4f8;
+        }
+        
+        .markdown-content a:hover {
+            color: #1d4ed8;
+        }
+        
+        body.dark-mode .markdown-content a:hover {
+            color: #a8c7fa;
+        }
+        
+        .markdown-content h1, 
+        .markdown-content h2, 
+        .markdown-content h3 {
+            font-weight: 700;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        body.dark-mode .markdown-content h1,
+        body.dark-mode .markdown-content h2,
+        body.dark-mode .markdown-content h3 {
+            color: #ffffff;
+        }
+        
+        .markdown-content p {
+            margin-bottom: 1rem;
+        }
+        .markdown-content ul, 
+        .markdown-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .markdown-content ul {
+            list-style-type: disc;
+        }
+        .markdown-content ol {
+            list-style-type: decimal;
+        }
+        .markdown-content blockquote {
+            border-left: 4px solid #94a3b8;
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: #64748b;
+        }
+        
+        body.dark-mode .markdown-content blockquote {
+            border-left-color: #666666;
+            color: #999999;
+        }
+        
+        .markdown-content pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        /* 加载动画 */
+        .loader {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(37, 99, 235, 0.2);
+            border-radius: 50%;
+            border-top-color: #2563eb;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        body.dark-mode .loader {
+            border-color: rgba(150, 150, 150, 0.2);
+            border-top-color: #aaaaaa;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 导航样式 */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #2563eb;
+        }
+        
+        body.dark-mode .nav-link.active::after {
+            background-color: #8ab4f8;
+        }
+        
+        /* 图片加载失败样式 */
+        .image-fallback {
+            background-color: #f1f5f9;
+            border: 1px dashed #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+            color: #64748b;
+        }
+
+        /* 搜索历史样式 */
+        .search-history-container {
+            position: relative;
+        }
+        
+        .search-history-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 0 0 0.5rem 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        body.dark-mode .search-history-dropdown {
+            background-color: #1e1e1e;
+            border-color: #444444;
+        }
+        
+        .search-history-dropdown.active {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.875rem;
+        }
+        
+        body.dark-mode .history-header {
+            border-bottom-color: #444444;
+        }
+        
+        .history-title {
+            font-weight: 500;
+            color: #64748b;
+        }
+        
+        .clear-history {
+            color: #2563eb;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+        
+        body.dark-mode .clear-history {
+            color: #8ab4f8;
+        }
+        
+        .clear-history:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+        
+        .history-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .history-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #f1f5f9;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        body.dark-mode .history-item {
+            border-bottom-color: #333333;
+        }
+        
+        .history-item:hover {
+            background-color: #f8fafc;
+        }
+        
+        body.dark-mode .history-item:hover {
+            background-color: #2d2d2d;
+        }
+        
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        
+        .history-text {
+            color: #334155;
+        }
+        
+        body.dark-mode .history-text {
+            color: #e0e0e0;
+        }
+        
+        .history-time {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-left: 0.5rem;
+        }
+        
+        .remove-history {
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 0.25rem;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        body.dark-mode .remove-history {
+            color: #777777;
+        }
+        
+        body.dark-mode .remove-history:hover {
+            color: #ff6b6b;
+        }
+        
+        .history-item:hover .remove-history {
+            opacity: 1;
+        }
+        
+        .remove-history:hover {
+            color: #ef4444;
+        }
+        
+        .no-history {
+            padding: 1rem;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.875rem;
+        }
+        
+        /* 黑白模式切换按钮 */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        
+        .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 内容加载失败提示 */
+        .content-error {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            color: #856404;
+        }
+        
+        body.dark-mode .content-error {
+            background-color: #3d3511;
+            border-left-color: #d4a72c;
+            color: #e0c568;
+        }
+        
+        /* 备用渲染样式 */
+        .plain-text-content {
+            white-space: pre-wrap;
+            line-height: 1.8;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-900">
+                    <i class="fas fa-film text-blue-600 mr-2"></i>鲁虺Flash历史博物馆
+                </h1>
+                <p class="text-gray-500 text-sm">保存数字文化遗产，传承Flash历史记忆</p>
+            </div>
+            <div class="flex items-center space-x-6">
+                <nav class="flex space-x-6">
+                    <a href="#" class="nav-link active text-blue-600 hover:text-blue-800 transition">
+                        <i class="fas fa-home mr-1"></i>首页
+                    </a>
+                    <a href="#" class="nav-link text-gray-600 hover:text-blue-600 transition">
+                        <i class="fas fa-info-circle mr-1"></i>关于
+                    </a>
+                    <a href="#" class="nav-link text-gray-600 hover:text-blue-600 transition">
+                        <i class="fas fa-question-circle mr-1"></i>帮助
+                    </a>
+                </nav>
+                <!-- 黑白模式切换按钮 -->
+                <button id="theme-toggle" class="theme-toggle" aria-label="切换黑白模式">
+                    <i class="fas fa-moon text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-8 content-container">
+        <!-- 搜索区域 -->
+        <section class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex-grow search-history-container">
+                    <div class="flex flex-wrap gap-4 mb-3">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="search-type" value="title" class="form-radio text-blue-600" checked="">
+                            <span class="ml-2 text-gray-700">标题搜索</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="search-type" value="content" class="form-radio text-blue-600">
+                            <span class="ml-2 text-gray-700">内容搜索</span>
+                        </label>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="radio" name="search-type" value="both" class="form-radio text-blue-600">
+                            <span class="ml-2 text-gray-700">标题和内容</span>
+                        </label>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="text" id="search-input" placeholder="输入关键词搜索..." class="flex-grow px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                        <button id="search-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition flex items-center">
+                            <i class="fas fa-search mr-2"></i>搜索
+                        </button>
+                        <button id="reset-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- 搜索历史下拉框 -->
+                    <div id="search-history" class="search-history-dropdown">
+                        <div class="history-header">
+                            <span class="history-title">搜索历史</span>
+                            <span id="clear-history" class="clear-history">清除全部</span>
+                        </div>
+                        <ul id="history-list" class="history-list">
+                            <!-- 历史记录将在这里动态生成 -->
+                        </ul>
+                        <div id="no-history" class="no-history hidden">
+                            暂无搜索历史
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分类导航 -->
+        <section class="mb-8 overflow-x-auto">
+            <div class="flex space-x-2 md:space-x-4 min-w-max pb-2">
+                <button class="category-btn active px-4 py-2 bg-blue-600 text-white rounded-lg transition" data-category="all">
+                    全部内容
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashnews">Flash资讯</button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashsoft">
+                    Flash软件
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashedu">
+                    Flash教程
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashbusiness">
+                    Flash商家
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashsite">
+                    Flash网站
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashcode">
+                    Flash源码
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashtasting">
+                    Flash品鉴
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashplugin">
+                    Flash插件
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashtool">
+                    Flash工具
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashdesign">
+                    Flash设计
+                </button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashmuseum">
+                    Flash服务
+                </button>
+            </div>
+        </section>
+
+        <!-- 统计信息 -->
+        <section id="stats-section" class="mb-8 bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-xl font-semibold mb-4 text-gray-800">
+                <i class="fas fa-chart-pie text-blue-600 mr-2"></i>内容统计
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <p class="text-sm text-gray-500 mb-1">总文章数</p>
+                    <p id="total-articles" class="text-2xl font-bold text-blue-600">0</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <p class="text-sm text-gray-500 mb-1">资讯文章</p>
+                    <p id="news-articles" class="text-2xl font-bold text-green-600">0</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <p class="text-sm text-gray-500 mb-1">教程文章</p>
+                    <p id="tutorial-articles" class="text-2xl font-bold text-purple-600">0</p>
+                </div>
+                <div class="bg-amber-50 p-4 rounded-lg">
+                    <p class="text-sm text-gray-500 mb-1">资源文章</p>
+                    <p id="resource-articles" class="text-2xl font-bold text-amber-600">0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 加载状态 -->
+        <section id="loading-section" class="mb-8 hidden">
+            <div class="flex flex-col items-center justify-center py-12 bg-white rounded-lg shadow-sm">
+                <div class="loader mb-4"></div>
+                <p class="text-gray-600">正在加载内容，请稍候...</p>
+                <p id="loading-detail" class="text-gray-500 text-sm mt-2">准备加载文章数据</p>
+            </div>
+        </section>
+
+        <!-- 错误信息 -->
+        <section id="error-section" class="mb-8 hidden">
+            <div class="bg-red-50 border border-red-200 p-6 rounded-lg">
+                <div class="flex items-start">
+                    <i class="fas fa-exclamation-circle text-red-500 text-xl mt-0.5 mr-3"></i>
+                    <div>
+                        <h3 class="font-medium text-red-800 mb-1">加载失败</h3>
+                        <p id="error-message" class="text-red-700">无法加载内容，请稍后重试</p>
+                        <button id="retry-btn" class="mt-3 text-sm text-red-600 hover:text-red-800 font-medium">
+                            <i class="fas fa-redo-alt mr-1"></i>重试
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文章列表 -->
+        <section id="articles-section">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">
+                    <i class="fas fa-list-alt text-blue-600 mr-2"></i>文章列表
+                </h2>
+                <div class="text-sm text-gray-500">
+                    找到 <span id="articles-count">0</span> 篇文章
+                </div>
+            </div>
+            
+            <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            
+            <!-- 空状态 -->
+            <div id="empty-state" class="hidden py-16 text-center bg-white rounded-lg shadow-sm">
+                <i class="fas fa-file-search text-gray-300 text-5xl mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-700 mb-2">未找到相关文章</h3>
+                <p class="text-gray-500 max-w-md mx-auto">尝试使用不同的搜索词或浏览其他分类</p>
+                <button id="empty-reset-btn" class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">
+                    查看全部文章
+                </button>
+            </div>
+            
+            <!-- 分页控件 -->
+            <div id="pagination" class="mt-8 flex justify-center items-center gap-2 flex-wrap">
+                <button id="prev-page" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
+                    <i class="fas fa-chevron-left mr-1"></i>上一页
+                </button>
+                <div id="page-numbers" class="flex gap-1">
+                    <!-- 页码将在这里动态生成 -->
+                </div>
+                <button id="next-page" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
+                    下一页<i class="fas fa-chevron-right ml-1"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- 文章详情 -->
+        <section id="article-detail">
+            <button id="back-to-list" class="mb-6 inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition">
+                <i class="fas fa-arrow-left mr-2"></i>返回列表
+            </button>
+            
+            <!-- 详情加载状态 -->
+            <div id="detail-loading" class="hidden bg-white rounded-lg shadow-sm overflow-hidden mb-6 p-8">
+                <div class="flex flex-col items-center justify-center py-12">
+                    <div class="loader mb-4"></div>
+                    <p class="text-gray-600">正在加载文章内容，请稍候...</p>
+                </div>
+            </div>
+            
+            <article id="detail-content-container" class="bg-white rounded-lg shadow-sm overflow-hidden mb-6 hidden">
+                <div class="p-6 md:p-8">
+                    <div class="mb-4 flex items-center text-sm text-gray-500">
+                        <span class="inline-flex items-center mr-4">
+                            <i class="fas fa-folder-open mr-1"></i>
+                            <span id="detail-category"></span>
+                        </span>
+                        <span class="inline-flex items-center">
+                            <i class="fas fa-file-code mr-1"></i>
+                            <span id="detail-id"></span>
+                        </span>
+                    </div>
+                    
+                    <h1 id="detail-title" class="text-2xl md:text-3xl font-bold text-gray-900 mb-6"></h1>
+                    
+                    <!-- 内容渲染容器 -->
+                    <div id="detail-content-container-inner">
+                        <!-- 这里会动态添加内容 -->
+                    </div>
+                    
+                    <!-- 渲染错误提示容器 -->
+                    <div id="render-error-container" class="hidden mt-4">
+                        <div class="bg-amber-50 border-l-4 border-amber-400 p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle text-amber-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-amber-700">
+                                        Markdown渲染失败，已自动切换为纯文本显示。
+                                    </p>
+                                    <div class="mt-2 text-sm">
+                                        <button id="retry-render-btn" class="text-amber-600 hover:text-amber-800">
+                                            <i class="fas fa-redo-alt mr-1"></i>重试渲染
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- 详情错误状态 -->
+            <div id="detail-error" class="hidden bg-white rounded-lg shadow-sm overflow-hidden mb-6 p-8">
+                <div class="bg-red-50 border border-red-200 p-6 rounded-lg">
+                    <div class="flex items-start">
+                        <i class="fas fa-exclamation-circle text-red-500 text-xl mt-0.5 mr-3"></i>
+                        <div>
+                            <h3 class="font-medium text-red-800 mb-1">加载文章失败</h3>
+                            <p id="detail-error-message" class="text-red-700">无法加载文章内容，请稍后重试</p>
+                            <button id="detail-retry-btn" class="mt-3 text-sm text-red-600 hover:text-red-800 font-medium">
+                                <i class="fas fa-redo-alt mr-1"></i>重试
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-between">
+                <button id="prev-article" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
+                    <i class="fas fa-chevron-left mr-2"></i>上一篇
+                </button>
+                <button id="next-article" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
+                    下一篇<i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold text-white mb-2">鲁虺Flash历史博物馆</h3>
+                    <p class="text-sm">保存和传承Flash数字文化遗产</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fas fa-globe"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fas fa-archive"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-sm">
+                <p>© 2023 鲁虺Flash历史博物馆 - 致力于数字文化遗产的保存与传播</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 配置与状态管理
+        const config = {
+            baseUrl: '', // 基础URL，根据实际部署情况修改
+            imageBasePath: '/luhuitxtcms/', // 图片基础路径
+            itemsPerPage: 12, // 每页显示文章数量
+            maxDetectionAttempts: 100, // 最大检测文章ID尝试次数
+            timeout: 15000, // 超时时间(ms)
+            maxSearchHistory: 10, // 最大搜索历史记录数量
+            categories: {
+                'flashnews': 'Flash资讯',
+                'flashsoft': 'Flash软件',
+                'flashedu': 'Flash教程',
+                'flashbusiness': 'Flash商家',
+                'flashsite': 'Flash网站',
+                'flashcode': 'Flash源码',
+                'flashtasting': 'Flash品鉴',
+                'flashplugin': 'Flash插件',
+                'flashtool': 'Flash工具',
+                'flashdesign': 'Flash设计',
+                'flashmuseum': 'Flash服务'
+            },
+            // 支持的文本编码列表
+            supportedEncodings: ['utf8', 'gbk', 'gb2312', 'big5', 'euc-kr', 'shift-jis']
+        };
+
+        // 状态管理
+        const state = {
+            currentCategory: 'all',
+            currentPage: 1,
+            searchTerm: '',
+            searchType: 'title',
+            totalArticles: 0,
+            totalPages: 0,
+            allArticles: [],
+            filteredArticles: [],
+            articleCache: new Map(),
+            categoryCounts: {},
+            searchHistory: [], // 搜索历史记录
+            darkMode: false, // 黑白模式状态
+            markedRenderer: null, // 存储marked渲染器实例
+            markedLoaded: false // 标记marked.js是否加载完成
+        };
+
+        // DOM元素
+        const elements = {
+            // 主题切换
+            themeToggle: document.getElementById('theme-toggle'),
+            
+            // 搜索相关
+            searchInput: document.getElementById('search-input'),
+            searchBtn: document.getElementById('search-btn'),
+            resetBtn: document.getElementById('reset-btn'),
+            searchTypeRadios: document.querySelectorAll('input[name="search-type"]'),
+            
+            // 搜索历史相关
+            searchHistoryDropdown: document.getElementById('search-history'),
+            historyList: document.getElementById('history-list'),
+            clearHistoryBtn: document.getElementById('clear-history'),
+            noHistoryMsg: document.getElementById('no-history'),
+            
+            // 分类相关
+            categoryBtns: document.querySelectorAll('.category-btn'),
+            
+            // 内容区域
+            articlesGrid: document.getElementById('articles-grid'),
+            articlesCount: document.getElementById('articles-count'),
+            emptyState: document.getElementById('empty-state'),
+            emptyResetBtn: document.getElementById('empty-reset-btn'),
+            
+            // 加载与错误状态
+            loadingSection: document.getElementById('loading-section'),
+            loadingDetail: document.getElementById('loading-detail'),
+            errorSection: document.getElementById('error-section'),
+            errorMessage: document.getElementById('error-message'),
+            retryBtn: document.getElementById('retry-btn'),
+            
+            // 分页
+            pagination: document.getElementById('pagination'),
+            prevPageBtn: document.getElementById('prev-page'),
+            nextPageBtn: document.getElementById('next-page'),
+            pageNumbers: document.getElementById('page-numbers'),
+            
+            // 统计信息
+            totalArticles: document.getElementById('total-articles'),
+            newsArticles: document.getElementById('news-articles'),
+            tutorialArticles: document.getElementById('tutorial-articles'),
+            resourceArticles: document.getElementById('resource-articles'),
+            
+            // 文章详情
+            articlesSection: document.getElementById('articles-section'),
+            articleDetail: document.getElementById('article-detail'),
+            backToListBtn: document.getElementById('back-to-list'),
+            detailTitle: document.getElementById('detail-title'),
+            detailContentInner: document.getElementById('detail-content-container-inner'),
+            detailCategory: document.getElementById('detail-category'),
+            detailId: document.getElementById('detail-id'),
+            prevArticleBtn: document.getElementById('prev-article'),
+            nextArticleBtn: document.getElementById('next-article'),
+            
+            // 渲染错误相关
+            renderErrorContainer: document.getElementById('render-error-container'),
+            retryRenderBtn: document.getElementById('retry-render-btn'),
+            
+            // 详情页加载和错误状态
+            detailLoading: document.getElementById('detail-loading'),
+            detailContentContainer: document.getElementById('detail-content-container'),
+            detailError: document.getElementById('detail-error'),
+            detailErrorMessage: document.getElementById('detail-error-message'),
+            detailRetryBtn: document.getElementById('detail-retry-btn')
+        };
+
+        // 初始化应用
+        async function init() {
+            // 绑定事件处理程序
+            bindEvents();
+            
+            // 初始化marked渲染器
+            await initMarkedRenderer();
+            
+            // 加载搜索历史
+            loadSearchHistory();
+            
+            // 加载主题偏好
+            loadThemePreference();
+            
+            // 从URL参数加载状态
+            loadStateFromUrl();
+            
+            // 加载所有文章
+            await loadAllArticles();
+        }
+
+        // 从URL参数加载状态
+        function loadStateFromUrl() {
+            // 处理URL中的空格和编码问题
+            const cleanUrl = window.location.search.replace(/%20/g, '').replace(/\s+/g, '');
+            const urlParams = new URLSearchParams(cleanUrl);
+            
+            let category = urlParams.get('category') || '';
+            // 清除可能的额外字符
+            category = category.trim();
+            
+            const articleId = urlParams.get('id');
+            const page = parseInt(urlParams.get('p')) || 1;
+            const search = urlParams.get('q') || '';
+            
+            // 验证并修复分类参数
+            const validCategories = Object.keys(config.categories);
+            let normalizedCategory = category;
+            
+            // 如果分类无效，尝试查找最相似的有效分类
+            if (category && !validCategories.includes(category)) {
+                // 查找可能的拼写错误
+                const similarCategory = findSimilarCategory(category, validCategories);
+                if (similarCategory) {
+                    normalizedCategory = similarCategory;
+                    console.log(`自动修复分类参数: ${category} -> ${similarCategory}`);
+                } else {
+                    normalizedCategory = 'all';
+                    console.log(`无效分类参数: ${category}，已重置为全部`);
+                }
+            }
+            
+            // 应用URL参数
+            if (normalizedCategory && config.categories[normalizedCategory]) {
+                state.currentCategory = normalizedCategory;
+                updateCategoryButtons();
+            }
+            
+            if (page > 1) {
+                state.currentPage = page;
+            }
+            
+            if (search) {
+                elements.searchInput.value = search;
+                state.searchTerm = search;
+            }
+            
+            // 如果有文章ID参数，直接显示文章详情
+            if (normalizedCategory && articleId) {
+                // 确保在文章数据加载后再显示详情
+                const showDetail = async () => {
+                    // 等待文章数据加载完成
+                    if (state.allArticles.length === 0) {
+                        setTimeout(showDetail, 100);
+                        return;
+                    }
+                    // 等待marked加载完成
+                    if (!state.markedLoaded) {
+                        setTimeout(showDetail, 100);
+                        return;
+                    }
+                    viewArticleDetail(normalizedCategory, articleId);
+                };
+                showDetail();
+            } else {
+                // 默认显示文章列表
+                elements.articleDetail.classList.add('hidden');
+                elements.articlesSection.classList.remove('hidden');
+            }
+        }
+
+        // 查找相似的分类（用于修复拼写错误）
+        function findSimilarCategory(input, validCategories) {
+            input = input.toLowerCase();
+            // 优先检查是否是有效分类的子串或只差一个字符
+            for (const category of validCategories) {
+                // 如果输入比有效分类多一个字符且其他部分匹配
+                if (input.length === category.length + 1 && 
+                    input.includes(category)) {
+                    return category;
+                }
+                // 如果有效分类比输入多一个字符且其他部分匹配
+                if (category.length === input.length + 1 && 
+                    category.includes(input)) {
+                    return category;
+                }
+            }
+            // 检查是否有完全匹配（忽略大小写）
+            for (const category of validCategories) {
+                if (category.toLowerCase() === input) {
+                    return category;
+                }
+            }
+            return null;
+        }
+
+        // 更新URL参数
+        function updateUrl() {
+            const params = new URLSearchParams();
+            
+            if (state.currentCategory !== 'all') {
+                params.append('category', state.currentCategory);
+            }
+            
+            if (state.currentPage > 1) {
+                params.append('p', state.currentPage);
+            }
+            
+            if (state.searchTerm) {
+                params.append('q', state.searchTerm);
+            }
+            
+            const newUrl = params.toString() ? `?${params.toString()}` : window.location.pathname;
+            window.history.pushState({}, '', newUrl);
+        }
+
+        // 绑定事件处理程序
+        function bindEvents() {
+            // 主题切换按钮
+            elements.themeToggle.addEventListener('click', toggleTheme);
+            
+            // 搜索按钮
+            elements.searchBtn.addEventListener('click', handleSearch);
+            elements.searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleSearch();
+            });
+            
+            // 重置按钮
+            elements.resetBtn.addEventListener('click', resetSearch);
+            elements.emptyResetBtn.addEventListener('click', resetSearch);
+            
+            // 搜索类型切换
+            elements.searchTypeRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    state.searchType = e.target.value;
+                    filterAndDisplayArticles();
+                });
+            });
+            
+            // 分类按钮
+            elements.categoryBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const category = e.target.dataset.category;
+                    if (category) {
+                        state.currentCategory = category;
+                        state.currentPage = 1;
+                        updateCategoryButtons();
+                        filterAndDisplayArticles();
+                        updateUrl();
+                    }
+                });
+            });
+            
+            // 分页按钮
+            elements.prevPageBtn.addEventListener('click', () => {
+                if (state.currentPage > 1) {
+                    state.currentPage--;
+                    displayCurrentPageArticles();
+                    updatePagination();
+                    updateUrl();
+                }
+            });
+            
+            elements.nextPageBtn.addEventListener('click', () => {
+                if (state.currentPage < state.totalPages) {
+                    state.currentPage++;
+                    displayCurrentPageArticles();
+                    updatePagination();
+                    updateUrl();
+                }
+            });
+            
+            // 重试按钮
+            elements.retryBtn.addEventListener('click', async () => {
+                await loadAllArticles();
+            });
+            
+            // 详情页重试按钮
+            elements.detailRetryBtn.addEventListener('click', async () => {
+                const currentUrl = new URL(window.location.href);
+                const category = currentUrl.searchParams.get('category');
+                const id = currentUrl.searchParams.get('id');
+                
+                if (category && id) {
+                    await viewArticleDetail(category, id, true);
+                }
+            });
+            
+            // 重试渲染按钮
+            elements.retryRenderBtn.addEventListener('click', async () => {
+                // 隐藏渲染错误提示
+                elements.renderErrorContainer.classList.add('hidden');
+                
+                const currentUrl = new URL(window.location.href);
+                const category = currentUrl.searchParams.get('category');
+                const id = currentUrl.searchParams.get('id');
+                
+                if (category && id) {
+                    // 重新获取并渲染文章
+                    const cacheKey = `${category}-${id}`;
+                    const article = state.articleCache.get(cacheKey);
+                    if (article) {
+                        renderArticleContent(article);
+                    } else {
+                        // 如果缓存中没有，重新加载
+                        await viewArticleDetail(category, id, true);
+                    }
+                }
+            });
+            
+            // 返回列表按钮
+            elements.backToListBtn.addEventListener('click', () => {
+                elements.articleDetail.classList.add('hidden');
+                elements.articlesSection.classList.remove('hidden');
+                updateUrl();
+                window.scrollTo(0, 0);
+            });
+
+            // 搜索历史相关事件
+            elements.searchInput.addEventListener('focus', showSearchHistory);
+            elements.searchInput.addEventListener('input', filterSearchHistory);
+            
+            // 点击页面其他地方关闭搜索历史
+            document.addEventListener('click', (e) => {
+                if (!elements.searchInput.contains(e.target) && 
+                    !elements.searchHistoryDropdown.contains(e.target)) {
+                    hideSearchHistory();
+                }
+            });
+            
+            // 清除所有搜索历史
+            elements.clearHistoryBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                clearAllSearchHistory();
+            });
+        }
+
+        // 初始化marked渲染器，确保加载完成
+        async function initMarkedRenderer() {
+            // 检查marked是否已加载
+            if (window.marked) {
+                try {
+                    // 创建自定义渲染器
+                    const renderer = new marked.Renderer();
+                    
+                    // 自定义图片渲染
+                    renderer.image = function(href, title, text) {
+                        let imageUrl = href;
+                        
+                        // 处理相对路径图片
+                        if (href && !href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('/')) {
+                            // 尝试从当前URL获取分类信息
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const category = urlParams.get('category');
+                            
+                            if (category && config.categories[category]) {
+                                imageUrl = `${config.imageBasePath}${category}/${href}`;
+                            } else {
+                                imageUrl = `${config.imageBasePath}${href}`;
+                            }
+                        }
+                        
+                        const titleAttr = title ? `title="${title}"` : '';
+                        // 添加图片加载失败处理
+                        return `<img src="${imageUrl}" alt="${text}" ${titleAttr} loading="lazy" 
+                                onerror="this.onerror=null;this.outerHTML='<div class=\'image-fallback\'><i class=\'fas fa-image mb-2\'></i><p>图片加载失败</p><p class=\'text-xs\'>${text}</p></div>'">`;
+                    };
+                    
+                    // 自定义链接渲染
+                    renderer.link = function(href, title, text) {
+                        const titleAttr = title ? `title="${title}"` : '';
+                        // 为外部链接添加target="_blank"
+                        const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+                        const targetAttr = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+                        return `<a href="${href}" ${titleAttr} ${targetAttr}>${text}</a>`;
+                    };
+                    
+                    // 保存渲染器实例
+                    state.markedRenderer = renderer;
+                    
+                    // 配置marked
+                    marked.setOptions({
+                        breaks: true,
+                        gfm: true,
+                        renderer: state.markedRenderer
+                    });
+                    
+                    state.markedLoaded = true;
+                    console.log('marked.js 初始化成功');
+                } catch (error) {
+                    console.error('marked.js 初始化失败:', error);
+                    state.markedLoaded = false;
+                }
+            } else {
+                // 如果marked未加载，尝试等待或使用备用方案
+                console.warn('marked.js 尚未加载，将使用备用方案');
+                await new Promise(resolve => setTimeout(resolve, 500));
+                // 递归重试初始化
+                await initMarkedRenderer();
+            }
+        }
+
+        // 渲染文章内容，添加错误处理
+        function renderArticleContent(article) {
+            try {
+                // 检查marked是否可用
+                if (!window.marked || !state.markedRenderer) {
+                    throw new Error('marked.js 未正确加载');
+                }
+                
+                // 处理空内容情况
+                if (!article.content.trim()) {
+                    elements.detailContentInner.innerHTML = `
+                        <div class="content-error">
+                            <p><i class="fas fa-exclamation-triangle mr-1"></i> 注意：这篇文章没有内容。</p>
+                        </div>
+                    `;
+                    return true;
+                }
+                
+                // 尝试渲染Markdown内容
+                const htmlContent = marked.parse(article.content, {
+                    renderer: state.markedRenderer
+                });
+                
+                // 添加Markdown样式类
+                elements.detailContentInner.innerHTML = `<div class="markdown-content text-gray-700">${htmlContent}</div>`;
+                
+                // 隐藏渲染错误提示
+                elements.renderErrorContainer.classList.add('hidden');
+                return true;
+            } catch (error) {
+                console.error('Markdown渲染失败:', error);
+                
+                // 显示纯文本内容作为备用
+                elements.detailContentInner.innerHTML = `
+                    <div class="plain-text-content text-gray-700">${escapeHtml(article.content)}</div>
+                `;
+                
+                // 显示渲染错误提示
+                elements.renderErrorContainer.classList.remove('hidden');
+                return false;
+            }
+        }
+
+        // HTML转义函数，用于纯文本显示
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // 编码检测与转换函数
+        function decodeText(buffer, encodings = config.supportedEncodings) {
+            // 尝试使用多种编码进行解码
+            for (const encoding of encodings) {
+                try {
+                    // 特殊处理日语编码
+                    if (encoding === 'shift-jis') {
+                        const array = new Uint8Array(buffer);
+                        const decoded = Encoding.convert(array, {
+                            to: 'UTF8',
+                            from: 'SJIS'
+                        });
+                        return new TextDecoder('utf-8').decode(decoded);
+                    }
+                    
+                    // 特殊处理韩语编码
+                    if (encoding === 'euc-kr') {
+                        const array = new Uint8Array(buffer);
+                        const decoded = Encoding.convert(array, {
+                            to: 'UTF8',
+                            from: 'EUC-KR'
+                        });
+                        return new TextDecoder('utf-8').decode(decoded);
+                    }
+                    
+                    // 使用iconv-lite处理其他编码
+                    return iconvLite.decode(Buffer.from(buffer), encoding);
+                } catch (e) {
+                    console.log(`使用${encoding}解码失败:`, e.message);
+                    continue;
+                }
+            }
+            
+            // 如果所有编码都失败，尝试使用UTF-8的替换模式
+            try {
+                return new TextDecoder('utf-8', { fatal: false }).decode(buffer);
+            } catch (e) {
+                console.error('所有编码解码均失败', e);
+                return '';
+            }
+        }
+
+        // 加载文章内容（带编码处理）
+        async function loadArticleContent(category, id) {
+            // 检查缓存
+            const cacheKey = `${category}-${id}`;
+            if (state.articleCache.has(cacheKey)) {
+                console.log(`从缓存加载文章: ${category}/${id}.txt`);
+                return state.articleCache.get(cacheKey);
+            }
+            
+            // 生成正确的URL
+            const url = `${config.baseUrl}${category}/${id}.txt`;
+            console.log(`加载文章: ${url}`);
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    cache: 'no-cache', // 禁用缓存以确保获取最新内容
+                    headers: {
+                        'Accept': 'text/plain; charset=*'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP错误: ${response.status}，无法加载文件`);
+                }
+                
+                // 获取原始二进制数据
+                const buffer = await response.arrayBuffer();
+                
+                // 尝试多种编码解码
+                const content = decodeText(buffer);
+                
+                // 如果内容为空，抛出错误
+                if (!content.trim()) {
+                    throw new Error('文章内容为空');
+                }
+                
+                // 简单解析标题和内容（假设标题在第一行）
+                const lines = content.split('\n');
+                const title = lines[0] ? lines[0].trim() : `未命名文章 (${category}-${id})`;
+                const body = lines.slice(1).join('\n').trim();
+                
+                const article = {
+                    id,
+                    category,
+                    title,
+                    content: body,
+                    fullContent: content
+                };
+                
+                // 存入缓存
+                state.articleCache.set(cacheKey, article);
+                
+                return article;
+            } catch (error) {
+                console.error(`加载文章 ${category}/${id}.txt 失败:`, error);
+                throw error;
+            }
+        }
+
+        // 检测并加载分类文章
+        async function detectAndLoadCategoryArticles(category) {
+            const articles = [];
+            let attempts = 0;
+            
+            while (attempts < config.maxDetectionAttempts) {
+                attempts++;
+                const articleId = attempts;
+                
+                try {
+                    elements.loadingDetail.textContent = `正在加载 ${config.categories[category]} (${articleId}/${config.maxDetectionAttempts})`;
+                    
+                    // 尝试加载文章
+                    const article = await Promise.race([
+                        loadArticleContent(category, articleId),
+                        new Promise((_, reject) => 
+                            setTimeout(() => reject(new Error('加载超时')), config.timeout)
+                        )
+                    ]);
+                    
+                    articles.push(article);
+                    state.categoryCounts[category]++;
+                    console.log(`成功加载 ${category}/${articleId}.txt`);
+                } catch (error) {
+                    // 连续3次失败则认为该分类文章已加载完毕
+                    if (attempts > 3) break;
+                    console.log(`尝试加载 ${category}/${articleId}.txt 失败，继续尝试...`);
+                }
+            }
+            
+            console.log(`完成加载 ${category} 分类，共 ${articles.length} 篇文章`);
+            return articles;
+        }
+
+        // 加载所有文章
+        async function loadAllArticles() {
+            showLoading('开始加载文章数据...');
+            hideError();
+            state.allArticles = [];
+            state.categoryCounts = {};
+            
+            try {
+                // 初始化分类计数
+                Object.keys(config.categories).forEach(category => {
+                    state.categoryCounts[category] = 0;
+                });
+                
+                // 并发检测所有分类的文章
+                const categoryPromises = Object.keys(config.categories).map(category => 
+                    detectAndLoadCategoryArticles(category)
+                );
+                
+                // 等待所有分类加载完成
+                const results = await Promise.all(categoryPromises);
+                
+                // 合并所有文章
+                results.forEach(articles => {
+                    state.allArticles.push(...articles);
+                });
+                
+                // 按分类和ID排序
+                state.allArticles.sort((a, b) => {
+                    if (a.category !== b.category) {
+                        return a.category.localeCompare(b.category);
+                    }
+                    return parseInt(a.id) - parseInt(b.id);
+                });
+                
+                // 更新统计信息
+                updateStatistics();
+                
+                // 过滤并显示文章
+                filterAndDisplayArticles();
+                
+                hideLoading();
+            } catch (error) {
+                console.error('加载文章失败:', error);
+                hideLoading();
+                showError(`加载文章时发生错误: ${error.message}`);
+            }
+        }
+
+        // 更新统计信息
+        function updateStatistics() {
+            // 计算总文章数
+            state.totalArticles = state.allArticles.length;
+            elements.totalArticles.textContent = state.totalArticles;
+            
+            // 计算各类型文章数
+            const newsCount = ['flashnews'].reduce((sum, cat) => sum + (state.categoryCounts[cat] || 0), 0);
+            const tutorialCount = ['flashedu'].reduce((sum, cat) => sum + (state.categoryCounts[cat] || 0), 0);
+            const resourceCount = Object.keys(config.categories)
+                .filter(cat => !['flashnews', 'flashedu'].includes(cat))
+                .reduce((sum, cat) => sum + (state.categoryCounts[cat] || 0), 0);
+            
+            elements.newsArticles.textContent = newsCount;
+            elements.tutorialArticles.textContent = tutorialCount;
+            elements.resourceArticles.textContent = resourceCount;
+        }
+
+        // 过滤并显示文章
+        function filterAndDisplayArticles() {
+            // 根据当前分类和搜索词过滤文章
+            state.filteredArticles = state.allArticles.filter(article => {
+                // 分类过滤
+                if (state.currentCategory !== 'all' && article.category !== state.currentCategory) {
+                    return false;
+                }
+                
+                // 搜索词过滤
+                if (state.searchTerm) {
+                    const term = state.searchTerm.toLowerCase();
+                    const titleMatch = article.title.toLowerCase().includes(term);
+                    const contentMatch = article.content.toLowerCase().includes(term);
+                    
+                    if (state.searchType === 'title') return titleMatch;
+                    if (state.searchType === 'content') return contentMatch;
+                    return titleMatch || contentMatch;
+                }
+                
+                return true;
+            });
+            
+            // 更新文章计数
+            elements.articlesCount.textContent = state.filteredArticles.length;
+            
+            // 计算总页数
+            state.totalPages = Math.max(1, Math.ceil(state.filteredArticles.length / config.itemsPerPage));
+            
+            // 确保当前页有效
+            if (state.currentPage > state.totalPages) {
+                state.currentPage = 1;
+            }
+            
+            // 显示当前页文章
+            displayCurrentPageArticles();
+            
+            // 更新分页控件
+            updatePagination();
+            
+            // 显示空状态（如果需要）
+            if (state.filteredArticles.length === 0) {
+                elements.articlesGrid.classList.add('hidden');
+                elements.pagination.classList.add('hidden');
+                elements.emptyState.classList.remove('hidden');
+            } else {
+                elements.articlesGrid.classList.remove('hidden');
+                elements.pagination.classList.remove('hidden');
+                elements.emptyState.classList.add('hidden');
+            }
+        }
+
+        // 显示当前页的文章
+        function displayCurrentPageArticles() {
+            elements.articlesGrid.innerHTML = '';
+            
+            const startIndex = (state.currentPage - 1) * config.itemsPerPage;
+            const endIndex = Math.min(startIndex + config.itemsPerPage, state.filteredArticles.length);
+            const currentArticles = state.filteredArticles.slice(startIndex, endIndex);
+            
+            currentArticles.forEach(article => {
+                const card = document.createElement('div');
+                card.className = 'article-card bg-white rounded-lg shadow-sm overflow-hidden';
+                card.innerHTML = `
+                    <div class="p-5">
+                        <div class="text-sm text-gray-500 mb-2">
+                            <i class="fas fa-folder mr-1"></i>${config.categories[article.category]}
+                        </div>
+                        <h3 class="text-lg font-semibold mb-3 text-gray-800 hover:text-blue-600 transition">
+                            <a href="?category=${article.category}&id=${article.id}" class="article-link" data-category="${article.category}" data-id="${article.id}">
+                                ${truncateText(article.title, 50)}
+                            </a>
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">
+                            ${truncateText(stripMarkdown(article.content), 120)}
+                        </p>
+                        <div class="flex justify-between items-center text-xs text-gray-500">
+                            <span><i class="fas fa-file-code mr-1"></i>ID: ${article.id}</span>
+                            <button class="text-blue-600 hover:text-blue-800 article-link" data-category="${article.category}" data-id="${article.id}">
+                                阅读更多 <i class="fas fa-angle-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                elements.articlesGrid.appendChild(card);
+                
+                // 添加文章链接点击事件
+                card.querySelectorAll('.article-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        // 如果是按钮则阻止默认行为并手动处理导航
+                        if (e.target.tagName === 'BUTTON' || e.target.closest('BUTTON')) {
+                            e.preventDefault();
+                            const category = link.dataset.category;
+                            const id = link.dataset.id;
+                            viewArticleDetail(category, id);
+                        }
+                    });
+                });
+            });
+        }
+
+        // 查看文章详情，增加forceReload参数强制重新加载
+        async function viewArticleDetail(category, id, forceReload = false) {
+            // 显示加载状态
+            elements.articlesSection.classList.add('hidden');
+            elements.articleDetail.classList.remove('hidden');
+            elements.detailContentContainer.classList.add('hidden');
+            elements.detailError.classList.add('hidden');
+            elements.renderErrorContainer.classList.add('hidden');
+            elements.detailLoading.classList.remove('hidden');
+            
+            try {
+                let article;
+                
+                // 确保marked.js已加载
+                if (!state.markedLoaded) {
+                    // 显示加载marked的提示
+                    console.log('等待marked.js加载完成...');
+                    await new Promise(resolve => {
+                        const checkMarked = setInterval(() => {
+                            if (state.markedLoaded) {
+                                clearInterval(checkMarked);
+                                resolve();
+                            }
+                        }, 100);
+                    });
+                }
+                
+                // 如果需要强制重新加载或缓存中没有，则重新加载
+                const cacheKey = `${category}-${id}`;
+                if (forceReload || !state.articleCache.has(cacheKey)) {
+                    // 从服务器加载文章
+                    article = await loadArticleContent(category, id);
+                } else {
+                    // 从缓存获取
+                    article = state.articleCache.get(cacheKey);
+                }
+                
+                // 验证文章数据
+                if (!article || !article.content) {
+                    throw new Error('文章数据不完整');
+                }
+                
+                // 更新详情页内容
+                elements.detailTitle.textContent = article.title || `未命名文章 (${category}-${id})`;
+                elements.detailCategory.textContent = config.categories[article.category] || article.category;
+                elements.detailId.textContent = `ID: ${article.id}`;
+                
+                // 渲染文章内容
+                renderArticleContent(article);
+                
+                // 查找上一篇和下一篇文章（在同一分类中）
+                const sameCategoryArticles = state.allArticles.filter(a => a.category === category);
+                const currentIndex = sameCategoryArticles.findIndex(a => a.id.toString() === id.toString());
+                const prevArticle = currentIndex > 0 ? sameCategoryArticles[currentIndex - 1] : null;
+                const nextArticle = currentIndex < sameCategoryArticles.length - 1 ? sameCategoryArticles[currentIndex + 1] : null;
+                
+                // 更新上一篇/下一篇按钮
+                elements.prevArticleBtn.disabled = !prevArticle;
+                elements.nextArticleBtn.disabled = !nextArticle;
+                
+                // 绑定上一篇/下一篇点击事件
+                elements.prevArticleBtn.onclick = () => {
+                    if (prevArticle) {
+                        viewArticleDetail(prevArticle.category, prevArticle.id);
+                    }
+                };
+                
+                elements.nextArticleBtn.onclick = () => {
+                    if (nextArticle) {
+                        viewArticleDetail(nextArticle.category, nextArticle.id);
+                    }
+                };
+                
+                // 显示内容，隐藏加载状态
+                elements.detailLoading.classList.add('hidden');
+                elements.detailContentContainer.classList.remove('hidden');
+                
+                // 更新URL
+                const params = new URLSearchParams(window.location.search);
+                params.set('category', category);
+                params.set('id', id);
+                window.history.pushState({}, '', `?${params.toString()}`);
+                
+                // 滚动到顶部
+                window.scrollTo(0, 0);
+                
+            } catch (error) {
+                console.error(`显示文章详情失败:`, error);
+                // 显示错误状态
+                elements.detailLoading.classList.add('hidden');
+                elements.detailError.classList.remove('hidden');
+                
+                // 特殊处理marked渲染器错误
+                if (error.message && error.message.includes('this.renderer.paragraph is not a function')) {
+                    elements.detailErrorMessage.textContent = '内容渲染组件加载失败，请重试或稍候再试';
+                } else {
+                    elements.detailErrorMessage.textContent = `无法加载文章内容: ${error.message}`;
+                }
+            }
+        }
+
+        // 更新分页控件
+        function updatePagination() {
+            elements.pageNumbers.innerHTML = '';
+            elements.prevPageBtn.disabled = state.currentPage === 1;
+            elements.nextPageBtn.disabled = state.currentPage === state.totalPages;
+            
+            // 计算显示的页码范围
+            let startPage = Math.max(1, state.currentPage - 2);
+            let endPage = Math.min(state.totalPages, startPage + 4);
+            
+            // 调整页码范围
+            if (endPage - startPage < 4 && startPage > 1) {
+                startPage = Math.max(1, endPage - 4);
+            }
+            
+            // 添加第一页按钮
+            if (startPage > 1) {
+                addPageButton(1);
+                if (startPage > 2) {
+                    addEllipsis();
+                }
+            }
+            
+            // 添加中间页码按钮
+            for (let i = startPage; i <= endPage; i++) {
+                addPageButton(i);
+            }
+            
+            // 添加最后一页按钮
+            if (endPage < state.totalPages) {
+                if (endPage < state.totalPages - 1) {
+                    addEllipsis();
+                }
+                addPageButton(state.totalPages);
+            }
+        }
+
+        // 添加页码按钮
+        function addPageButton(pageNum) {
+            const button = document.createElement('button');
+            button.className = `px-3 py-1 rounded-lg transition ${
+                pageNum === state.currentPage 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+            }`;
+            button.textContent = pageNum;
+            button.addEventListener('click', () => {
+                state.currentPage = pageNum;
+                displayCurrentPageArticles();
+                updatePagination();
+                updateUrl();
+            });
+            elements.pageNumbers.appendChild(button);
+        }
+
+        // 添加省略号
+        function addEllipsis() {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'px-2 text-gray-500';
+            ellipsis.textContent = '...';
+            elements.pageNumbers.appendChild(ellipsis);
+        }
+
+        // 更新分类按钮状态
+        function updateCategoryButtons() {
+            elements.categoryBtns.forEach(btn => {
+                if (btn.dataset.category === state.currentCategory) {
+                    btn.classList.remove('bg-gray-200', 'hover:bg-gray-300', 'text-gray-700');
+                    btn.classList.add('bg-blue-600', 'text-white');
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('bg-blue-600', 'text-white', 'active');
+                    btn.classList.add('bg-gray-200', 'hover:bg-gray-300', 'text-gray-700');
+                }
+            });
+        }
+
+        // 处理搜索
+        function handleSearch() {
+            const searchTerm = elements.searchInput.value.trim();
+            state.searchTerm = searchTerm;
+            state.currentPage = 1;
+            
+            // 如果有搜索词，添加到搜索历史
+            if (searchTerm) {
+                addToSearchHistory(searchTerm);
+            }
+            
+            filterAndDisplayArticles();
+            updateUrl();
+            hideSearchHistory();
+        }
+
+        // 重置搜索
+        function resetSearch() {
+            elements.searchInput.value = '';
+            state.searchTerm = '';
+            state.currentPage = 1;
+            document.querySelector('input[name="search-type"][value="title"]').checked = true;
+            state.searchType = 'title';
+            
+            filterAndDisplayArticles();
+            updateUrl();
+            hideSearchHistory();
+        }
+
+        // 显示加载状态
+        function showLoading(detail) {
+            elements.loadingSection.classList.remove('hidden');
+            elements.articlesSection.classList.add('hidden');
+            elements.errorSection.classList.add('hidden');
+            
+            if (detail) {
+                elements.loadingDetail.textContent = detail;
+            }
+        }
+
+        // 隐藏加载状态
+        function hideLoading() {
+            elements.loadingSection.classList.add('hidden');
+            elements.articlesSection.classList.remove('hidden');
+        }
+
+        // 显示错误信息
+        function showError(message) {
+            elements.errorSection.classList.remove('hidden');
+            elements.loadingSection.classList.add('hidden');
+            elements.articlesSection.classList.add('hidden');
+            
+            if (message) {
+                elements.errorMessage.textContent = message;
+            }
+        }
+
+        // 隐藏错误信息
+        function hideError() {
+            elements.errorSection.classList.add('hidden');
+        }
+
+        // 截断文本
+        function truncateText(text, maxLength) {
+            if (!text) return '';
+            if (text.length <= maxLength) {
+                return text;
+            }
+            return text.substring(0, maxLength) + '...';
+        }
+
+        // 去除Markdown格式
+        function stripMarkdown(text) {
+            if (!text) return '';
+            return text
+                .replace(/#{1,6}\s+/g, '') // 标题
+                .replace(/\*\*|__/g, '') // 粗体
+                .replace(/\*|_/g, '') // 斜体
+                .replace(/`/g, '') // 代码
+                .replace(/!\[.*?\]\(.*?\)/g, '') // 图片
+                .replace(/\[(.*?)\]\(.*?\)/g, '$1') // 链接
+                .replace(/> /g, '') // 引用
+                .replace(/---/g, '') // 分隔线
+                .replace(/\s{2,}/g, ' '); // 多余空格
+        }
+
+        // 搜索历史相关函数
+        function loadSearchHistory() {
+            try {
+                const savedHistory = localStorage.getItem('searchHistory');
+                if (savedHistory) {
+                    state.searchHistory = JSON.parse(savedHistory);
+                    renderSearchHistory();
+                }
+            } catch (error) {
+                console.error('加载搜索历史失败:', error);
+                state.searchHistory = [];
+            }
+        }
+
+        function saveSearchHistory() {
+            try {
+                localStorage.setItem('searchHistory', JSON.stringify(state.searchHistory));
+            } catch (error) {
+                console.error('保存搜索历史失败:', error);
+            }
+        }
+
+        function addToSearchHistory(term) {
+            // 移除已存在的相同记录
+            state.searchHistory = state.searchHistory.filter(item => item.term !== term);
+            
+            // 添加新记录
+            state.searchHistory.unshift({
+                term,
+                timestamp: new Date().toISOString()
+            });
+            
+            // 限制历史记录数量
+            if (state.searchHistory.length > config.maxSearchHistory) {
+                state.searchHistory = state.searchHistory.slice(0, config.maxSearchHistory);
+            }
+            
+            // 保存并渲染
+            saveSearchHistory();
+            renderSearchHistory();
+        }
+
+        function renderSearchHistory() {
+            elements.historyList.innerHTML = '';
+            
+            if (state.searchHistory.length === 0) {
+                elements.noHistoryMsg.classList.remove('hidden');
+                return;
+            }
+            
+            elements.noHistoryMsg.classList.add('hidden');
+            
+            state.searchHistory.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.className = 'history-item';
+                
+                // 格式化时间
+                const date = new Date(item.timestamp);
+                const timeStr = date.toLocaleString();
+                
+                li.innerHTML = `
+                    <div class="flex items-center">
+                        <span class="history-text">${item.term}</span>
+                        <span class="history-time">${timeStr}</span>
+                    </div>
+                    <span class="remove-history" data-index="${index}">
+                        <i class="fas fa-times"></i>
+                    </span>
+                `;
+                
+                elements.historyList.appendChild(li);
+                
+                // 添加点击事件
+                li.addEventListener('click', (e) => {
+                    if (!e.target.closest('.remove-history')) {
+                        elements.searchInput.value = item.term;
+                        hideSearchHistory();
+                    }
+                });
+                
+                // 添加删除事件
+                li.querySelector('.remove-history').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeSearchHistoryItem(index);
+                });
+            });
+        }
+
+        function removeSearchHistoryItem(index) {
+            state.searchHistory.splice(index, 1);
+            saveSearchHistory();
+            renderSearchHistory();
+        }
+
+        function clearAllSearchHistory() {
+            state.searchHistory = [];
+            saveSearchHistory();
+            renderSearchHistory();
+        }
+
+        function showSearchHistory() {
+            elements.searchHistoryDropdown.classList.add('active');
+        }
+
+        function hideSearchHistory() {
+            elements.searchHistoryDropdown.classList.remove('active');
+        }
+
+        function filterSearchHistory() {
+            const term = elements.searchInput.value.toLowerCase();
+            const items = elements.historyList.querySelectorAll('.history-item');
+            
+            items.forEach(item => {
+                const text = item.querySelector('.history-text').textContent.toLowerCase();
+                if (text.includes(term)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        // 主题切换相关函数
+        function loadThemePreference() {
+            // 从localStorage加载主题偏好
+            const savedTheme = localStorage.getItem('darkMode');
+            if (savedTheme !== null) {
+                state.darkMode = savedTheme === 'true';
+            } else {
+                // 如果没有保存的偏好，检查系统设置
+                state.darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            applyTheme();
+        }
+        
+        function toggleTheme() {
+            state.darkMode = !state.darkMode;
+            applyTheme();
+            // 保存主题偏好
+            localStorage.setItem('darkMode', state.darkMode);
+        }
+        
+        function applyTheme() {
+            if (state.darkMode) {
+                document.body.classList.add('dark-mode');
+                elements.themeToggle.innerHTML = '<i class="fas fa-sun text-yellow-400"></i>';
+                elements.themeToggle.setAttribute('aria-label', '切换到彩色模式');
+            } else {
+                document.body.classList.remove('dark-mode');
+                elements.themeToggle.innerHTML = '<i class="fas fa-moon text-gray-600"></i>';
+                elements.themeToggle.setAttribute('aria-label', '切换到黑白模式');
+            }
+        }
+
+        // 初始化应用
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+    
+<!--版权说明开始
+/*
++------------------------------------------------------------------------+
+ System Name : Luhui Flash History Museum Information System V1.1.4
+ 系统名称 : 鲁虺Flash历史博物馆资讯系统 html JavaScript txt V1.1.4
++------------------------------------------------------------------------+
+ 创建 Created  2025-5-4 / 修改 Modify 2025-9-2
++------------------------------------------------------------------------+
+ Version : 1.1.4
++------------------------------------------------------------------------+
+ 版本更新 : 该版本所有详细更新细节都已在系统迭代说明中详述,如需了解请查阅鲁虺软件文档
+ 鲁虺软件 : http://soft.luhui.net 点击浏览鲁虺软件开发文档“软件开发”列表查询品鉴
++------------------------------------------------------------------------+
+ Author : 鲁虺文化网  冠富研究院  冠富商务通
++------------------------------------------------------------------------+
+ Powered by luhui.net 2004-01-11
++------------------------------------------------------------------------+
+ QQ : 63625244 
+ Email : info@mail.luhui.net
+ 鲁虺文化网 : http://www.luhui.net
+ 冠富研究院 : http://www.guanfu.org
+ 冠富商务通 : http://www.guanfu.net.cn
++------------------------------------------------------------------------+
+ Note :
+
+ 1.本软件对于非商业用户完全免费,如果要使用在商业用途
+   方面,必须取得作者的授权.
+
+ 2.你可以任意传播以及修改本程序,但不能以任何形式删除
+   本程序的版权.请记住,保留作者版权是对原创作者的尊敬.
+
+ 3.如果有问题,可以通过上面提供的方式进行解答,但作者
+   时间有限,如果不能及时或者不解答,请谅解.
+
+ 4.作者对非法使用该程序导致的问题,不予负责.
+
+ 5.本程序版权归 鲁虺文化网 所有.禁止任何侵权行为!
+
++------------------------------------------------------------------------+
+*/
+--版权说明结束-->
+
+
+
+
+</body></html>

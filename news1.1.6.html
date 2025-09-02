@@ -1,4 +1,5 @@
-<html lang="zh-CN"><head>
+<html lang="zh-CN">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="鲁虺Flash历史博物馆，展示和保存珍贵的Flash历史资料">
@@ -388,6 +389,29 @@
             background-color: rgba(255, 255, 255, 0.1);
         }
         
+        /* 语言切换按钮 */
+        .lang-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        
+        .lang-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        body.dark-mode .lang-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
         /* 内容加载失败提示 */
         .content-error {
             background-color: #fff3cd;
@@ -444,22 +468,26 @@
         <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
             <div class="mb-4 md:mb-0">
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-900">
-                    <i class="fas fa-film text-blue-600 mr-2"></i>鲁虺Flash历史博物馆
+                    <i class="fas fa-film text-blue-600 mr-2"></i><span data-i18n="museum_name">鲁虺Flash历史博物馆</span>
                 </h1>
-                <p class="text-gray-500 text-sm">保存数字文化遗产，传承Flash历史记忆</p>
+                <p class="text-gray-500 text-sm" data-i18n="museum_tagline">保存数字文化遗产，传承Flash历史记忆</p>
             </div>
             <div class="flex items-center space-x-6">
                 <nav class="flex space-x-6">
-                    <a href="/" class="nav-link active text-blue-600 hover:text-blue-800 transition">
-                        <i class="fas fa-home mr-1"></i>首页
+                    <a href="#" class="nav-link active text-blue-600 hover:text-blue-800 transition">
+                        <i class="fas fa-home mr-1"></i><span data-i18n="nav_home">首页</span>
                     </a>
-                    <a href="?q=关于" class="nav-link text-gray-600 hover:text-blue-600 transition">
-                        <i class="fas fa-info-circle mr-1"></i>关于
+                    <a href="#" class="nav-link text-gray-600 hover:text-blue-600 transition">
+                        <i class="fas fa-info-circle mr-1"></i><span data-i18n="nav_about">关于</span>
                     </a>
-                    <a href="?q=帮助" class="nav-link text-gray-600 hover:text-blue-600 transition">
-                        <i class="fas fa-question-circle mr-1"></i>帮助
+                    <a href="#" class="nav-link text-gray-600 hover:text-blue-600 transition">
+                        <i class="fas fa-question-circle mr-1"></i><span data-i18n="nav_help">帮助</span>
                     </a>
                 </nav>
+                <!-- 语言切换按钮 -->
+                <button id="lang-toggle" class="lang-toggle" aria-label="切换语言">
+                    <i class="fas fa-globe text-gray-600"></i>
+                </button>
                 <!-- 黑白模式切换按钮 -->
                 <button id="theme-toggle" class="theme-toggle" aria-label="切换黑白模式">
                     <i class="fas fa-moon text-gray-600"></i>
@@ -477,21 +505,21 @@
                     <div class="flex flex-wrap gap-4 mb-3">
                         <label class="inline-flex items-center cursor-pointer">
                             <input type="radio" name="search-type" value="title" class="form-radio text-blue-600" checked="">
-                            <span class="ml-2 text-gray-700">标题搜索</span>
+                            <span class="ml-2 text-gray-700" data-i18n="search_title">标题搜索</span>
                         </label>
                         <label class="inline-flex items-center cursor-pointer">
                             <input type="radio" name="search-type" value="content" class="form-radio text-blue-600">
-                            <span class="ml-2 text-gray-700">内容搜索</span>
+                            <span class="ml-2 text-gray-700" data-i18n="search_content">内容搜索</span>
                         </label>
                         <label class="inline-flex items-center cursor-pointer">
                             <input type="radio" name="search-type" value="both" class="form-radio text-blue-600">
-                            <span class="ml-2 text-gray-700">标题和内容</span>
+                            <span class="ml-2 text-gray-700" data-i18n="search_both">标题和内容</span>
                         </label>
                     </div>
                     <div class="flex gap-2">
                         <input type="text" id="search-input" placeholder="输入关键词搜索..." class="flex-grow px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
                         <button id="search-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition flex items-center">
-                            <i class="fas fa-search mr-2"></i>搜索
+                            <i class="fas fa-search mr-2"></i><span data-i18n="search_btn">搜索</span>
                         </button>
                         <button id="reset-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition">
                             <i class="fas fa-sync-alt"></i>
@@ -501,13 +529,13 @@
                     <!-- 搜索历史下拉框 -->
                     <div id="search-history" class="search-history-dropdown">
                         <div class="history-header">
-                            <span class="history-title">搜索历史</span>
-                            <span id="clear-history" class="clear-history">清除全部</span>
+                            <span class="history-title" data-i18n="search_history">搜索历史</span>
+                            <span id="clear-history" class="clear-history" data-i18n="clear_history">清除全部</span>
                         </div>
                         <ul id="history-list" class="history-list">
                             <!-- 历史记录将在这里动态生成 -->
                         </ul>
-                        <div id="no-history" class="no-history hidden">
+                        <div id="no-history" class="no-history hidden" data-i18n="no_history">
                             暂无搜索历史
                         </div>
                     </div>
@@ -519,38 +547,40 @@
         <section class="mb-8 overflow-x-auto">
             <div class="flex space-x-2 md:space-x-4 min-w-max pb-2">
                 <button class="category-btn active px-4 py-2 bg-blue-600 text-white rounded-lg transition" data-category="all">
-                    全部内容
+                    <span data-i18n="category_all">全部内容</span>
                 </button>
-                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashnews">Flash资讯</button>
+                <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashnews">
+                    <span data-i18n="category_flashnews">Flash资讯</span>
+                </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashsoft">
-                    Flash软件
+                    <span data-i18n="category_flashsoft">Flash软件</span>
                 </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashedu">
-                    Flash教程
+                    <span data-i18n="category_flashedu">Flash教程</span>
                 </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashbusiness">
-                    Flash商家
+                    <span data-i18n="category_flashbusiness">Flash商家</span>
                 </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashsite">
-                    Flash网站
+                    <span data-i18n="category_flashsite">Flash网站</span>
                 </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashcode">
-                    Flash源码
+                    <span data-i18n="category_flashcode">Flash源码</span>
                 </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashtasting">
-                    Flash品鉴
+                    <span data-i18n="category_flashtasting">Flash品鉴</span>
                 </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashplugin">
-                    Flash插件
+                    <span data-i18n="category_flashplugin">Flash插件</span>
                 </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashtool">
-                    Flash工具
+                    <span data-i18n="category_flashtool">Flash工具</span>
                 </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashdesign">
-                    Flash设计
+                    <span data-i18n="category_flashdesign">Flash设计</span>
                 </button>
                 <button class="category-btn px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition" data-category="flashmuseum">
-                    Flash服务
+                    <span data-i18n="category_flashmuseum">Flash服务</span>
                 </button>
             </div>
         </section>
@@ -558,23 +588,23 @@
         <!-- 统计信息 -->
         <section id="stats-section" class="mb-8 bg-white p-6 rounded-lg shadow-sm">
             <h2 class="text-xl font-semibold mb-4 text-gray-800">
-                <i class="fas fa-chart-pie text-blue-600 mr-2"></i>内容统计
+                <i class="fas fa-chart-pie text-blue-600 mr-2"></i><span data-i18n="stats_title">内容统计</span>
             </h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="bg-blue-50 p-4 rounded-lg">
-                    <p class="text-sm text-gray-500 mb-1">总文章数</p>
+                    <p class="text-sm text-gray-500 mb-1" data-i18n="stats_total">总文章数</p>
                     <p id="total-articles" class="text-2xl font-bold text-blue-600">0</p>
                 </div>
                 <div class="bg-green-50 p-4 rounded-lg">
-                    <p class="text-sm text-gray-500 mb-1">资讯文章</p>
+                    <p class="text-sm text-gray-500 mb-1" data-i18n="stats_news">资讯文章</p>
                     <p id="news-articles" class="text-2xl font-bold text-green-600">0</p>
                 </div>
                 <div class="bg-purple-50 p-4 rounded-lg">
-                    <p class="text-sm text-gray-500 mb-1">教程文章</p>
+                    <p class="text-sm text-gray-500 mb-1" data-i18n="stats_tutorials">教程文章</p>
                     <p id="tutorial-articles" class="text-2xl font-bold text-purple-600">0</p>
                 </div>
                 <div class="bg-amber-50 p-4 rounded-lg">
-                    <p class="text-sm text-gray-500 mb-1">资源文章</p>
+                    <p class="text-sm text-gray-500 mb-1" data-i18n="stats_resources">资源文章</p>
                     <p id="resource-articles" class="text-2xl font-bold text-amber-600">0</p>
                 </div>
             </div>
@@ -584,8 +614,8 @@
         <section id="loading-section" class="mb-8 hidden">
             <div class="flex flex-col items-center justify-center py-12 bg-white rounded-lg shadow-sm">
                 <div class="loader mb-4"></div>
-                <p class="text-gray-600">正在加载内容，请稍候...</p>
-                <p id="loading-detail" class="text-gray-500 text-sm mt-2">准备加载文章数据</p>
+                <p class="text-gray-600" data-i18n="loading_content">正在加载内容，请稍候...</p>
+                <p id="loading-detail" class="text-gray-500 text-sm mt-2" data-i18n="loading_prepare">准备加载文章数据</p>
             </div>
         </section>
 
@@ -595,10 +625,10 @@
                 <div class="flex items-start">
                     <i class="fas fa-exclamation-circle text-red-500 text-xl mt-0.5 mr-3"></i>
                     <div>
-                        <h3 class="font-medium text-red-800 mb-1">加载失败</h3>
-                        <p id="error-message" class="text-red-700">无法加载内容，请稍后重试</p>
+                        <h3 class="font-medium text-red-800 mb-1" data-i18n="error_loading">加载失败</h3>
+                        <p id="error-message" class="text-red-700" data-i18n="error_retry">无法加载内容，请稍后重试</p>
                         <button id="retry-btn" class="mt-3 text-sm text-red-600 hover:text-red-800 font-medium">
-                            <i class="fas fa-redo-alt mr-1"></i>重试
+                            <i class="fas fa-redo-alt mr-1"></i><span data-i18n="btn_retry">重试</span>
                         </button>
                     </div>
                 </div>
@@ -609,10 +639,10 @@
         <section id="articles-section">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold text-gray-800">
-                    <i class="fas fa-list-alt text-blue-600 mr-2"></i>文章列表
+                    <i class="fas fa-list-alt text-blue-600 mr-2"></i><span data-i18n="article_list">文章列表</span>
                 </h2>
                 <div class="text-sm text-gray-500">
-                    找到 <span id="articles-count">0</span> 篇文章
+                    <span data-i18n="found_articles">找到</span> <span id="articles-count">0</span> <span data-i18n="articles">篇文章</span>
                 </div>
             </div>
             
@@ -621,23 +651,23 @@
             <!-- 空状态 -->
             <div id="empty-state" class="hidden py-16 text-center bg-white rounded-lg shadow-sm">
                 <i class="fas fa-file-search text-gray-300 text-5xl mb-4"></i>
-                <h3 class="text-lg font-medium text-gray-700 mb-2">未找到相关文章</h3>
-                <p class="text-gray-500 max-w-md mx-auto">尝试使用不同的搜索词或浏览其他分类</p>
+                <h3 class="text-lg font-medium text-gray-700 mb-2" data-i18n="no_articles_found">未找到相关文章</h3>
+                <p class="text-gray-500 max-w-md mx-auto" data-i18n="try_different_search">尝试使用不同的搜索词或浏览其他分类</p>
                 <button id="empty-reset-btn" class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">
-                    查看全部文章
+                    <span data-i18n="view_all_articles">查看全部文章</span>
                 </button>
             </div>
             
             <!-- 分页控件 -->
             <div id="pagination" class="mt-8 flex justify-center items-center gap-2 flex-wrap">
                 <button id="prev-page" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
-                    <i class="fas fa-chevron-left mr-1"></i>上一页
+                    <i class="fas fa-chevron-left mr-1"></i><span data-i18n="prev_page">上一页</span>
                 </button>
                 <div id="page-numbers" class="flex gap-1">
                     <!-- 页码将在这里动态生成 -->
                 </div>
                 <button id="next-page" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
-                    下一页<i class="fas fa-chevron-right ml-1"></i>
+                    <span data-i18n="next_page">下一页</span><i class="fas fa-chevron-right ml-1"></i>
                 </button>
             </div>
         </section>
@@ -645,14 +675,14 @@
         <!-- 文章详情 -->
         <section id="article-detail">
             <button id="back-to-list" class="mb-6 inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition">
-                <i class="fas fa-arrow-left mr-2"></i>返回列表
+                <i class="fas fa-arrow-left mr-2"></i><span data-i18n="back_to_list">返回列表</span>
             </button>
             
             <!-- 详情加载状态 -->
             <div id="detail-loading" class="hidden bg-white rounded-lg shadow-sm overflow-hidden mb-6 p-8">
                 <div class="flex flex-col items-center justify-center py-12">
                     <div class="loader mb-4"></div>
-                    <p class="text-gray-600">正在加载文章内容，请稍候...</p>
+                    <p class="text-gray-600" data-i18n="loading_article">正在加载文章内容，请稍候...</p>
                 </div>
             </div>
             
@@ -665,7 +695,7 @@
                         </span>
                         <span class="inline-flex items-center">
                             <i class="fas fa-file-code mr-1"></i>
-                            <span id="detail-id"></span>
+                            <span id="detail-id" data-i18n="article_id">ID: </span>
                         </span>
                     </div>
                     
@@ -684,15 +714,15 @@
                                     <i class="fas fa-exclamation-triangle text-amber-500"></i>
                                 </div>
                                 <div class="ml-3">
-                                    <p class="text-sm text-amber-700">
+                                    <p class="text-sm text-amber-700" data-i18n="render_failed">
                                         Markdown渲染失败，已自动切换为纯文本显示。
                                     </p>
                                     <div class="mt-2 text-sm">
                                         <button id="retry-render-btn" class="text-amber-600 hover:text-amber-800">
-                                            <i class="fas fa-redo-alt mr-1"></i>重试渲染
+                                            <i class="fas fa-redo-alt mr-1"></i><span data-i18n="retry_render">重试渲染</span>
                                         </button>
                                         <button id="use-basic-renderer-btn" class="text-amber-600 hover:text-amber-800 ml-3">
-                                            <i class="fas fa-pencil-alt mr-1"></i>使用基础渲染器
+                                            <i class="fas fa-pencil-alt mr-1"></i><span data-i18n="use_basic_renderer">使用基础渲染器</span>
                                         </button>
                                     </div>
                                 </div>
@@ -708,13 +738,13 @@
                     <div class="flex items-start">
                         <i class="fas fa-exclamation-circle text-red-500 text-xl mt-0.5 mr-3"></i>
                         <div>
-                            <h3 class="font-medium text-red-800 mb-1">加载文章失败</h3>
-                            <p id="detail-error-message" class="text-red-700">无法加载文章内容，请稍后重试</p>
+                            <h3 class="font-medium text-red-800 mb-1" data-i18n="error_loading_article">加载文章失败</h3>
+                            <p id="detail-error-message" class="text-red-700" data-i18n="error_loading_article_msg">无法加载文章内容，请稍后重试</p>
                             <button id="detail-retry-btn" class="mt-3 text-sm text-red-600 hover:text-red-800 font-medium">
-                                <i class="fas fa-redo-alt mr-1"></i>重试
+                                <i class="fas fa-redo-alt mr-1"></i><span data-i18n="btn_retry">重试</span>
                             </button>
                             <button id="show-plaintext-btn" class="mt-3 text-sm text-red-600 hover:text-red-800 font-medium ml-3">
-                                <i class="fas fa-file-alt mr-1"></i>查看纯文本
+                                <i class="fas fa-file-alt mr-1"></i><span data-i18n="view_plain_text">查看纯文本</span>
                             </button>
                         </div>
                     </div>
@@ -723,10 +753,10 @@
             
             <div class="flex justify-between">
                 <button id="prev-article" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
-                    <i class="fas fa-chevron-left mr-2"></i>上一篇
+                    <i class="fas fa-chevron-left mr-2"></i><span data-i18n="prev_article">上一篇</span>
                 </button>
                 <button id="next-article" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
-                    下一篇<i class="fas fa-chevron-right ml-2"></i>
+                    <span data-i18n="next_article">下一篇</span><i class="fas fa-chevron-right ml-2"></i>
                 </button>
             </div>
         </section>
@@ -737,11 +767,11 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
-                    <h3 class="text-xl font-bold text-white mb-2">鲁虺Flash历史博物馆</h3>
-                    <p class="text-sm">保存和传承Flash数字文化遗产</p>
+                    <h3 class="text-xl font-bold text-white mb-2" data-i18n="museum_name">鲁虺Flash历史博物馆</h3>
+                    <p class="text-sm" data-i18n="footer_tagline">保存和传承Flash数字文化遗产</p>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="http://luhui.net/cn/mail/" class="text-gray-400 hover:text-white transition">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
                         <i class="fas fa-envelope"></i>
                     </a>
                     <a href="#" class="text-gray-400 hover:text-white transition">
@@ -753,28 +783,138 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-6 pt-6 text-center text-sm">
-                <p>鲁虺文化网-致力于数字文化遗产的保存与传播</p>
+                <p data-i18n="copyright">© 2023 鲁虺Flash历史博物馆 - 致力于数字文化遗产的保存与传播</p>
             </div>
-			
-			
-<div class="footer-inner">
-<p align="center"> Copyright&nbsp;  &#169; 2004-01-11&nbsp;<a href="http://luhui.net" title="鲁虺文化网" target="_top">luhui.net</a>&nbsp;all rights reserved.</p>	
-<div id="back-to-top-btn" style="display:none;"><i class="fas fa-angle-double-up" style="font-size: 25px;"></i>
-</div>
-		
-		
-		
-		
         </div>
     </footer>
 
     <!-- marked.js加载指示器 -->
     <div id="marked-loading-indicator" class="marked-loading-indicator hidden">
         <div class="mini-loader"></div>
-        <span>正在加载内容渲染组件...</span>
+        <span data-i18n="loading_renderer">正在加载内容渲染组件...</span>
     </div>
 
     <script>
+        // 多语言支持 - 中英文对照
+        const translations = {
+            en: {
+                museum_name: "Luhui Flash History Museum",
+                museum_tagline: "Preserving digital cultural heritage, inheriting Flash history",
+                nav_home: "Home",
+                nav_about: "About",
+                nav_help: "Help",
+                search_title: "Title search",
+                search_content: "Content search",
+                search_both: "Title and content",
+                search_btn: "Search",
+                search_history: "Search history",
+                clear_history: "Clear all",
+                no_history: "No search history",
+                category_all: "All content",
+                category_flashnews: "Flash News",
+                category_flashsoft: "Flash Software",
+                category_flashedu: "Flash Tutorials",
+                category_flashbusiness: "Flash Business",
+                category_flashsite: "Flash Sites",
+                category_flashcode: "Flash Source Code",
+                category_flashtasting: "Flash Appreciation",
+                category_flashplugin: "Flash Plugins",
+                category_flashtool: "Flash Tools",
+                category_flashdesign: "Flash Design",
+                category_flashmuseum: "Flash Services",
+                stats_title: "Content Statistics",
+                stats_total: "Total articles",
+                stats_news: "News articles",
+                stats_tutorials: "Tutorial articles",
+                stats_resources: "Resource articles",
+                loading_content: "Loading content, please wait...",
+                loading_prepare: "Preparing to load article data",
+                error_loading: "Loading failed",
+                error_retry: "Unable to load content, please try again later",
+                btn_retry: "Retry",
+                article_list: "Article list",
+                found_articles: "Found",
+                articles: "articles",
+                no_articles_found: "No related articles found",
+                try_different_search: "Try using different search terms or browse other categories",
+                view_all_articles: "View all articles",
+                prev_page: "Previous page",
+                next_page: "Next page",
+                back_to_list: "Back to list",
+                loading_article: "Loading article content, please wait...",
+                article_id: "ID: ",
+                render_failed: "Markdown rendering failed, switched to plain text display automatically.",
+                retry_render: "Retry rendering",
+                use_basic_renderer: "Use basic renderer",
+                error_loading_article: "Failed to load article",
+                error_loading_article_msg: "Unable to load article content, please try again later",
+                view_plain_text: "View plain text",
+                prev_article: "Previous article",
+                next_article: "Next article",
+                footer_tagline: "Preserving and inheriting Flash digital cultural heritage",
+                copyright: "© 2023 Luhui Flash History Museum - Dedicated to the preservation and dissemination of digital cultural heritage",
+                loading_renderer: "Loading content rendering component..."
+            },
+            zh: {
+                museum_name: "鲁虺Flash历史博物馆",
+                museum_tagline: "保存数字文化遗产，传承Flash历史记忆",
+                nav_home: "首页",
+                nav_about: "关于",
+                nav_help: "帮助",
+                search_title: "标题搜索",
+                search_content: "内容搜索",
+                search_both: "标题和内容",
+                search_btn: "搜索",
+                search_history: "搜索历史",
+                clear_history: "清除全部",
+                no_history: "暂无搜索历史",
+                category_all: "全部内容",
+                category_flashnews: "Flash资讯",
+                category_flashsoft: "Flash软件",
+                category_flashedu: "Flash教程",
+                category_flashbusiness: "Flash商家",
+                category_flashsite: "Flash网站",
+                category_flashcode: "Flash源码",
+                category_flashtasting: "Flash品鉴",
+                category_flashplugin: "Flash插件",
+                category_flashtool: "Flash工具",
+                category_flashdesign: "Flash设计",
+                category_flashmuseum: "Flash服务",
+                stats_title: "内容统计",
+                stats_total: "总文章数",
+                stats_news: "资讯文章",
+                stats_tutorials: "教程文章",
+                stats_resources: "资源文章",
+                loading_content: "正在加载内容，请稍候...",
+                loading_prepare: "准备加载文章数据",
+                error_loading: "加载失败",
+                error_retry: "无法加载内容，请稍后重试",
+                btn_retry: "重试",
+                article_list: "文章列表",
+                found_articles: "找到",
+                articles: "篇文章",
+                no_articles_found: "未找到相关文章",
+                try_different_search: "尝试使用不同的搜索词或浏览其他分类",
+                view_all_articles: "查看全部文章",
+                prev_page: "上一页",
+                next_page: "下一页",
+                back_to_list: "返回列表",
+                loading_article: "正在加载文章内容，请稍候...",
+                article_id: "ID: ",
+                render_failed: "Markdown渲染失败，已自动切换为纯文本显示。",
+                retry_render: "重试渲染",
+                use_basic_renderer: "使用基础渲染器",
+                error_loading_article: "加载文章失败",
+                error_loading_article_msg: "无法加载文章内容，请稍后重试",
+                view_plain_text: "查看纯文本",
+                prev_article: "上一篇",
+                next_article: "下一篇",
+                footer_tagline: "保存和传承Flash数字文化遗产",
+                copyright: "© 2023 鲁虺Flash历史博物馆 - 致力于数字文化遗产的保存与传播",
+                loading_renderer: "正在加载内容渲染组件..."
+            }
+        };
+
         // 配置与状态管理
         const config = {
             baseUrl: '', // 基础URL，根据实际部署情况修改
@@ -784,17 +924,17 @@
             timeout: 15000, // 超时时间(ms)
             maxSearchHistory: 10, // 最大搜索历史记录数量
             categories: {
-                'flashnews': 'Flash资讯',
-                'flashsoft': 'Flash软件',
-                'flashedu': 'Flash教程',
-                'flashbusiness': 'Flash商家',
-                'flashsite': 'Flash网站',
-                'flashcode': 'Flash源码',
-                'flashtasting': 'Flash品鉴',
-                'flashplugin': 'Flash插件',
-                'flashtool': 'Flash工具',
-                'flashdesign': 'Flash设计',
-                'flashmuseum': 'Flash服务'
+                'flashnews': { zh: 'Flash资讯', en: 'Flash News' },
+                'flashsoft': { zh: 'Flash软件', en: 'Flash Software' },
+                'flashedu': { zh: 'Flash教程', en: 'Flash Tutorials' },
+                'flashbusiness': { zh: 'Flash商家', en: 'Flash Business' },
+                'flashsite': { zh: 'Flash网站', en: 'Flash Sites' },
+                'flashcode': { zh: 'Flash源码', en: 'Flash Source Code' },
+                'flashtasting': { zh: 'Flash品鉴', en: 'Flash Appreciation' },
+                'flashplugin': { zh: 'Flash插件', en: 'Flash Plugins' },
+                'flashtool': { zh: 'Flash工具', en: 'Flash Tools' },
+                'flashdesign': { zh: 'Flash设计', en: 'Flash Design' },
+                'flashmuseum': { zh: 'Flash服务', en: 'Flash Services' }
             },
             // 支持的文本编码列表
             supportedEncodings: ['utf8', 'gbk', 'gb2312', 'big5', 'euc-kr', 'shift-jis'],
@@ -823,13 +963,17 @@
             markedRenderer: null, // 存储marked渲染器实例
             markedLoaded: false, // 标记marked.js是否加载完成
             usingFallbackRenderer: false, // 是否使用备用渲染器
-            currentArticle: null // 当前显示的文章
+            currentArticle: null, // 当前显示的文章
+            language: 'zh' // 当前语言，默认为中文
         };
 
         // DOM元素
         const elements = {
             // 主题切换
             themeToggle: document.getElementById('theme-toggle'),
+            
+            // 语言切换
+            langToggle: document.getElementById('lang-toggle'),
             
             // 搜索相关
             searchInput: document.getElementById('search-input'),
@@ -916,11 +1060,80 @@
             // 加载主题偏好
             loadThemePreference();
             
+            // 加载语言偏好
+            loadLanguagePreference();
+            
             // 从URL参数加载状态
             loadStateFromUrl();
             
             // 加载所有文章
             await loadAllArticles();
+        }
+
+        // 切换语言
+        function toggleLanguage() {
+            state.language = state.language === 'zh' ? 'en' : 'zh';
+            applyLanguage();
+            // 保存语言偏好
+            localStorage.setItem('preferredLanguage', state.language);
+            
+            // 更新搜索框占位符
+            updateSearchPlaceholder();
+        }
+        
+        // 加载语言偏好
+        function loadLanguagePreference() {
+            // 从localStorage加载语言偏好
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang && ['zh', 'en'].includes(savedLang)) {
+                state.language = savedLang;
+            } else {
+                // 如果没有保存的偏好，检查浏览器语言设置
+                const browserLang = navigator.language || navigator.userLanguage;
+                state.language = browserLang.startsWith('zh') ? 'zh' : 'en';
+            }
+            applyLanguage();
+            updateSearchPlaceholder();
+        }
+        
+        // 应用语言设置
+        function applyLanguage() {
+            // 更新所有带data-i18n属性的元素
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[state.language] && translations[state.language][key]) {
+                    element.textContent = translations[state.language][key];
+                }
+            });
+            
+            // 更新页面标题
+            document.title = state.language === 'zh' 
+                ? '鲁虺Flash历史博物馆 - 数字文化遗产保存' 
+                : 'Luhui Flash History Museum - Digital Cultural Heritage Preservation';
+                
+            // 更新分类按钮文本
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                const category = btn.dataset.category;
+                if (category === 'all') {
+                    btn.querySelector('span').textContent = translations[state.language]['category_all'];
+                } else if (config.categories[category]) {
+                    btn.querySelector('span').textContent = config.categories[category][state.language];
+                }
+            });
+            
+            // 如果有当前文章，更新分类显示
+            if (state.currentArticle && state.currentArticle.category && 
+                config.categories[state.currentArticle.category]) {
+                elements.detailCategory.textContent = 
+                    config.categories[state.currentArticle.category][state.language];
+            }
+        }
+        
+        // 更新搜索框占位符
+        function updateSearchPlaceholder() {
+            elements.searchInput.placeholder = state.language === 'zh' 
+                ? '输入关键词搜索...' 
+                : 'Enter keywords to search...';
         }
 
         // 加载marked.js库，尝试多个CDN地址
@@ -1026,7 +1239,7 @@
                         const titleAttr = title ? `title="${title}"` : '';
                         // 添加图片加载失败处理
                         return `<img src="${imageUrl}" alt="${text}" ${titleAttr} loading="lazy" 
-                                onerror="this.onerror=null;this.outerHTML='<div class=\'image-fallback\'><i class=\'fas fa-image mb-2\'></i><p>图片加载失败</p><p class=\'text-xs\'>${text}</p></div>'">`;
+                                onerror="this.onerror=null;this.outerHTML='<div class=\'image-fallback\'><i class=\'fas fa-image mb-2\'></i><p>${state.language === 'zh' ? '图片加载失败' : 'Image failed to load'}</p><p class=\'text-xs\'>${text}</p></div>'">`;
                     };
                     
                     // 自定义链接渲染
@@ -1095,8 +1308,10 @@
                         imageUrl = `${config.imageBasePath}${src}`;
                     }
                 }
+                
+                const errorText = state.language === 'zh' ? '图片加载失败' : 'Image failed to load';
                 return `<img src="${imageUrl}" alt="${alt}" loading="lazy" 
-                        onerror="this.onerror=null;this.outerHTML='<div class=\'image-fallback\'><i class=\'fas fa-image mb-2\'></i><p>图片加载失败</p><p class=\'text-xs\'>${alt}</p></div>'">`;
+                        onerror="this.onerror=null;this.outerHTML='<div class=\'image-fallback\'><i class=\'fas fa-image mb-2\'></i><p>${errorText}</p><p class=\'text-xs\'>${alt}</p></div>'">`;
             });
             
             // 处理无序列表
@@ -1296,6 +1511,9 @@
             // 主题切换按钮
             elements.themeToggle.addEventListener('click', toggleTheme);
             
+            // 语言切换按钮
+            elements.langToggle.addEventListener('click', toggleLanguage);
+            
             // 搜索按钮
             elements.searchBtn.addEventListener('click', handleSearch);
             elements.searchInput.addEventListener('keypress', (e) => {
@@ -1382,7 +1600,7 @@
                 // 隐藏渲染错误提示
                 elements.renderErrorContainer.classList.add('hidden');
                 
-                // 尝试重新加载marked.js
+                // 尝试再次加载marked.js
                 await loadMarkedLibrary();
                 await initMarkedRenderer();
                 
@@ -1435,9 +1653,13 @@
             try {
                 // 处理空内容情况
                 if (!article.content.trim()) {
+                    const emptyContentText = state.language === 'zh' 
+                        ? '注意：这篇文章没有内容。' 
+                        : 'Note: This article has no content.';
+                        
                     elements.detailContentInner.innerHTML = `
                         <div class="content-error">
-                            <p><i class="fas fa-exclamation-triangle mr-1"></i> 注意：这篇文章没有内容。</p>
+                            <p><i class="fas fa-exclamation-triangle mr-1"></i> ${emptyContentText}</p>
                         </div>
                     `;
                     return true;
@@ -1576,7 +1798,8 @@
                 
                 // 简单解析标题和内容（假设标题在第一行）
                 const lines = content.split('\n');
-                const title = lines[0] ? lines[0].trim() : `未命名文章 (${category}-${id})`;
+                const title = lines[0] ? lines[0].trim() : 
+                    (state.language === 'zh' ? `未命名文章 (${category}-${id})` : `Untitled Article (${category}-${id})`);
                 const body = lines.slice(1).join('\n').trim();
                 
                 const article = {
@@ -1607,7 +1830,11 @@
                 const articleId = attempts;
                 
                 try {
-                    elements.loadingDetail.textContent = `正在加载 ${config.categories[category]} (${articleId}/${config.maxDetectionAttempts})`;
+                    const loadingText = state.language === 'zh' 
+                        ? `正在加载 ${config.categories[category].zh} (${articleId}/${config.maxDetectionAttempts})`
+                        : `Loading ${config.categories[category].en} (${articleId}/${config.maxDetectionAttempts})`;
+                        
+                    elements.loadingDetail.textContent = loadingText;
                     
                     // 尝试加载文章
                     const article = await Promise.race([
@@ -1633,7 +1860,8 @@
 
         // 加载所有文章
         async function loadAllArticles() {
-            showLoading('开始加载文章数据...');
+            const loadingText = state.language === 'zh' ? '开始加载文章数据...' : 'Starting to load article data...';
+            showLoading(loadingText);
             hideError();
             state.allArticles = [];
             state.categoryCounts = {};
@@ -1675,7 +1903,12 @@
             } catch (error) {
                 console.error('加载文章失败:', error);
                 hideLoading();
-                showError(`加载文章时发生错误: ${error.message}`);
+                
+                const errorMsg = state.language === 'zh' 
+                    ? `加载文章时发生错误: ${error.message}`
+                    : `Error loading articles: ${error.message}`;
+                    
+                showError(errorMsg);
             }
         }
 
@@ -1758,12 +1991,16 @@
             const currentArticles = state.filteredArticles.slice(startIndex, endIndex);
             
             currentArticles.forEach(article => {
+                const readMoreText = state.language === 'zh' ? '阅读更多' : 'Read more';
+                const categoryText = config.categories[article.category][state.language];
+                const idText = state.language === 'zh' ? `ID: ${article.id}` : `ID: ${article.id}`;
+                
                 const card = document.createElement('div');
                 card.className = 'article-card bg-white rounded-lg shadow-sm overflow-hidden';
                 card.innerHTML = `
                     <div class="p-5">
                         <div class="text-sm text-gray-500 mb-2">
-                            <i class="fas fa-folder mr-1"></i>${config.categories[article.category]}
+                            <i class="fas fa-folder mr-1"></i>${categoryText}
                         </div>
                         <h3 class="text-lg font-semibold mb-3 text-gray-800 hover:text-blue-600 transition">
                             <a href="?category=${article.category}&id=${article.id}" class="article-link" data-category="${article.category}" data-id="${article.id}">
@@ -1774,9 +2011,9 @@
                             ${truncateText(stripMarkdown(article.content), 120)}
                         </p>
                         <div class="flex justify-between items-center text-xs text-gray-500">
-                            <span><i class="fas fa-file-code mr-1"></i>ID: ${article.id}</span>
+                            <span><i class="fas fa-file-code mr-1"></i>${idText}</span>
                             <button class="text-blue-600 hover:text-blue-800 article-link" data-category="${article.category}" data-id="${article.id}">
-                                阅读更多 <i class="fas fa-angle-right ml-1"></i>
+                                ${readMoreText} <i class="fas fa-angle-right ml-1"></i>
                             </button>
                         </div>
                     </div>
@@ -1831,13 +2068,15 @@
                 
                 // 验证文章数据
                 if (!article || !article.content) {
-                    throw new Error('文章数据不完整');
+                    throw new Error(state.language === 'zh' ? '文章数据不完整' : 'Article data is incomplete');
                 }
                 
                 // 更新详情页内容
-                elements.detailTitle.textContent = article.title || `未命名文章 (${category}-${id})`;
-                elements.detailCategory.textContent = config.categories[article.category] || article.category;
-                elements.detailId.textContent = `ID: ${article.id}`;
+                elements.detailTitle.textContent = article.title || 
+                    (state.language === 'zh' ? `未命名文章 (${category}-${id})` : `Untitled Article (${category}-${id})`);
+                    
+                elements.detailCategory.textContent = config.categories[article.category][state.language] || article.category;
+                elements.detailId.textContent = state.language === 'zh' ? `ID: ${article.id}` : `ID: ${article.id}`;
                 
                 // 渲染文章内容
                 renderArticleContent(article);
@@ -1848,7 +2087,11 @@
                 const prevArticle = currentIndex > 0 ? sameCategoryArticles[currentIndex - 1] : null;
                 const nextArticle = currentIndex < sameCategoryArticles.length - 1 ? sameCategoryArticles[currentIndex + 1] : null;
                 
-                // 更新上一篇/下一篇按钮
+                // 更新上一篇/下一篇按钮文本
+                elements.prevArticleBtn.innerHTML = `<i class="fas fa-chevron-left mr-2"></i><span data-i18n="prev_article">${state.language === 'zh' ? '上一篇' : 'Previous article'}</span>`;
+                elements.nextArticleBtn.innerHTML = `<span data-i18n="next_article">${state.language === 'zh' ? '下一篇' : 'Next article'}</span><i class="fas fa-chevron-right ml-2"></i>`;
+                
+                // 更新上一篇/下一篇按钮状态
                 elements.prevArticleBtn.disabled = !prevArticle;
                 elements.nextArticleBtn.disabled = !nextArticle;
                 
@@ -1881,24 +2124,28 @@
             } catch (error) {
                 console.error(`显示文章详情失败:`, error);
                 // 保存当前尝试加载的文章ID，用于"查看纯文本"功能
-                state.currentArticle = { category, id, content: '加载失败的内容' };
+                state.currentArticle = { category, id, content: state.language === 'zh' ? '加载失败的内容' : 'Failed to load content' };
                 
                 // 显示错误状态
                 elements.detailLoading.classList.add('hidden');
                 elements.detailError.classList.remove('hidden');
                 
-                // 特殊处理渲染器错误
+                // 设置错误消息
                 if (error.message && error.message.includes('this.renderer.paragraph is not a function')) {
-                    elements.detailErrorMessage.textContent = '内容渲染组件加载失败，请尝试使用纯文本查看';
-                    // 显示"查看纯文本"按钮
-                    elements.showPlaintextBtn.classList.remove('hidden');
+                    elements.detailErrorMessage.textContent = state.language === 'zh' 
+                        ? '内容渲染组件加载失败，请尝试使用纯文本查看' 
+                        : 'Content rendering component failed to load, please try viewing plain text';
                 } else {
-                    elements.detailErrorMessage.textContent = `无法加载文章内容: ${error.message}`;
-                    // 根据错误类型决定是否显示"查看纯文本"按钮
-                    elements.showPlaintextBtn.classList.toggle('hidden', 
-                        !(error.message.includes('渲染') || error.message.includes('解析'))
-                    );
+                    elements.detailErrorMessage.textContent = state.language === 'zh' 
+                        ? `无法加载文章内容: ${error.message}` 
+                        : `Unable to load article content: ${error.message}`;
                 }
+                
+                // 根据错误类型决定是否显示"查看纯文本"按钮
+                elements.showPlaintextBtn.classList.toggle('hidden', 
+                    !(error.message.includes('渲染') || error.message.includes('解析') || 
+                      error.message.includes('render') || error.message.includes('parse'))
+                );
             }
         }
 
@@ -2211,11 +2458,11 @@
             if (state.darkMode) {
                 document.body.classList.add('dark-mode');
                 elements.themeToggle.innerHTML = '<i class="fas fa-sun text-yellow-400"></i>';
-                elements.themeToggle.setAttribute('aria-label', '切换到彩色模式');
+                elements.themeToggle.setAttribute('aria-label', state.language === 'zh' ? '切换到彩色模式' : 'Switch to color mode');
             } else {
                 document.body.classList.remove('dark-mode');
                 elements.themeToggle.innerHTML = '<i class="fas fa-moon text-gray-600"></i>';
-                elements.themeToggle.setAttribute('aria-label', '切换到黑白模式');
+                elements.themeToggle.setAttribute('aria-label', state.language === 'zh' ? '切换到黑白模式' : 'Switch to dark mode');
             }
         }
 
@@ -2226,12 +2473,12 @@
 <!--版权说明开始
 /*
 +------------------------------------------------------------------------+
- System Name : Luhui Flash History Museum Information System V1.1.5
- 系统名称 : 鲁虺Flash历史博物馆资讯系统 html JavaScript txt V1.1.5
+ System Name : Luhui Flash History Museum Information System V1.1.6
+ 系统名称 : 鲁虺Flash历史博物馆资讯系统 html JavaScript txt V1.1.6
 +------------------------------------------------------------------------+
- 创建 Created  2025-5-4 / 修改 Modify 2025-9-2
+ 创建 Created  2025-5-4 / 修改 Modify 2025-9-3
 +------------------------------------------------------------------------+
- Version : 1.1.5
+ Version : 1.1.6
 +------------------------------------------------------------------------+
  版本更新 : 该版本所有详细更新细节都已在系统迭代说明中详述,如需了解请查阅鲁虺软件文档
  鲁虺软件 : http://soft.luhui.net 点击浏览鲁虺软件开发文档“软件开发”列表查询品鉴
@@ -2268,4 +2515,6 @@
 
 
 
-</body></html>
+</body>
+</html>
+    

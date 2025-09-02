@@ -11,74 +11,11 @@
     <script src="https://cdn.jsdelivr.net/npm/encoding-japanese@2.0.0/encoding.min.js"></script>
     <title>鲁虺Flash历史博物馆 - 数字文化遗产保存</title>
     <style>
+        /* 保持原有样式不变 */
         /* 基础样式 */
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             background-color: #f8fafc;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        
-        /* 黑白模式样式 */
-        body.dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-        
-        body.dark-mode .bg-white {
-            background-color: #1e1e1e;
-        }
-        
-        body.dark-mode .text-gray-800,
-        body.dark-mode .text-gray-900 {
-            color: #e0e0e0;
-        }
-        
-        body.dark-mode .text-gray-700 {
-            color: #d0d0d0;
-        }
-        
-        body.dark-mode .text-gray-600,
-        body.dark-mode .text-gray-500 {
-            color: #b0b0b0;
-        }
-        
-        body.dark-mode .bg-gray-900 {
-            background-color: #0a0a0a;
-        }
-        
-        body.dark-mode .bg-gray-200 {
-            background-color: #333333;
-        }
-        
-        body.dark-mode .bg-gray-200:hover {
-            background-color: #444444;
-        }
-        
-        body.dark-mode .bg-blue-50 {
-            background-color: #1a2b4a;
-        }
-        
-        body.dark-mode .bg-green-50 {
-            background-color: #1a4a2b;
-        }
-        
-        body.dark-mode .bg-purple-50 {
-            background-color: #3a1a4a;
-        }
-        
-        body.dark-mode .bg-amber-50 {
-            background-color: #4a3a1a;
-        }
-        
-        body.dark-mode .border-gray-300,
-        body.dark-mode .border-gray-200 {
-            border-color: #444444;
-        }
-        
-        body.dark-mode .image-fallback {
-            background-color: #2d2d2d;
-            border-color: #555555;
-            color: #b0b0b0;
         }
         
         /* 内容区域样式 */
@@ -105,28 +42,13 @@
             border-radius: 6px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
-        
-        body.dark-mode .markdown-content img {
-            filter: grayscale(100%);
-        }
-        
         .markdown-content a {
             color: #2563eb;
             text-decoration: underline;
         }
-        
-        body.dark-mode .markdown-content a {
-            color: #8ab4f8;
-        }
-        
         .markdown-content a:hover {
             color: #1d4ed8;
         }
-        
-        body.dark-mode .markdown-content a:hover {
-            color: #a8c7fa;
-        }
-        
         .markdown-content h1, 
         .markdown-content h2, 
         .markdown-content h3 {
@@ -135,13 +57,6 @@
             margin-bottom: 1rem;
             color: #1e293b;
         }
-        
-        body.dark-mode .markdown-content h1,
-        body.dark-mode .markdown-content h2,
-        body.dark-mode .markdown-content h3 {
-            color: #ffffff;
-        }
-        
         .markdown-content p {
             margin-bottom: 1rem;
         }
@@ -162,12 +77,6 @@
             margin: 1rem 0;
             color: #64748b;
         }
-        
-        body.dark-mode .markdown-content blockquote {
-            border-left-color: #666666;
-            color: #999999;
-        }
-        
         .markdown-content pre {
             background-color: #1e293b;
             color: #f8fafc;
@@ -186,12 +95,6 @@
             border-top-color: #2563eb;
             animation: spin 1s ease-in-out infinite;
         }
-        
-        body.dark-mode .loader {
-            border-color: rgba(150, 150, 150, 0.2);
-            border-top-color: #aaaaaa;
-        }
-        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -208,10 +111,6 @@
             width: 100%;
             height: 2px;
             background-color: #2563eb;
-        }
-        
-        body.dark-mode .nav-link.active::after {
-            background-color: #8ab4f8;
         }
         
         /* 图片加载失败样式 */
@@ -246,11 +145,6 @@
             transition: max-height 0.3s ease-out;
         }
         
-        body.dark-mode .search-history-dropdown {
-            background-color: #1e1e1e;
-            border-color: #444444;
-        }
-        
         .search-history-dropdown.active {
             max-height: 300px;
             overflow-y: auto;
@@ -265,10 +159,6 @@
             font-size: 0.875rem;
         }
         
-        body.dark-mode .history-header {
-            border-bottom-color: #444444;
-        }
-        
         .history-title {
             font-weight: 500;
             color: #64748b;
@@ -278,10 +168,6 @@
             color: #2563eb;
             cursor: pointer;
             font-size: 0.75rem;
-        }
-        
-        body.dark-mode .clear-history {
-            color: #8ab4f8;
         }
         
         .clear-history:hover {
@@ -305,16 +191,8 @@
             align-items: center;
         }
         
-        body.dark-mode .history-item {
-            border-bottom-color: #333333;
-        }
-        
         .history-item:hover {
             background-color: #f8fafc;
-        }
-        
-        body.dark-mode .history-item:hover {
-            background-color: #2d2d2d;
         }
         
         .history-item:last-child {
@@ -323,10 +201,6 @@
         
         .history-text {
             color: #334155;
-        }
-        
-        body.dark-mode .history-text {
-            color: #e0e0e0;
         }
         
         .history-time {
@@ -343,14 +217,6 @@
             transition: opacity 0.2s ease;
         }
         
-        body.dark-mode .remove-history {
-            color: #777777;
-        }
-        
-        body.dark-mode .remove-history:hover {
-            color: #ff6b6b;
-        }
-        
         .history-item:hover .remove-history {
             opacity: 1;
         }
@@ -365,48 +231,10 @@
             color: #94a3b8;
             font-size: 0.875rem;
         }
-        
-        /* 黑白模式切换按钮 */
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: inherit;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            transition: background-color 0.2s ease;
-        }
-        
-        .theme-toggle:hover {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-        
-        body.dark-mode .theme-toggle:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        /* 内容加载失败提示 */
-        .content-error {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 4px;
-            color: #856404;
-        }
-        
-        body.dark-mode .content-error {
-            background-color: #3d3511;
-            border-left-color: #d4a72c;
-            color: #e0c568;
-        }
     </style>
 </head>
 <body class="text-gray-800">
+    <!-- 保持原有HTML结构不变 -->
     <!-- 顶部导航栏 -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
@@ -416,23 +244,17 @@
                 </h1>
                 <p class="text-gray-500 text-sm">保存数字文化遗产，传承Flash历史记忆</p>
             </div>
-            <div class="flex items-center space-x-6">
-                <nav class="flex space-x-6">
-                    <a href="#" class="nav-link active text-blue-600 hover:text-blue-800 transition">
-                        <i class="fas fa-home mr-1"></i>首页
-                    </a>
-                    <a href="#" class="nav-link text-gray-600 hover:text-blue-600 transition">
-                        <i class="fas fa-info-circle mr-1"></i>关于
-                    </a>
-                    <a href="#" class="nav-link text-gray-600 hover:text-blue-600 transition">
-                        <i class="fas fa-question-circle mr-1"></i>帮助
-                    </a>
-                </nav>
-                <!-- 黑白模式切换按钮 -->
-                <button id="theme-toggle" class="theme-toggle" aria-label="切换黑白模式">
-                    <i class="fas fa-moon text-gray-600"></i>
-                </button>
-            </div>
+            <nav class="flex space-x-6">
+                <a href="#" class="nav-link active text-blue-600 hover:text-blue-800 transition">
+                    <i class="fas fa-home mr-1"></i>首页
+                </a>
+                <a href="#" class="nav-link text-gray-600 hover:text-blue-600 transition">
+                    <i class="fas fa-info-circle mr-1"></i>关于
+                </a>
+                <a href="#" class="nav-link text-gray-600 hover:text-blue-600 transition">
+                    <i class="fas fa-question-circle mr-1"></i>帮助
+                </a>
+            </nav>
         </div>
     </header>
 
@@ -611,20 +433,12 @@
         </section>
 
         <!-- 文章详情 -->
-        <section id="article-detail">
+        <section id="article-detail" class="hidden">
             <button id="back-to-list" class="mb-6 inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition">
                 <i class="fas fa-arrow-left mr-2"></i>返回列表
             </button>
             
-            <!-- 详情加载状态 -->
-            <div id="detail-loading" class="hidden bg-white rounded-lg shadow-sm overflow-hidden mb-6 p-8">
-                <div class="flex flex-col items-center justify-center py-12">
-                    <div class="loader mb-4"></div>
-                    <p class="text-gray-600">正在加载文章内容，请稍候...</p>
-                </div>
-            </div>
-            
-            <article id="detail-content-container" class="bg-white rounded-lg shadow-sm overflow-hidden mb-6 hidden">
+            <article class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
                 <div class="p-6 md:p-8">
                     <div class="mb-4 flex items-center text-sm text-gray-500">
                         <span class="inline-flex items-center mr-4">
@@ -644,22 +458,6 @@
                     </div>
                 </div>
             </article>
-            
-            <!-- 详情错误状态 -->
-            <div id="detail-error" class="hidden bg-white rounded-lg shadow-sm overflow-hidden mb-6 p-8">
-                <div class="bg-red-50 border border-red-200 p-6 rounded-lg">
-                    <div class="flex items-start">
-                        <i class="fas fa-exclamation-circle text-red-500 text-xl mt-0.5 mr-3"></i>
-                        <div>
-                            <h3 class="font-medium text-red-800 mb-1">加载文章失败</h3>
-                            <p id="detail-error-message" class="text-red-700">无法加载文章内容，请稍后重试</p>
-                            <button id="detail-retry-btn" class="mt-3 text-sm text-red-600 hover:text-red-800 font-medium">
-                                <i class="fas fa-redo-alt mr-1"></i>重试
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
             <div class="flex justify-between">
                 <button id="prev-article" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed" disabled="">
@@ -736,15 +534,11 @@
             filteredArticles: [],
             articleCache: new Map(),
             categoryCounts: {},
-            searchHistory: [], // 搜索历史记录
-            darkMode: false // 黑白模式状态
+            searchHistory: [] // 搜索历史记录
         };
 
         // DOM元素
         const elements = {
-            // 主题切换
-            themeToggle: document.getElementById('theme-toggle'),
-            
             // 搜索相关
             searchInput: document.getElementById('search-input'),
             searchBtn: document.getElementById('search-btn'),
@@ -794,14 +588,7 @@
             detailCategory: document.getElementById('detail-category'),
             detailId: document.getElementById('detail-id'),
             prevArticleBtn: document.getElementById('prev-article'),
-            nextArticleBtn: document.getElementById('next-article'),
-            
-            // 详情页加载和错误状态
-            detailLoading: document.getElementById('detail-loading'),
-            detailContentContainer: document.getElementById('detail-content-container'),
-            detailError: document.getElementById('detail-error'),
-            detailErrorMessage: document.getElementById('detail-error-message'),
-            detailRetryBtn: document.getElementById('detail-retry-btn')
+            nextArticleBtn: document.getElementById('next-article')
         };
 
         // 初始化应用
@@ -814,9 +601,6 @@
             
             // 加载搜索历史
             loadSearchHistory();
-            
-            // 加载主题偏好
-            loadThemePreference();
             
             // 从URL参数加载状态
             loadStateFromUrl();
@@ -883,10 +667,6 @@
                     viewArticleDetail(normalizedCategory, articleId);
                 };
                 showDetail();
-            } else {
-                // 默认显示文章列表
-                elements.articleDetail.classList.add('hidden');
-                elements.articlesSection.classList.remove('hidden');
             }
         }
 
@@ -937,9 +717,6 @@
 
         // 绑定事件处理程序
         function bindEvents() {
-            // 主题切换按钮
-            elements.themeToggle.addEventListener('click', toggleTheme);
-            
             // 搜索按钮
             elements.searchBtn.addEventListener('click', handleSearch);
             elements.searchInput.addEventListener('keypress', (e) => {
@@ -994,17 +771,6 @@
             // 重试按钮
             elements.retryBtn.addEventListener('click', async () => {
                 await loadAllArticles();
-            });
-            
-            // 详情页重试按钮
-            elements.detailRetryBtn.addEventListener('click', async () => {
-                const currentUrl = new URL(window.location.href);
-                const category = currentUrl.searchParams.get('category');
-                const id = currentUrl.searchParams.get('id');
-                
-                if (category && id) {
-                    await viewArticleDetail(category, id, true);
-                }
             });
             
             // 返回列表按钮
@@ -1119,28 +885,18 @@
 
         // 加载文章内容（带编码处理）
         async function loadArticleContent(category, id) {
-            // 检查缓存
-            const cacheKey = `${category}-${id}`;
-            if (state.articleCache.has(cacheKey)) {
-                console.log(`从缓存加载文章: ${category}/${id}.txt`);
-                return state.articleCache.get(cacheKey);
-            }
-            
-            // 生成正确的URL
             const url = `${config.baseUrl}${category}/${id}.txt`;
-            console.log(`加载文章: ${url}`);
-            
             try {
                 const response = await fetch(url, {
                     method: 'GET',
-                    cache: 'no-cache', // 禁用缓存以确保获取最新内容
+                    cache: 'force-cache',
                     headers: {
                         'Accept': 'text/plain; charset=*'
                     }
                 });
                 
                 if (!response.ok) {
-                    throw new Error(`HTTP错误: ${response.status}，无法加载文件`);
+                    throw new Error(`HTTP错误: ${response.status}`);
                 }
                 
                 // 获取原始二进制数据
@@ -1149,28 +905,18 @@
                 // 尝试多种编码解码
                 const content = decodeText(buffer);
                 
-                // 如果内容为空，抛出错误
-                if (!content.trim()) {
-                    throw new Error('文章内容为空');
-                }
-                
                 // 简单解析标题和内容（假设标题在第一行）
                 const lines = content.split('\n');
                 const title = lines[0] ? lines[0].trim() : `未命名文章 (${category}-${id})`;
                 const body = lines.slice(1).join('\n').trim();
                 
-                const article = {
+                return {
                     id,
                     category,
                     title,
                     content: body,
                     fullContent: content
                 };
-                
-                // 存入缓存
-                state.articleCache.set(cacheKey, article);
-                
-                return article;
             } catch (error) {
                 console.error(`加载文章 ${category}/${id}.txt 失败:`, error);
                 throw error;
@@ -1346,7 +1092,7 @@
                             <i class="fas fa-folder mr-1"></i>${config.categories[article.category]}
                         </div>
                         <h3 class="text-lg font-semibold mb-3 text-gray-800 hover:text-blue-600 transition">
-                            <a href="?category=${article.category}&id=${article.id}" class="article-link" data-category="${article.category}" data-id="${article.id}">
+                            <a href="#" class="article-link" data-category="${article.category}" data-id="${article.id}">
                                 ${truncateText(article.title, 50)}
                             </a>
                         </h3>
@@ -1367,67 +1113,31 @@
                 // 添加文章链接点击事件
                 card.querySelectorAll('.article-link').forEach(link => {
                     link.addEventListener('click', (e) => {
-                        // 如果是按钮则阻止默认行为并手动处理导航
-                        if (e.target.tagName === 'BUTTON' || e.target.closest('BUTTON')) {
-                            e.preventDefault();
-                            const category = link.dataset.category;
-                            const id = link.dataset.id;
-                            viewArticleDetail(category, id);
-                        }
+                        e.preventDefault();
+                        const category = link.dataset.category;
+                        const id = link.dataset.id;
+                        viewArticleDetail(category, id);
                     });
                 });
             });
         }
 
-        // 查看文章详情，增加forceReload参数强制重新加载
-        async function viewArticleDetail(category, id, forceReload = false) {
-            // 显示加载状态
-            elements.articlesSection.classList.add('hidden');
-            elements.articleDetail.classList.remove('hidden');
-            elements.detailContentContainer.classList.add('hidden');
-            elements.detailError.classList.add('hidden');
-            elements.detailLoading.classList.remove('hidden');
+        // 查看文章详情
+        function viewArticleDetail(category, id) {
+            // 查找文章
+            const article = state.allArticles.find(a => a.category === category && a.id === id);
             
-            try {
-                let article;
-                
-                // 如果需要强制重新加载或缓存中没有，则重新加载
-                const cacheKey = `${category}-${id}`;
-                if (forceReload || !state.articleCache.has(cacheKey)) {
-                    // 从服务器加载文章
-                    article = await loadArticleContent(category, id);
-                } else {
-                    // 从缓存获取
-                    article = state.articleCache.get(cacheKey);
-                }
-                
-                // 验证文章数据
-                if (!article || !article.content) {
-                    throw new Error('文章数据不完整');
-                }
-                
+            if (article) {
                 // 更新详情页内容
-                elements.detailTitle.textContent = article.title || `未命名文章 (${category}-${id})`;
-                elements.detailCategory.textContent = config.categories[article.category] || article.category;
+                elements.detailTitle.textContent = article.title;
+                elements.detailCategory.textContent = config.categories[article.category];
                 elements.detailId.textContent = `ID: ${article.id}`;
+                elements.detailContent.innerHTML = marked.parse(article.content);
                 
-                // 处理空内容情况
-                if (!article.content.trim()) {
-                    elements.detailContent.innerHTML = `
-                        <div class="content-error">
-                            <p><i class="fas fa-exclamation-triangle mr-1"></i> 注意：这篇文章没有内容。</p>
-                        </div>
-                    `;
-                } else {
-                    // 渲染Markdown内容
-                    elements.detailContent.innerHTML = marked.parse(article.content);
-                }
-                
-                // 查找上一篇和下一篇文章（在同一分类中）
-                const sameCategoryArticles = state.allArticles.filter(a => a.category === category);
-                const currentIndex = sameCategoryArticles.findIndex(a => a.id.toString() === id.toString());
-                const prevArticle = currentIndex > 0 ? sameCategoryArticles[currentIndex - 1] : null;
-                const nextArticle = currentIndex < sameCategoryArticles.length - 1 ? sameCategoryArticles[currentIndex + 1] : null;
+                // 查找上一篇和下一篇文章
+                const currentIndex = state.allArticles.findIndex(a => a.category === category && a.id === id);
+                const prevArticle = currentIndex > 0 ? state.allArticles[currentIndex - 1] : null;
+                const nextArticle = currentIndex < state.allArticles.length - 1 ? state.allArticles[currentIndex + 1] : null;
                 
                 // 更新上一篇/下一篇按钮
                 elements.prevArticleBtn.disabled = !prevArticle;
@@ -1446,9 +1156,9 @@
                     }
                 };
                 
-                // 显示内容，隐藏加载状态
-                elements.detailLoading.classList.add('hidden');
-                elements.detailContentContainer.classList.remove('hidden');
+                // 切换显示
+                elements.articlesSection.classList.add('hidden');
+                elements.articleDetail.classList.remove('hidden');
                 
                 // 更新URL
                 const params = new URLSearchParams(window.location.search);
@@ -1458,13 +1168,8 @@
                 
                 // 滚动到顶部
                 window.scrollTo(0, 0);
-                
-            } catch (error) {
-                console.error(`显示文章详情失败:`, error);
-                // 显示错误状态
-                elements.detailLoading.classList.add('hidden');
-                elements.detailError.classList.remove('hidden');
-                elements.detailErrorMessage.textContent = `无法加载文章内容: ${error.message}`;
+            } else {
+                showError(`未找到ID为 ${id} 的 ${config.categories[category]} 文章`);
             }
         }
 
@@ -1609,7 +1314,6 @@
 
         // 截断文本
         function truncateText(text, maxLength) {
-            if (!text) return '';
             if (text.length <= maxLength) {
                 return text;
             }
@@ -1618,7 +1322,6 @@
 
         // 去除Markdown格式
         function stripMarkdown(text) {
-            if (!text) return '';
             return text
                 .replace(/#{1,6}\s+/g, '') // 标题
                 .replace(/\*\*|__/g, '') // 粗体
@@ -1752,38 +1455,6 @@
                 }
             });
         }
-        
-        // 主题切换相关函数
-        function loadThemePreference() {
-            // 从localStorage加载主题偏好
-            const savedTheme = localStorage.getItem('darkMode');
-            if (savedTheme !== null) {
-                state.darkMode = savedTheme === 'true';
-            } else {
-                // 如果没有保存的偏好，检查系统设置
-                state.darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            }
-            applyTheme();
-        }
-        
-        function toggleTheme() {
-            state.darkMode = !state.darkMode;
-            applyTheme();
-            // 保存主题偏好
-            localStorage.setItem('darkMode', state.darkMode);
-        }
-        
-        function applyTheme() {
-            if (state.darkMode) {
-                document.body.classList.add('dark-mode');
-                elements.themeToggle.innerHTML = '<i class="fas fa-sun text-yellow-400"></i>';
-                elements.themeToggle.setAttribute('aria-label', '切换到彩色模式');
-            } else {
-                document.body.classList.remove('dark-mode');
-                elements.themeToggle.innerHTML = '<i class="fas fa-moon text-gray-600"></i>';
-                elements.themeToggle.setAttribute('aria-label', '切换到黑白模式');
-            }
-        }
 
         // 初始化应用
         document.addEventListener('DOMContentLoaded', init);
@@ -1792,12 +1463,12 @@
 <!--版权说明开始
 /*
 +------------------------------------------------------------------------+
- System Name : Luhui Flash History Museum Information System V1.1.3
- 系统名称 : 鲁虺Flash历史博物馆资讯系统 html JavaScript txt V1.1.3
+ System Name : Luhui Flash History Museum Information System V1.1.1
+ 系统名称 : 鲁虺Flash历史博物馆资讯系统 html JavaScript txt V1.1.1
 +------------------------------------------------------------------------+
  创建 Created  2025-5-4 / 修改 Modify 2025-9-2
 +------------------------------------------------------------------------+
- Version : 1.1.3
+ Version : 1.1.1
 +------------------------------------------------------------------------+
  版本更新 : 该版本所有详细更新细节都已在系统迭代说明中详述,如需了解请查阅鲁虺软件文档
  鲁虺软件 : http://soft.luhui.net 点击浏览鲁虺软件开发文档“软件开发”列表查询品鉴
@@ -1830,7 +1501,6 @@
 +------------------------------------------------------------------------+
 */
 --版权说明结束-->
-
 
 
 </body></html>
